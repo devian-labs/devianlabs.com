@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button-variants";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, ChevronRight, Code2, Rocket, Layout, Terminal, Users, Cpu, FileJson, Globe } from "lucide-react";
+import { ArrowRight, ChevronRight, Code2, Rocket, Layout, Terminal, Users, Cpu, FileJson, Globe, PlayCircle, ExternalLink, Laptop, QrCode, WifiOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
       <section className="relative overflow-hidden border-b px-4 md:px-6 py-24 md:py-32 lg:py-40 bg-zinc-950 text-zinc-50 selection:bg-zinc-800">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
         <div className="container relative z-10 mx-auto max-w-5xl flex flex-col items-center text-center">
-          <Badge variant="outline" className="mb-6 px-4 py-1 text-sm bg-zinc-900 border-zinc-800">
+          <Badge variant="outline" className="mb-6 px-4 py-1 text-sm bg-zinc-900 border-zinc-800 text-zinc-300">
             <Rocket className="w-4 h-4 mr-2 text-primary" /> Building the future, today
           </Badge>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-br from-white to-zinc-500 bg-clip-text text-transparent">
@@ -23,8 +23,8 @@ export default function Home() {
             Powerful software doesn't have to be complex or expensive.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <Link href="#domains" className={cn(buttonVariants({ size: "lg" }), "rounded-full px-8 bg-zinc-50 hover:bg-zinc-200 text-zinc-950 font-medium group")}>
-              Explore our domains <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <Link href="#products" className={cn(buttonVariants({ size: "lg" }), "rounded-full px-8 bg-zinc-50 hover:bg-zinc-200 text-zinc-950 font-medium group")}>
+              Explore our products <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link href="mailto:hello@devianlabs.com" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "rounded-full px-8 border-zinc-800 text-white hover:bg-zinc-900")}>
               Work With Us
@@ -34,7 +34,7 @@ export default function Home() {
       </section>
 
       {/* Approach Section */}
-      <section id="approach" className="px-4 md:px-6 py-20 md:py-28 bg-background">
+      <section id="approach" className="px-4 md:px-6 py-20 md:py-28 bg-background border-b">
         <div className="container mx-auto max-w-5xl">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -71,121 +71,84 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Domains Section */}
-      <section id="domains" className="px-4 md:px-6 py-20 md:py-28 bg-muted/40 border-y">
+      {/* Products Section */}
+      <section id="products" className="px-4 md:px-6 py-20 md:py-28 bg-muted/40 border-b">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">Domains</h2>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">Products</h2>
             <p className="text-lg text-muted-foreground max-w-[600px] mx-auto">
-              Our core focus areas spanning product creation, client services, and developer media.
+              Our core SAAS and tooling solutions built for modern users.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Products Column */}
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-2 mb-2 pb-2 border-b">
-                <Code2 className="w-5 h-5 text-primary" />
-                <h3 className="text-xl font-bold">Products</h3>
-              </div>
-              <ProductCard 
-                title="Devian Desktop"
-                description="The control center for your dev machine. Built for developers, by developers."
-                href="/products/devian-desktop"
-                highlight
-              />
-              <ProductCard 
-                title="Khaoo"
-                description="Khaoo digitizes the Menu for small vendors. QR Menu & Table Ordering."
-                href="/products/khaoo"
-                highlight
-              />
-              <ProductCard 
-                title="P2P Share"
-                description="Share trip memories instantly without internet. Made for Group Trips."
-                href="/products/p2p-share"
-                highlight
-              />
-            </div>
-
-            {/* Services Column */}
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-2 mb-2 pb-2 border-b">
-                <Cpu className="w-5 h-5 text-primary" />
-                <h3 className="text-xl font-bold">Services</h3>
-              </div>
-              <ServiceCard 
-                title="Software Development"
-                description="End-to-End software delivery based on the requirements of the client."
-              />
-              <ServiceCard 
-                title="MVP from Idea"
-                description="Quick MVP development based on the idea of the client."
-              />
-              <ServiceCard 
-                title="Software Gigs"
-                description="No structured plan or timeline."
-              />
-              <ServiceCard 
-                title="Expose Business to the Internet"
-                description="Helping small business to get online exposure."
-              />
-            </div>
-
-            {/* Media Column */}
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-2 mb-2 pb-2 border-b">
-                <FileJson className="w-5 h-5 text-primary" />
-                <h3 className="text-xl font-bold">Media</h3>
-              </div>
-              <MediaCard 
-                title="Agile Coder"
-                description="For practical developers: Videos, tutorials, snippets, and digital tools."
-              />
-              <MediaCard 
-                title="Artful Coding"
-                description="For creative developers: Visual experiments, Simulations, Generative art."
-              />
-            </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <ProductCard 
+              title="Devian Desktop"
+              description="The control center for your dev machine. Built for developers, by developers."
+              href="/products/devian-desktop"
+              websiteUrl="https://devian.app"
+              highlight
+            />
+            <ProductCard 
+              title="Khaoo"
+              description="Khaoo digitizes the Menu for small vendors. QR Menu & Table Ordering."
+              href="/products/khaoo"
+              websiteUrl="https://khaoo.vercel.app"
+              highlight
+            />
+            <ProductCard 
+              title="P2P Share"
+              description="Share trip memories instantly without internet. Made for Group Trips."
+              href="/products/p2p-share"
+              highlight
+            />
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section id="team" className="px-4 md:px-6 py-20 md:py-32 bg-background">
+      {/* Services Section */}
+      <section id="services" className="px-4 md:px-6 py-20 md:py-28 bg-background border-b">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">Software Services</h2>
+            <p className="text-lg text-muted-foreground max-w-[600px] mx-auto">
+              We help build robust technological solutions catered strictly to your requirements.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <ServiceCard 
+              title="Software Development"
+              description="End-to-End software delivery based on the precise requirements of the client. Fully scalable architectures."
+              href="/services/software-development"
+            />
+            <ServiceCard 
+              title="MVP from Idea"
+              description="Quick and lean MVP development based on your raw ideas, enabling fast market validation."
+              href="/services/mvp-from-idea"
+            />
+          </div>
+        </div>
+      </section>
+
+
+      {/* Team Section Placeholder */}
+      <section className="px-4 md:px-6 py-20 md:py-32 bg-background">
         <div className="container mx-auto max-w-4xl text-center">
           <Badge variant="secondary" className="mb-6 px-4 py-1 text-sm bg-muted text-foreground">
-            <Users className="w-4 h-4 mr-2" /> Our Team
+            <Users className="w-4 h-4 mr-2" /> Leadership
           </Badge>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-8">
             Engineers Building Value.
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground mb-12 leading-relaxed">
-            We are a team of engineers who have built and delivered software across multiple domains—from MVPs to production systems. We focus on understanding your problem deeply, moving fast, and delivering clean, reliable solutions.
+            We are a dedicated team of engineers who have built and delivered software across multiple domains—from MVPs to production systems. We focus on understanding your problem deeply, moving fast, and delivering clean, reliable solutions.
           </p>
           
-          <div className="grid sm:grid-cols-3 gap-6 text-left">
-            <div className="bg-muted/30 border p-6 rounded-2xl flex items-start gap-4 hover:border-primary/50 transition-colors">
-              <div className="p-2 bg-background rounded-lg border shadow-sm"><Terminal className="w-5 h-5" /></div>
-              <div>
-                <h3 className="font-semibold mb-1">No black boxes</h3>
-                <p className="text-sm text-muted-foreground">Complete clarity in our processes and implementations.</p>
-              </div>
-            </div>
-            <div className="bg-muted/30 border p-6 rounded-2xl flex items-start gap-4 hover:border-primary/50 transition-colors">
-              <div className="p-2 bg-background rounded-lg border shadow-sm"><Code2 className="w-5 h-5" /></div>
-              <div>
-                <h3 className="font-semibold mb-1">No over-engineering</h3>
-                <p className="text-sm text-muted-foreground">Lean solutions designed to scale only as needed.</p>
-              </div>
-            </div>
-            <div className="bg-muted/30 border p-6 rounded-2xl flex items-start gap-4 hover:border-primary/50 transition-colors">
-              <div className="p-2 bg-background rounded-lg border shadow-sm"><Rocket className="w-5 h-5" /></div>
-              <div>
-                <h3 className="font-semibold mb-1">Quality output</h3>
-                <p className="text-sm text-muted-foreground">Transparent work ensuring reliable, functional systems.</p>
-              </div>
-            </div>
+          <div className="flex justify-center">
+             <Link href="/team" className={cn(buttonVariants({ size: "lg", variant: "default" }), "rounded-full px-8")}>
+               Meet the Team <ArrowRight className="w-4 h-4 ml-2" />
+             </Link>
           </div>
         </div>
       </section>
@@ -193,54 +156,55 @@ export default function Home() {
   );
 }
 
-function ProductCard({ title, description, href, highlight }: { title: string, description: string, href: string, highlight?: boolean }) {
+function ProductCard({ title, description, href, highlight, websiteUrl }: { title: string, description: string, href: string, highlight?: boolean, websiteUrl?: string }) {
   return (
-    <Card className={`group flex flex-col h-full bg-card hover:border-primary/50 transition-all ${highlight ? "relative overflow-hidden border-border/70" : ""}`}>
+    <Card className={`group flex flex-col h-full bg-card/50 backdrop-blur-md border border-border/50 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 relative overflow-hidden`}>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      
       {highlight && (
-        <div className="absolute top-0 right-0 p-4">
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
-          </span>
+        <div className="absolute top-4 right-4 z-20">
+          <Badge variant="secondary" className="bg-primary/10 text-primary border border-primary/20 text-xs px-2.5 py-0.5 rounded-full font-medium">Live</Badge>
         </div>
       )}
-      <CardHeader>
-        <CardTitle className="text-lg group-hover:text-primary transition-colors">{title}</CardTitle>
+      
+      <CardHeader className="relative z-10 pb-4">
+        <CardTitle className="text-xl font-semibold tracking-tight pt-2">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="flex-1">
-        <p className="text-sm text-muted-foreground">{description}</p>
+      
+      <CardContent className="flex-1 relative z-10">
+        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
       </CardContent>
-      <CardFooter>
-        <Link href={href} className={cn(buttonVariants({ variant: "ghost" }), "w-full justify-between p-0 h-auto font-medium hover:bg-transparent")}>
-          Learn more <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-        </Link>
+      
+      <CardFooter className="flex flex-col gap-3 relative z-10 p-6 pt-2">
+        {websiteUrl && (
+          <Link href={websiteUrl} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ variant: "default" }), "w-full justify-center rounded-xl shadow-sm font-medium transition-all group-hover:shadow-md")}>
+            Visit Website <ExternalLink className="w-4 h-4 ml-2 opacity-70" />
+          </Link>
+        )}
+        <div className="w-full pt-3 border-t border-border/50 mt-2 flex justify-center">
+           <Link href={href} className="text-sm font-medium text-muted-foreground hover:text-foreground inline-flex items-center transition-colors mt-1">
+             Read Case Study <ArrowRight className="w-3.5 h-3.5 ml-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+           </Link>
+        </div>
       </CardFooter>
     </Card>
   )
 }
 
-function ServiceCard({ title, description }: { title: string, description: string }) {
+function ServiceCard({ title, description, href }: { title: string, description: string, href: string }) {
   return (
-    <Card className="bg-card">
+    <Card className="group flex flex-col h-full bg-card hover:border-primary/50 transition-all">
       <CardHeader>
-        <CardTitle className="text-base">{title}</CardTitle>
+        <CardTitle className="text-xl group-hover:text-primary transition-colors">{title}</CardTitle>
       </CardHeader>
-      <CardContent>
-        <p className="text-sm text-muted-foreground">{description}</p>
+      <CardContent className="flex-1">
+        <p className="text-muted-foreground">{description}</p>
       </CardContent>
-    </Card>
-  )
-}
-
-function MediaCard({ title, description }: { title: string, description: string }) {
-  return (
-    <Card className="bg-card h-full">
-      <CardHeader>
-        <CardTitle className="text-base">{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </CardContent>
+      <CardFooter>
+        <Link href={href} className={cn(buttonVariants({ variant: "outline" }), "w-full")}>
+          Know more <ChevronRight className="w-4 h-4 ml-2" />
+        </Link>
+      </CardFooter>
     </Card>
   )
 }

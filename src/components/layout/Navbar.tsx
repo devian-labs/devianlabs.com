@@ -15,7 +15,8 @@ export default function Navbar() {
           <Link href="/#services" className="text-sm font-medium hover:underline underline-offset-4 hidden sm:block">
             Services
           </Link>
-          <Link href="/#team" className="text-sm font-medium hover:underline underline-offset-4 hidden sm:block">
+
+          <Link href="/team" className="text-sm font-medium hover:underline underline-offset-4 hidden sm:block">
             Team
           </Link>
           <Link href="mailto:hello@devianlabs.com" className={buttonVariants({ variant: "outline", size: "sm" })}>
