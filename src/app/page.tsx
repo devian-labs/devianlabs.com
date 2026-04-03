@@ -1,210 +1,345 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { buttonVariants } from "@/components/ui/button-variants";
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, ChevronRight, Code2, Rocket, Layout, Terminal, Users, Cpu, FileJson, Globe, PlayCircle, ExternalLink, Laptop, QrCode, WifiOff } from "lucide-react";
+import {
+  ArrowRight, ChevronRight, Code2, Terminal, Users, Cpu, Globe,
+  ExternalLink, Laptop, QrCode, WifiOff, Layout, Zap,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { ElementType } from "react";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b px-4 md:px-6 py-24 md:py-32 lg:py-40 bg-zinc-950 text-zinc-50 selection:bg-zinc-800">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-        <div className="container relative z-10 mx-auto max-w-5xl flex flex-col items-center text-center">
-          <Badge variant="outline" className="mb-6 px-4 py-1 text-sm bg-zinc-900 border-zinc-800 text-zinc-300">
-            <Rocket className="w-4 h-4 mr-2 text-primary" /> Building the future, today
-          </Badge>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 bg-gradient-to-br from-white to-zinc-500 bg-clip-text text-transparent">
-            We build, launch and scale software products.
+
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center border-b bg-zinc-950">
+
+        {/* Animated orbs */}
+        <div className="absolute w-[700px] h-[700px] rounded-full bg-violet-600/[0.18] blur-[100px] -top-56 -right-40 animate-orb-1 pointer-events-none will-change-transform" />
+        <div className="absolute w-[580px] h-[580px] rounded-full bg-cyan-500/[0.14] blur-[100px] -bottom-48 -left-32 animate-orb-2 pointer-events-none will-change-transform" />
+        <div className="absolute w-[350px] h-[350px] rounded-full bg-emerald-500/[0.10] blur-[80px] top-1/3 left-[42%] animate-orb-3 pointer-events-none will-change-transform" />
+
+        {/* Tech grid */}
+        <div className="absolute inset-0 pointer-events-none [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_30%,black_30%,transparent_100%)]" />
+
+        <div className="container relative z-10 mx-auto max-w-5xl flex flex-col items-center text-center px-4 md:px-6 py-24 md:py-32">
+
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-ring inline-block flex-shrink-0" />
+            Building the future, today
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter mb-6 leading-[0.95]">
+            <span className="bg-[linear-gradient(90deg,#fff_0%,#67e8f9_25%,#c084fc_55%,#fff_80%,#67e8f9_100%)] bg-[size:250%_auto] bg-clip-text text-transparent animate-shimmer">
+              We build, launch
+            </span>
+            <br />
+            <span className="bg-[linear-gradient(90deg,#fff_0%,#67e8f9_25%,#c084fc_55%,#fff_80%,#67e8f9_100%)] bg-[size:250%_auto] bg-clip-text text-transparent animate-shimmer [animation-delay:-2.5s]">
+              and scale software.
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-zinc-400 mb-10 max-w-[800px] leading-relaxed">
+
+          <p className="text-lg md:text-xl text-zinc-400 mb-12 max-w-[600px] leading-relaxed">
             Powerful software doesn't have to be complex or expensive.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <Link href="#products" className={cn(buttonVariants({ size: "lg" }), "rounded-full px-8 bg-zinc-50 hover:bg-zinc-200 text-zinc-950 font-medium group")}>
-              Explore our products <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <Link
+              href="#products"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22),0_0_56px_rgba(139,92,246,0.12)] transition-all duration-300"
+            >
+              Explore Products <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link href="mailto:hello@devianlabs.com" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "rounded-full px-8 border-zinc-800 text-white hover:bg-zinc-900")}>
+            <Link
+              href="mailto:hello@devianlabs.com"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-500 transition-all duration-300"
+            >
               Work With Us
             </Link>
           </div>
+
         </div>
       </section>
 
-      {/* Approach Section */}
-      <section id="approach" className="px-4 md:px-6 py-20 md:py-28 bg-background border-b">
+      {/* ── Approach ─────────────────────────────────────────── */}
+      <section id="approach" className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
         <div className="container mx-auto max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-6">Our Approach</h2>
-              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                We believe software should be <span className="text-foreground font-medium">simple, focused, and accessible.</span>
+              <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
+                <Terminal className="w-3 h-3" /> Our Approach
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-6 leading-tight">
+                Built lean.{" "}
+                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                  Shipped fast.
+                </span>
+              </h2>
+              <p className="text-muted-foreground mb-5 leading-relaxed">
+                We believe software should be{" "}
+                <span className="text-foreground font-medium">simple, focused, and accessible.</span>
               </p>
-              <p className="text-muted-foreground mb-6 leading-relaxed">
+              <p className="text-muted-foreground mb-5 leading-relaxed">
                 Too many tools today are overloaded with features and high costs—when most users just need one thing done well.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                At <strong className="text-foreground font-semibold">Devian Labs</strong>, we build lean, practical solutions that solve real problems without unnecessary complexity.
+                At <strong className="text-foreground">Devian Labs</strong>, we build lean, practical solutions that solve real problems without unnecessary complexity.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4 border p-4 rounded-2xl bg-muted/20">
-              <div className="bg-background rounded-xl p-6 border shadow-sm flex flex-col justify-center items-center text-center gap-3">
-                <div className="p-3 bg-primary/10 rounded-full"><Layout className="w-6 h-6 text-primary" /></div>
-                <h3 className="font-semibold text-sm">Lean</h3>
-              </div>
-              <div className="bg-background rounded-xl p-6 border shadow-sm flex flex-col justify-center items-center text-center gap-3">
-                <div className="p-3 bg-primary/10 rounded-full"><Terminal className="w-6 h-6 text-primary" /></div>
-                <h3 className="font-semibold text-sm">Practical</h3>
-              </div>
-              <div className="bg-background rounded-xl p-6 border shadow-sm flex flex-col justify-center items-center text-center gap-3">
-                <div className="p-3 bg-primary/10 rounded-full"><Cpu className="w-6 h-6 text-primary" /></div>
-                <h3 className="font-semibold text-sm">Focused</h3>
-              </div>
-              <div className="bg-background rounded-xl p-6 border shadow-sm flex flex-col justify-center items-center text-center gap-3">
-                <div className="p-3 bg-primary/10 rounded-full"><Globe className="w-6 h-6 text-primary" /></div>
-                <h3 className="font-semibold text-sm">Accessible</h3>
-              </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: Layout,   label: "Lean",        desc: "Only what's needed"  },
+                { icon: Terminal, label: "Practical",   desc: "Built for real use"  },
+                { icon: Cpu,      label: "Focused",     desc: "One thing done well" },
+                { icon: Globe,    label: "Accessible",  desc: "For everyone"        },
+              ].map(({ icon: Icon, label, desc }) => (
+                <div
+                  key={label}
+                  className="rounded-2xl p-6 flex flex-col gap-4 bg-zinc-900/50 border border-white/[0.06] hover:border-cyan-500/25 hover:shadow-[0_0_22px_rgba(34,211,238,0.07)] hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="p-2.5 rounded-xl bg-zinc-800/60 border border-zinc-700/50 w-fit">
+                    <Icon className="w-5 h-5 text-zinc-300" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground text-sm mb-1">{label}</h3>
+                    <p className="text-xs text-muted-foreground">{desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Products Section */}
-      <section id="products" className="px-4 md:px-6 py-20 md:py-28 bg-muted/40 border-b">
-        <div className="container mx-auto max-w-6xl">
+      {/* ── Products ─────────────────────────────────────────── */}
+      <section id="products" className="relative overflow-hidden px-4 md:px-6 py-24 md:py-32 bg-zinc-950 border-b">
+
+        {/* Subtle grid */}
+        <div className="absolute inset-0 pointer-events-none opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:44px_44px]" />
+
+        <div className="container relative z-10 mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">Products</h2>
-            <p className="text-lg text-muted-foreground max-w-[600px] mx-auto">
-              Our core SAAS and tooling solutions built for modern users.
+            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
+              <Zap className="w-3 h-3" /> Products
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4 text-zinc-50">
+              Tools that{" "}
+              <span className="bg-[linear-gradient(90deg,#67e8f9_0%,#c084fc_50%,#67e8f9_100%)] bg-[size:200%_auto] bg-clip-text text-transparent animate-shimmer">
+                actually work
+              </span>
+            </h2>
+            <p className="text-zinc-400 max-w-[500px] mx-auto">
+              Our core SaaS and tooling solutions built for modern users.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <ProductCard 
+          <div className="grid md:grid-cols-3 gap-6">
+            <ProductCard
+              icon={Laptop}
               title="Devian Desktop"
               description="The control center for your dev machine. Built for developers, by developers."
               href="/products/devian-desktop"
               websiteUrl="https://devian.app"
-              highlight
+              accent="cyan"
+              live
             />
-            <ProductCard 
+            <ProductCard
+              icon={QrCode}
               title="Khaoo"
-              description="Khaoo digitizes the Menu for small vendors. QR Menu & Table Ordering."
+              description="Digitizes the menu for small vendors. QR Menu & table ordering for modern eateries."
               href="/products/khaoo"
               websiteUrl="https://khaoo.vercel.app"
-              highlight
+              accent="purple"
+              live
             />
-            <ProductCard 
+            <ProductCard
+              icon={WifiOff}
               title="P2P Share"
-              description="Share trip memories instantly without internet. Made for Group Trips."
+              description="Share trip memories instantly without internet. Made for group adventures."
               href="/products/p2p-share"
-              highlight
+              accent="green"
             />
           </div>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="px-4 md:px-6 py-20 md:py-28 bg-background border-b">
+      {/* ── Services ─────────────────────────────────────────── */}
+      <section id="services" className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">Software Services</h2>
-            <p className="text-lg text-muted-foreground max-w-[600px] mx-auto">
+            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
+              <Code2 className="w-3 h-3" /> Services
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">
+              Software Services
+            </h2>
+            <p className="text-muted-foreground max-w-[500px] mx-auto">
               We help build robust technological solutions catered strictly to your requirements.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <ServiceCard 
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <ServiceCard
               title="Software Development"
-              description="End-to-End software delivery based on the precise requirements of the client. Fully scalable architectures."
+              description="End-to-end software delivery based on precise requirements. Fully scalable architectures."
               href="/services/software-development"
+              tag="$ dev --full-stack"
             />
-            <ServiceCard 
+            <ServiceCard
               title="MVP from Idea"
               description="Quick and lean MVP development based on your raw ideas, enabling fast market validation."
               href="/services/mvp-from-idea"
+              tag="$ mvp --speed-first"
             />
           </div>
         </div>
       </section>
 
+      {/* ── Team ─────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden px-4 md:px-6 py-24 md:py-32 bg-zinc-950">
+        {/* Background glow */}
+        <div className="absolute w-[500px] h-[500px] rounded-full bg-violet-600/[0.10] blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="absolute inset-0 pointer-events-none opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:44px_44px]" />
 
-      {/* Team Section Placeholder */}
-      <section className="px-4 md:px-6 py-20 md:py-32 bg-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <Badge variant="secondary" className="mb-6 px-4 py-1 text-sm bg-muted text-foreground">
-            <Users className="w-4 h-4 mr-2" /> Leadership
-          </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-8">
-            Engineers Building Value.
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground mb-12 leading-relaxed">
-            We are a dedicated team of engineers who have built and delivered software across multiple domains—from MVPs to production systems. We focus on understanding your problem deeply, moving fast, and delivering clean, reliable solutions.
-          </p>
-          
-          <div className="flex justify-center">
-             <Link href="/team" className={cn(buttonVariants({ size: "lg", variant: "default" }), "rounded-full px-8")}>
-               Meet the Team <ArrowRight className="w-4 h-4 ml-2" />
-             </Link>
+        <div className="container relative z-10 mx-auto max-w-4xl text-center">
+          <div className="inline-flex items-center gap-2 mb-8 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
+            <Users className="w-3 h-3" /> The Team
           </div>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 text-zinc-50 leading-tight">
+            Engineers{" "}
+            <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+              Building Value.
+            </span>
+          </h2>
+          <p className="text-lg text-zinc-400 mb-12 max-w-[600px] mx-auto leading-relaxed">
+            A dedicated team of engineers who have built and delivered software across multiple domains—from MVPs to production systems. Fast, clean, reliable.
+          </p>
+          <Link
+            href="/team"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22),0_0_56px_rgba(139,92,246,0.12)] transition-all duration-300"
+          >
+            Meet the Team <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
+
     </div>
   );
 }
 
-function ProductCard({ title, description, href, highlight, websiteUrl }: { title: string, description: string, href: string, highlight?: boolean, websiteUrl?: string }) {
+/* ── Product Card ─────────────────────────────────────────── */
+const accentConfig = {
+  cyan: {
+    iconBg:  "bg-cyan-500/[0.1] border-cyan-500/20",
+    icon:    "text-cyan-400",
+    badge:   "bg-cyan-500/[0.1] text-cyan-400 border-cyan-500/20",
+    dot:     "bg-cyan-400",
+    hover:   "hover:border-cyan-500/35 hover:shadow-[0_0_28px_rgba(34,211,238,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
+  },
+  purple: {
+    iconBg:  "bg-violet-500/[0.1] border-violet-500/20",
+    icon:    "text-violet-400",
+    badge:   "bg-violet-500/[0.1] text-violet-400 border-violet-500/20",
+    dot:     "bg-violet-400",
+    hover:   "hover:border-violet-500/35 hover:shadow-[0_0_28px_rgba(139,92,246,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
+  },
+  green: {
+    iconBg:  "bg-emerald-500/[0.1] border-emerald-500/20",
+    icon:    "text-emerald-400",
+    badge:   "bg-emerald-500/[0.1] text-emerald-400 border-emerald-500/20",
+    dot:     "bg-emerald-400",
+    hover:   "hover:border-emerald-500/35 hover:shadow-[0_0_28px_rgba(52,211,153,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
+  },
+} as const;
+
+function ProductCard({
+  icon: Icon, title, description, href, websiteUrl, accent, live,
+}: {
+  icon: ElementType;
+  title: string;
+  description: string;
+  href: string;
+  websiteUrl?: string;
+  accent: keyof typeof accentConfig;
+  live?: boolean;
+}) {
+  const a = accentConfig[accent];
   return (
-    <Card className={`group flex flex-col h-full bg-card/50 backdrop-blur-md border border-border/50 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 relative overflow-hidden`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-      
-      {highlight && (
-        <div className="absolute top-4 right-4 z-20">
-          <Badge variant="secondary" className="bg-primary/10 text-primary border border-primary/20 text-xs px-2.5 py-0.5 rounded-full font-medium">Live</Badge>
+    <div className={cn(
+      "group rounded-2xl p-6 flex flex-col gap-4 h-full bg-zinc-900/80 border border-white/[0.07] hover:-translate-y-1.5 transition-all duration-300 backdrop-blur-sm",
+      a.hover
+    )}>
+      <div className="flex items-start justify-between">
+        <div className={cn("p-3 rounded-xl border w-fit card-icon", a.iconBg)}>
+          <Icon className={cn("w-5 h-5 group-hover:animate-icon-float", a.icon)} />
         </div>
-      )}
-      
-      <CardHeader className="relative z-10 pb-4">
-        <CardTitle className="text-xl font-semibold tracking-tight pt-2">{title}</CardTitle>
-      </CardHeader>
-      
-      <CardContent className="flex-1 relative z-10">
-        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
-      </CardContent>
-      
-      <CardFooter className="flex flex-col gap-3 relative z-10 p-6 pt-2">
+        {live && (
+          <span className={cn("inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border font-medium", a.badge)}>
+            <span className={cn("w-1.5 h-1.5 rounded-full inline-block", a.dot)} />
+            Live
+          </span>
+        )}
+      </div>
+
+      <div className="flex-1">
+        <h3 className="font-semibold text-zinc-100 text-lg mb-2">{title}</h3>
+        <p className="text-sm text-zinc-400 leading-relaxed">{description}</p>
+      </div>
+
+      <div className="flex flex-col gap-2 pt-4 border-t border-zinc-800">
         {websiteUrl && (
-          <Link href={websiteUrl} target="_blank" rel="noopener noreferrer" className={cn(buttonVariants({ variant: "default" }), "w-full justify-center rounded-xl shadow-sm font-medium transition-all group-hover:shadow-md")}>
-            Visit Website <ExternalLink className="w-4 h-4 ml-2 opacity-70" />
+          <Link
+            href={websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-sm font-medium transition-colors duration-200"
+          >
+            Visit Website <ExternalLink className="w-3.5 h-3.5 opacity-60" />
           </Link>
         )}
-        <div className="w-full pt-3 border-t border-border/50 mt-2 flex justify-center">
-           <Link href={href} className="text-sm font-medium text-muted-foreground hover:text-foreground inline-flex items-center transition-colors mt-1">
-             Read Case Study <ArrowRight className="w-3.5 h-3.5 ml-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-           </Link>
-        </div>
-      </CardFooter>
-    </Card>
-  )
+        <Link
+          href={href}
+          className="inline-flex items-center justify-center gap-1.5 w-full py-2 px-4 rounded-xl text-zinc-500 hover:text-zinc-300 text-sm transition-colors duration-200"
+        >
+          Read Case Study <ChevronRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+    </div>
+  );
 }
 
-function ServiceCard({ title, description, href }: { title: string, description: string, href: string }) {
+/* ── Service Card ─────────────────────────────────────────── */
+function ServiceCard({ title, description, href, tag }: {
+  title: string;
+  description: string;
+  href: string;
+  tag: string;
+}) {
   return (
-    <Card className="group flex flex-col h-full bg-card hover:border-primary/50 transition-all">
-      <CardHeader>
-        <CardTitle className="text-xl group-hover:text-primary transition-colors">{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="flex-1">
-        <p className="text-muted-foreground">{description}</p>
-      </CardContent>
-      <CardFooter>
-        <Link href={href} className={cn(buttonVariants({ variant: "outline" }), "w-full")}>
-          Know more <ChevronRight className="w-4 h-4 ml-2" />
+    <div className="group rounded-2xl overflow-hidden bg-zinc-950 border border-white/[0.08] hover:border-violet-500/35 hover:shadow-[0_0_30px_rgba(139,92,246,0.1),0_24px_48px_rgba(0,0,0,0.5)] hover:-translate-y-1.5 transition-all duration-300">
+      {/* Terminal chrome */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-zinc-800 bg-zinc-900/60">
+        <div className="w-3 h-3 rounded-full bg-red-500/50" />
+        <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+        <div className="w-3 h-3 rounded-full bg-green-500/50" />
+        <span className="ml-2 text-xs text-zinc-600 font-mono">{tag}</span>
+      </div>
+      {/* Content */}
+      <div className="p-6">
+        <h3 className="font-semibold text-zinc-100 text-xl mb-3 group-hover:text-violet-300 transition-colors duration-300">
+          {title}
+        </h3>
+        <p className="text-zinc-400 text-sm leading-relaxed mb-6">{description}</p>
+        <Link
+          href={href}
+          className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-200 font-medium transition-colors duration-200"
+        >
+          Know more <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
         </Link>
-      </CardFooter>
-    </Card>
-  )
+      </div>
+    </div>
+  );
 }
