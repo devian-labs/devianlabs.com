@@ -32,7 +32,7 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Products</h4>
             <Link href="/products/devian-desktop" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Devian Desktop</Link>
-            <Link href="/products/khaoo" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Khaoo</Link>
+            <Link href="/products/Khao" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Khao</Link>
             <Link href="/products/p2p-share" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">P2P Share</Link>
             <div className="pt-2 mt-1 border-t border-zinc-800 flex flex-col gap-3">
               <Link href="/services/software-development" className="text-sm text-zinc-600 hover:text-violet-400 transition-colors duration-200">Software Dev</Link>

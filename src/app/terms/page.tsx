@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
 export const metadata = {
   title: "Terms of Use",
 };
@@ -6,8 +9,18 @@ export default function TermsOfUse() {
   return (
     <div className="min-h-screen bg-zinc-950 py-24 md:py-32">
       <div className="container mx-auto max-w-4xl px-4 md:px-6">
+
+        {/* Back link */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-cyan-400 mb-12 transition-colors duration-200 group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" />
+          Back to Home
+        </Link>
+
         <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-zinc-50 mb-4">Terms of Use</h1>
-        <p className="text-zinc-400 mb-12">Last updated: {new Date().toLocaleDateString()}</p>
+        <p className="text-zinc-500 mb-12 text-sm">Last updated: {new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</p>
 
         <div className="prose prose-invert prose-zinc max-w-none text-zinc-300">
           <p className="leading-relaxed">
@@ -20,7 +33,7 @@ export default function TermsOfUse() {
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li><strong>Client Projects:</strong> Engagements for custom software development are governed by specific mutual Master Service Agreements (MSAs) or Statements of Work (SOWs) signed between Devian Labs and the client, which supersede these general Terms where applicable.</li>
-            <li><strong>Proprietary Products:</strong> Our internal software products (such as Devian Desktop, Khaoo, P2P Share) are offered on an "as is" and "as available" basis, potentially carrying product-specific End User License Agreements (EULAs).</li>
+            <li><strong>Proprietary Products:</strong> Our internal software products (such as Devian Desktop, Khao, P2P Share) are offered on an "as is" and "as available" basis, potentially carrying product-specific End User License Agreements (EULAs).</li>
           </ul>
 
           <h2 className="text-2xl mt-10 mb-4 text-zinc-100 font-semibold tracking-tight">2. Intellectual Property Rights</h2>
@@ -65,6 +78,18 @@ export default function TermsOfUse() {
             Email: <a href="mailto:hello@devianlabs.com" className="text-cyan-400 hover:text-cyan-300 transition-colors">hello@devianlabs.com</a>
           </p>
         </div>
+
+        {/* Cross-link to Privacy */}
+        <div className="mt-16 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-sm text-zinc-500">Also see how we handle your data.</p>
+          <Link
+            href="/privacy"
+            className="inline-flex items-center gap-2 text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors duration-200 group"
+          >
+            Privacy Policy <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200" />
+          </Link>
+        </div>
+
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { ExternalLink, Users } from "lucide-react";
+import { ExternalLink, Users, ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -50,6 +50,13 @@ export default function TeamPage() {
         <div className="absolute inset-0 pointer-events-none [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_30%,black_30%,transparent_100%)]" />
 
         <div className="container relative z-10 mx-auto max-w-4xl text-center">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-cyan-400 mb-10 transition-colors duration-200 group"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" />
+            Back to Home
+          </Link>
           <div className="inline-flex items-center gap-2 mb-8 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
             <Users className="w-3 h-3" /> Leadership
           </div>
@@ -102,6 +109,30 @@ export default function TeamPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Bottom CTA ───────────────────────────────────────── */}
+      <div className="border-t border-white/[0.06] px-4 md:px-6 py-16">
+        <div className="container mx-auto max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-sm text-zinc-500 mb-1 uppercase tracking-widest font-semibold">Work with us</p>
+            <p className="text-zinc-200 font-medium">Have a project in mind? Let's talk.</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/#services"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium border border-white/10 text-zinc-300 hover:text-zinc-100 hover:border-zinc-600 transition-all duration-200"
+            >
+              Our Services
+            </Link>
+            <Link
+              href="mailto:hello@devianlabs.com"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] transition-all duration-300"
+            >
+              Get in Touch <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </div>

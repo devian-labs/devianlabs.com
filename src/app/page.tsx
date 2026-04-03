@@ -93,15 +93,15 @@ export default function Home() {
               websiteUrl="https://devian.app"
             />
             <ProductCarousel
-              title="Khaoo"
+              title="Khao"
               slides={[
-                { text: "QR code menu — no app required", image: "/khaoo-preview.png" },
-                { text: "Real-time table ordering", image: "/khaoo-preview.png" },
-                { text: "Vendor dashboard for order management", image: "/khaoo-preview.png" },
-                { text: "Works on any smartphone browser", image: "/khaoo-preview.png" },
+                { text: "QR code menu — no app required", image: "/Khao-preview.png" },
+                { text: "Real-time table ordering", image: "/Khao-preview.png" },
+                { text: "Vendor dashboard for order management", image: "/Khao-preview.png" },
+                { text: "Works on any smartphone browser", image: "/Khao-preview.png" },
               ]}
-              href="/products/khaoo"
-              websiteUrl="https://khaoo.vercel.app"
+              href="/products/Khao"
+              websiteUrl="https://Khao.vercel.app"
             />
             <ProductCarousel
               title="P2P Share"
@@ -254,25 +254,25 @@ export default function Home() {
 /* ── Product Card ─────────────────────────────────────────── */
 const accentConfig = {
   cyan: {
-    iconBg:  "bg-cyan-500/[0.1] border-cyan-500/20",
-    icon:    "text-cyan-400",
-    badge:   "bg-cyan-500/[0.1] text-cyan-400 border-cyan-500/20",
-    dot:     "bg-cyan-400",
-    hover:   "hover:border-cyan-500/35 hover:shadow-[0_0_28px_rgba(34,211,238,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
+    iconBg: "bg-cyan-500/[0.1] border-cyan-500/20",
+    icon: "text-cyan-400",
+    badge: "bg-cyan-500/[0.1] text-cyan-400 border-cyan-500/20",
+    dot: "bg-cyan-400",
+    hover: "hover:border-cyan-500/35 hover:shadow-[0_0_28px_rgba(34,211,238,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
   },
   purple: {
-    iconBg:  "bg-violet-500/[0.1] border-violet-500/20",
-    icon:    "text-violet-400",
-    badge:   "bg-violet-500/[0.1] text-violet-400 border-violet-500/20",
-    dot:     "bg-violet-400",
-    hover:   "hover:border-violet-500/35 hover:shadow-[0_0_28px_rgba(139,92,246,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
+    iconBg: "bg-violet-500/[0.1] border-violet-500/20",
+    icon: "text-violet-400",
+    badge: "bg-violet-500/[0.1] text-violet-400 border-violet-500/20",
+    dot: "bg-violet-400",
+    hover: "hover:border-violet-500/35 hover:shadow-[0_0_28px_rgba(139,92,246,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
   },
   green: {
-    iconBg:  "bg-emerald-500/[0.1] border-emerald-500/20",
-    icon:    "text-emerald-400",
-    badge:   "bg-emerald-500/[0.1] text-emerald-400 border-emerald-500/20",
-    dot:     "bg-emerald-400",
-    hover:   "hover:border-emerald-500/35 hover:shadow-[0_0_28px_rgba(52,211,153,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
+    iconBg: "bg-emerald-500/[0.1] border-emerald-500/20",
+    icon: "text-emerald-400",
+    badge: "bg-emerald-500/[0.1] text-emerald-400 border-emerald-500/20",
+    dot: "bg-emerald-400",
+    hover: "hover:border-emerald-500/35 hover:shadow-[0_0_28px_rgba(52,211,153,0.09),0_24px_48px_rgba(0,0,0,0.5)]",
   },
 } as const;
 
@@ -311,16 +311,16 @@ function ServiceCard({ icon: Icon, title, description, href, tag, color = "cyan"
         <h3 className="text-2xl md:text-3xl font-bold text-zinc-50 mb-4 tracking-tight group-hover:text-white transition-colors duration-300">
           {title}
         </h3>
-        
+
         <p className="text-zinc-400 text-lg leading-relaxed mb-10 flex-grow">
           {description}
         </p>
-        
+
         <Link
           href={href}
           className="inline-flex items-center gap-3 text-zinc-100 font-semibold group/link w-fit"
         >
-          Explore Service 
+          Explore Service
           <span className={cn(
             "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 shadow-md group-hover/link:translate-x-1 hover:scale-105 active:scale-95",
             isCyan ? "bg-cyan-500 hover:bg-cyan-400 text-cyan-950" : "bg-violet-500 hover:bg-violet-400 text-violet-950"

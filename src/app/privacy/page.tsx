@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
 export const metadata = {
   title: "Privacy Policy",
 };
@@ -6,12 +9,22 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-zinc-950 py-24 md:py-32">
       <div className="container mx-auto max-w-4xl px-4 md:px-6">
+
+        {/* Back link */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-cyan-400 mb-12 transition-colors duration-200 group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" />
+          Back to Home
+        </Link>
+
         <h1 className="text-4xl md:text-5xl font-bold tracking-tighter text-zinc-50 mb-4">Privacy Policy</h1>
-        <p className="text-zinc-400 mb-12">Last updated: {new Date().toLocaleDateString()}</p>
-        
+        <p className="text-zinc-500 mb-12 text-sm">Last updated: {new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}</p>
+
         <div className="prose prose-invert prose-zinc max-w-none text-zinc-300">
           <p className="leading-relaxed">
-            At Devian Labs ("we," "our," or "us"), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website devianlabs.com, use our proprietary software products, or engage with our software development services. 
+            At Devian Labs ("we," "our," or "us"), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website devianlabs.com, use our proprietary software products, or engage with our software development services.
           </p>
 
           <h2 className="text-2xl mt-10 mb-4 text-zinc-100 font-semibold tracking-tight">1. Information We Collect</h2>
@@ -19,7 +32,7 @@ export default function PrivacyPolicy() {
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li><strong>Personal Data:</strong> Personally identifiable information, such as your name, email address, phone number, and company details that you voluntarily give to us when you inquire about our services or create an account.</li>
             <li><strong>Derivative Data:</strong> Information our servers automatically collect when you access the site, such as your IP address, browser type, operating system, access times, and the pages you have viewed directly before and after accessing the site.</li>
-            <li><strong>Financial Data:</strong> Data related to your payment method (e.g., valid credit card number, card brand, expiration date) that we may collect when you purchase, order, return, exchange, or request information about our services.</li>
+            <li><strong>Financial Data:</strong> Data related to your payment method that we may collect when you purchase, order, or request information about our services. All financial data is handled by trusted third-party payment processors.</li>
           </ul>
 
           <h2 className="text-2xl mt-10 mb-4 text-zinc-100 font-semibold tracking-tight">2. How We Use Your Information</h2>
@@ -37,7 +50,7 @@ export default function PrivacyPolicy() {
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li><strong>By Law or to Protect Rights:</strong> If we believe the release of information about you is necessary to respond to legal process, to investigate or remedy potential violations of our policies, or to protect the rights, property, and safety of others.</li>
             <li><strong>Third-Party Service Providers:</strong> We may share your information with third parties that perform services for us or on our behalf, including payment processing, data analysis, email delivery, hosting services, and customer service.</li>
-            <li><strong>Business Transfers:</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</li>
+            <li><strong>Business Transfers:</strong> We may share or transfer your information in connection with any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</li>
           </ul>
 
           <h2 className="text-2xl mt-10 mb-4 text-zinc-100 font-semibold tracking-tight">4. Data Security</h2>
@@ -58,6 +71,18 @@ export default function PrivacyPolicy() {
             Email: <a href="mailto:hello@devianlabs.com" className="text-cyan-400 hover:text-cyan-300 transition-colors">hello@devianlabs.com</a>
           </p>
         </div>
+
+        {/* Cross-link to Terms */}
+        <div className="mt-16 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-sm text-zinc-500">Also see our usage terms and conditions.</p>
+          <Link
+            href="/terms"
+            className="inline-flex items-center gap-2 text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors duration-200 group"
+          >
+            Terms of Use <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200" />
+          </Link>
+        </div>
+
       </div>
     </div>
   );
