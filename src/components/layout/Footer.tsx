@@ -59,9 +59,9 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/[0.05] text-xs text-zinc-700">
           <p>© {new Date().getFullYear()} Devian Labs. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/" className="hover:text-zinc-400 transition-colors duration-200">Privacy Policy</Link>
-            <Link href="/" className="hover:text-zinc-400 transition-colors duration-200">Terms of Use</Link>
-            <Link href="/" className="hover:text-zinc-400 transition-colors duration-200">Sitemap</Link>
+            <Link href="/privacy" className="hover:text-zinc-400 transition-colors duration-200">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-zinc-400 transition-colors duration-200">Terms of Use</Link>
+            <a href="/sitemap.xml" className="hover:text-zinc-400 transition-colors duration-200">Sitemap</a>
           </div>
         </div>
 
