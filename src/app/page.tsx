@@ -1,10 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
-  ArrowRight, ChevronRight, Code2, Terminal, Users, Cpu, Globe,
+  ArrowRight, ChevronRight, Check, Code2, Terminal, Users, Cpu, Globe,
   ExternalLink, Laptop, QrCode, WifiOff, Layout, Zap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ElementType } from "react";
+import { ProductCarousel } from "@/components/ProductCarousel";
 
 export default function Home() {
   return (
@@ -62,107 +64,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Approach ─────────────────────────────────────────── */}
-      <section id="approach" className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
-        <div className="container mx-auto max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-
-            <div>
-              <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
-                <Terminal className="w-3 h-3" /> Our Approach
-              </div>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-6 leading-tight">
-                Built lean.{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                  Shipped fast.
-                </span>
-              </h2>
-              <p className="text-muted-foreground mb-5 leading-relaxed">
-                We believe software should be{" "}
-                <span className="text-foreground font-medium">simple, focused, and accessible.</span>
-              </p>
-              <p className="text-muted-foreground mb-5 leading-relaxed">
-                Too many tools today are overloaded with features and high costs—when most users just need one thing done well.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                At <strong className="text-foreground">Devian Labs</strong>, we build lean, practical solutions that solve real problems without unnecessary complexity.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { icon: Layout,   label: "Lean",        desc: "Only what's needed"  },
-                { icon: Terminal, label: "Practical",   desc: "Built for real use"  },
-                { icon: Cpu,      label: "Focused",     desc: "One thing done well" },
-                { icon: Globe,    label: "Accessible",  desc: "For everyone"        },
-              ].map(({ icon: Icon, label, desc }) => (
-                <div
-                  key={label}
-                  className="rounded-2xl p-6 flex flex-col gap-4 bg-zinc-900/50 border border-white/[0.06] hover:border-cyan-500/25 hover:shadow-[0_0_22px_rgba(34,211,238,0.07)] hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="p-2.5 rounded-xl bg-zinc-800/60 border border-zinc-700/50 w-fit">
-                    <Icon className="w-5 h-5 text-zinc-300" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground text-sm mb-1">{label}</h3>
-                    <p className="text-xs text-muted-foreground">{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── Products ─────────────────────────────────────────── */}
-      <section id="products" className="relative overflow-hidden px-4 md:px-6 py-24 md:py-32 bg-zinc-950 border-b">
+      <section id="products" className="px-4 md:px-6 py-24 md:py-32 bg-zinc-950 border-b">
+        <div className="container mx-auto max-w-6xl">
 
-        {/* Subtle grid */}
-        <div className="absolute inset-0 pointer-events-none opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:44px_44px]" />
-
-        <div className="container relative z-10 mx-auto max-w-6xl">
-          <div className="text-center mb-16">
+          <div className="mb-14 text-center">
             <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
               <Zap className="w-3 h-3" /> Products
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4 text-zinc-50">
-              Tools that{" "}
-              <span className="bg-[linear-gradient(90deg,#67e8f9_0%,#c084fc_50%,#67e8f9_100%)] bg-[size:200%_auto] bg-clip-text text-transparent animate-shimmer">
-                actually work
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
+              Our{" "}
+              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                Shipped Products.
               </span>
             </h2>
-            <p className="text-zinc-400 max-w-[500px] mx-auto">
-              Our core SaaS and tooling solutions built for modern users.
-            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <ProductCard
-              icon={Laptop}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <ProductCarousel
               title="Devian Desktop"
-              description="The control center for your dev machine. Built for developers, by developers."
+              slides={[
+                { text: "Scan and index all local repositories", image: "/devian-desktop-preview.png" },
+                { text: "Identify abandoned and cleanable projects", image: "/devian-desktop-preview.png" },
+                { text: "Filter by tech stack, age, and activity", image: "/devian-desktop-preview.png" },
+                { text: "Reclaim disk space with one click", image: "/devian-desktop-preview.png" },
+              ]}
               href="/products/devian-desktop"
               websiteUrl="https://devian.app"
-              accent="cyan"
-              live
             />
-            <ProductCard
-              icon={QrCode}
+            <ProductCarousel
               title="Khaoo"
-              description="Digitizes the menu for small vendors. QR Menu & table ordering for modern eateries."
+              slides={[
+                { text: "QR code menu — no app required", image: "/khaoo-preview.png" },
+                { text: "Real-time table ordering", image: "/khaoo-preview.png" },
+                { text: "Vendor dashboard for order management", image: "/khaoo-preview.png" },
+                { text: "Works on any smartphone browser", image: "/khaoo-preview.png" },
+              ]}
               href="/products/khaoo"
               websiteUrl="https://khaoo.vercel.app"
-              accent="purple"
-              live
             />
-            <ProductCard
-              icon={WifiOff}
+            <ProductCarousel
               title="P2P Share"
-              description="Share trip memories instantly without internet. Made for group adventures."
+              slides={[
+                { text: "Fully offline — no internet needed", image: "/p2p-share-preview.png" },
+                { text: "Peer-to-peer local network transfer", image: "/p2p-share-preview.png" },
+                { text: "Share with an entire group at once", image: "/p2p-share-preview.png" },
+                { text: "No accounts, no cloud, no limits", image: "/p2p-share-preview.png" },
+              ]}
               href="/products/p2p-share"
-              accent="green"
             />
           </div>
+
         </div>
       </section>
 
@@ -173,33 +125,102 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
               <Code2 className="w-3 h-3" /> Services
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4">
-              Software Services
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
+              Software{" "}
+              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                Services.
+              </span>
             </h2>
             <p className="text-muted-foreground max-w-[500px] mx-auto">
               We help build robust technological solutions catered strictly to your requirements.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
             <ServiceCard
+              icon={Code2}
               title="Software Development"
-              description="End-to-end software delivery based on precise requirements. Fully scalable architectures."
+              description="End-to-end software delivery based on precise requirements. Fully scalable, tailored architectures built to perform."
               href="/services/software-development"
-              tag="$ dev --full-stack"
+              tag="dev --full-stack"
+              color="cyan"
             />
             <ServiceCard
+              icon={Zap}
               title="MVP from Idea"
-              description="Quick and lean MVP development based on your raw ideas, enabling fast market validation."
+              description="Quick and lean MVP development scaling your raw ideas into actionable products, enabling hyper-fast market validation."
               href="/services/mvp-from-idea"
-              tag="$ mvp --speed-first"
+              tag="mvp --speed-first"
+              color="violet"
             />
           </div>
         </div>
       </section>
 
+      {/* ── Approach ─────────────────────────────────────────── */}
+      <section id="approach" className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
+        <div className="container mx-auto max-w-5xl">
+
+          {/* Centered heading */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
+              <Terminal className="w-3 h-3" /> Our Approach
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
+              Built lean.{" "}
+              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                Shipped fast.
+              </span>
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              Too many tools are overloaded with features and cost. We build software that does one thing well—simple, focused, and accessible to everyone.
+            </p>
+          </div>
+
+          {/* Four value cards */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                icon: Layout,
+                label: "Lean",
+                desc: "No bloat. Every feature earns its place. We ship what's needed, nothing more.",
+              },
+              {
+                icon: Terminal,
+                label: "Practical",
+                desc: "Grounded in real use cases. Built for how people actually work, not edge cases.",
+              },
+              {
+                icon: Cpu,
+                label: "Focused",
+                desc: "One problem solved exceptionally well beats ten solved halfway.",
+              },
+              {
+                icon: Globe,
+                label: "Accessible",
+                desc: "Great software should be within reach—not locked behind enterprise pricing.",
+              },
+            ].map(({ icon: Icon, label, desc }) => (
+              <div
+                key={label}
+                className="rounded-2xl p-6 flex flex-col gap-4 bg-zinc-900/50 border border-white/[0.06] hover:border-cyan-500/25 hover:shadow-[0_0_22px_rgba(34,211,238,0.07)] hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="p-2.5 rounded-xl bg-zinc-800/60 border border-zinc-700/50 w-fit">
+                  <Icon className="w-5 h-5 text-zinc-300" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground text-sm mb-2">{label}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
       {/* ── Team ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden px-4 md:px-6 py-24 md:py-32 bg-zinc-950">
+      <section id="team" className="relative overflow-hidden px-4 md:px-6 py-24 md:py-32 bg-zinc-950">
         {/* Background glow */}
         <div className="absolute w-[500px] h-[500px] rounded-full bg-violet-600/[0.10] blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="absolute inset-0 pointer-events-none opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:44px_44px]" />
@@ -255,89 +276,57 @@ const accentConfig = {
   },
 } as const;
 
-function ProductCard({
-  icon: Icon, title, description, href, websiteUrl, accent, live,
-}: {
+
+/* ── Service Card ─────────────────────────────────────────── */
+function ServiceCard({ icon: Icon, title, description, href, tag, color = "cyan" }: {
   icon: ElementType;
   title: string;
   description: string;
   href: string;
-  websiteUrl?: string;
-  accent: keyof typeof accentConfig;
-  live?: boolean;
+  tag: string;
+  color?: "cyan" | "violet";
 }) {
-  const a = accentConfig[accent];
+  const isCyan = color === "cyan";
   return (
     <div className={cn(
-      "group rounded-2xl p-6 flex flex-col gap-4 h-full bg-zinc-900/80 border border-white/[0.07] hover:-translate-y-1.5 transition-all duration-300 backdrop-blur-sm",
-      a.hover
+      "group relative flex flex-col rounded-3xl overflow-hidden bg-zinc-900/40 border border-white/[0.08] transition-all duration-300 hover:-translate-y-1.5",
+      isCyan ? "hover:shadow-[0_20px_40px_-20px_rgba(34,211,238,0.15)] hover:border-cyan-500/30" : "hover:shadow-[0_20px_40px_-20px_rgba(139,92,246,0.15)] hover:border-violet-500/30"
     )}>
-      <div className="flex items-start justify-between">
-        <div className={cn("p-3 rounded-xl border w-fit card-icon", a.iconBg)}>
-          <Icon className={cn("w-5 h-5 group-hover:animate-icon-float", a.icon)} />
+      {/* Ambient background glow inside card */}
+      <div className={cn(
+        "absolute -top-32 -right-32 w-64 h-64 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none",
+        isCyan ? "bg-cyan-500/20" : "bg-violet-500/20"
+      )} />
+
+      <div className="p-8 md:p-10 flex flex-col h-full relative z-10">
+        <div className="mb-10 w-fit">
+          <div className={cn(
+            "p-4 rounded-2xl border transition-colors duration-500 shadow-sm",
+            isCyan ? "bg-cyan-500/10 border-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/20" : "bg-violet-500/10 border-violet-500/20 text-violet-400 group-hover:bg-violet-500/20"
+          )}>
+            <Icon className="w-8 h-8 group-hover:scale-110 transition-transform duration-500" />
+          </div>
         </div>
-        {live && (
-          <span className={cn("inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border font-medium", a.badge)}>
-            <span className={cn("w-1.5 h-1.5 rounded-full inline-block", a.dot)} />
-            Live
-          </span>
-        )}
-      </div>
 
-      <div className="flex-1">
-        <h3 className="font-semibold text-zinc-100 text-lg mb-2">{title}</h3>
-        <p className="text-sm text-zinc-400 leading-relaxed">{description}</p>
-      </div>
-
-      <div className="flex flex-col gap-2 pt-4 border-t border-zinc-800">
-        {websiteUrl && (
-          <Link
-            href={websiteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-sm font-medium transition-colors duration-200"
-          >
-            Visit Website <ExternalLink className="w-3.5 h-3.5 opacity-60" />
-          </Link>
-        )}
-        <Link
-          href={href}
-          className="inline-flex items-center justify-center gap-1.5 w-full py-2 px-4 rounded-xl text-zinc-500 hover:text-zinc-300 text-sm transition-colors duration-200"
-        >
-          Read Case Study <ChevronRight className="w-3.5 h-3.5" />
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-/* ── Service Card ─────────────────────────────────────────── */
-function ServiceCard({ title, description, href, tag }: {
-  title: string;
-  description: string;
-  href: string;
-  tag: string;
-}) {
-  return (
-    <div className="group rounded-2xl overflow-hidden bg-zinc-950 border border-white/[0.08] hover:border-violet-500/35 hover:shadow-[0_0_30px_rgba(139,92,246,0.1),0_24px_48px_rgba(0,0,0,0.5)] hover:-translate-y-1.5 transition-all duration-300">
-      {/* Terminal chrome */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-zinc-800 bg-zinc-900/60">
-        <div className="w-3 h-3 rounded-full bg-red-500/50" />
-        <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-        <div className="w-3 h-3 rounded-full bg-green-500/50" />
-        <span className="ml-2 text-xs text-zinc-600 font-mono">{tag}</span>
-      </div>
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="font-semibold text-zinc-100 text-xl mb-3 group-hover:text-violet-300 transition-colors duration-300">
+        <h3 className="text-2xl md:text-3xl font-bold text-zinc-50 mb-4 tracking-tight group-hover:text-white transition-colors duration-300">
           {title}
         </h3>
-        <p className="text-zinc-400 text-sm leading-relaxed mb-6">{description}</p>
+        
+        <p className="text-zinc-400 text-lg leading-relaxed mb-10 flex-grow">
+          {description}
+        </p>
+        
         <Link
           href={href}
-          className="inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-200 font-medium transition-colors duration-200"
+          className="inline-flex items-center gap-3 text-zinc-100 font-semibold group/link w-fit"
         >
-          Know more <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+          Explore Service 
+          <span className={cn(
+            "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 shadow-md group-hover/link:translate-x-1 hover:scale-105 active:scale-95",
+            isCyan ? "bg-cyan-500 hover:bg-cyan-400 text-cyan-950" : "bg-violet-500 hover:bg-violet-400 text-violet-950"
+          )}>
+            <ArrowRight className="w-4 h-4" />
+          </span>
         </Link>
       </div>
     </div>

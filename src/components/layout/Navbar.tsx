@@ -5,7 +5,7 @@ import { buttonVariants } from "@/components/ui/button-variants";
 const navLinks = [
   { href: "/#products", label: "Products" },
   { href: "/#services", label: "Services" },
-  { href: "/team",      label: "Team"     },
+  { href: "/#team",     label: "Team"     },
 ];
 
 export default function Navbar() {
@@ -25,7 +25,7 @@ export default function Navbar() {
           <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
             Devian
           </span>
-          <span className="text-xl font-bold tracking-tighter text-zinc-400">Labs</span>
+          <span className="text-xl font-bold tracking-tighter text-white">Labs</span>
         </Link>
 
         <div className="ml-auto flex items-center gap-6">

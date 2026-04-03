@@ -1,5 +1,6 @@
 import { ExternalLink, Users } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const teamMembers = [
   {
@@ -7,18 +8,21 @@ const teamMembers = [
     role: "Founder",
     tag: "Engineering · Strategy",
     linkedin: "https://www.linkedin.com/in/iamsmruti/",
+    image: "/team/smruti.png"
   },
   {
     name: "Biswajeet Dehuri",
-    role: "Product Manager — App",
+    role: "App",
     tag: "Mobile · UX",
     linkedin: "https://www.linkedin.com/in/biswajeet-dehuri-7b1078224/",
+    image: "/team/biswajeet.png"
   },
   {
     name: "Debesh Mohapatra",
-    role: "Product Manager — Web",
+    role: "Web",
     tag: "Web · Growth",
     linkedin: "https://www.linkedin.com/in/debesh-mohapatra-650070205/",
+    image: "/team/debesh.jpg"
   },
 ];
 
@@ -64,32 +68,38 @@ export default function TeamPage() {
 
       {/* Team grid */}
       <div className="px-4 md:px-6 py-24">
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto max-w-5xl">
           <div className="grid md:grid-cols-3 gap-6">
             {teamMembers.map((member) => (
               <div
                 key={member.name}
-                className="group rounded-2xl p-6 flex flex-col gap-5 bg-zinc-900/80 border border-white/[0.07] hover:border-cyan-500/30 hover:shadow-[0_0_28px_rgba(34,211,238,0.08),0_24px_48px_rgba(0,0,0,0.5)] hover:-translate-y-1.5 transition-all duration-300 backdrop-blur-sm"
+                className="group relative rounded-3xl overflow-hidden bg-zinc-900 border border-white/[0.08] hover:border-cyan-500/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.1),0_24px_48px_rgba(0,0,0,0.5)] hover:-translate-y-2 transition-all duration-500 flex flex-col"
               >
-                {/* Avatar placeholder */}
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-white/[0.08] flex items-center justify-center text-xl font-bold text-zinc-300">
-                  {member.name.charAt(0)}
+                {/* Edge-to-edge Avatar Block */}
+                <div className="relative w-full aspect-[4/3] bg-zinc-950 border-b border-white/[0.05] overflow-hidden">
+                  <Image
+                    src={member.image}
+                    alt={`${member.name} profile`}
+                    fill
+                    className="object-cover object-top grayscale-[0.8] contrast-125 brightness-90 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-in-out"
+                  />
+                  {/* Internal gradient to blend softly to card body */}
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-zinc-900 via-transparent to-transparent z-10 pointer-events-none" />
                 </div>
 
-                <div className="flex-1">
-                  <p className="text-xs text-cyan-400 font-mono mb-1 tracking-wide">{member.tag}</p>
-                  <h2 className="font-semibold text-zinc-100 text-lg leading-tight mb-1">{member.name}</h2>
-                  <p className="text-sm text-zinc-500">{member.role}</p>
-                </div>
+                <div className="p-6 md:p-8 flex-1 flex flex-col items-center text-center relative z-20 -mt-6">
+                  <h2 className="font-bold text-zinc-50 text-xl md:text-2xl tracking-tight mb-2">{member.name}</h2>
+                  <p className="text-[15px] font-medium text-cyan-400 mb-8">{member.role}</p>
 
-                <Link
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-sm font-medium transition-colors duration-200"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 opacity-60" /> LinkedIn
-                </Link>
+                  <Link
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 mt-auto py-2.5 px-6 rounded-full bg-zinc-800/80 hover:bg-zinc-700 text-zinc-100 text-sm font-semibold transition-all duration-300 border border-white/5 hover:border-white/10 w-full hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Visit LinkedIn <ExternalLink className="w-3.5 h-3.5 ml-0.5" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
