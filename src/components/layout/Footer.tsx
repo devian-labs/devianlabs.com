@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { PlayCircle } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="w-full border-t border-white/[0.06] bg-zinc-950 py-12 md:py-16">
       <div className="container mx-auto px-4 md:px-6">
 
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-12 mb-12">
 
           {/* Brand */}
           <div className="col-span-2 flex flex-col gap-4">
@@ -24,32 +24,53 @@ export default function Footer() {
           {/* Company */}
           <div className="flex flex-col gap-3">
             <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Company</h4>
-            <Link href="/" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">About</Link>
-            <Link href="/team" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Team</Link>
+            <Link href="/about" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">About</Link>
+            <Link href="/#team" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Team</Link>
+            <a href="mailto:hello@devianlabs.com" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Contact</a>
           </div>
 
-          {/* Products + Services */}
+          {/* Products */}
           <div className="flex flex-col gap-3">
             <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Products</h4>
             <Link href="/products/devian-desktop" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Devian Desktop</Link>
-            <Link href="/products/Khao" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Khao</Link>
-            <Link href="/products/p2p-share" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">P2P Share</Link>
-            <div className="pt-2 mt-1 border-t border-zinc-800 flex flex-col gap-3">
-              <Link href="/services/software-development" className="text-sm text-zinc-600 hover:text-violet-400 transition-colors duration-200">Software Dev</Link>
-              <Link href="/services/mvp-from-idea" className="text-sm text-zinc-600 hover:text-violet-400 transition-colors duration-200">MVP from Idea</Link>
-            </div>
+            <Link href="/products/khao" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Khao</Link>
+            <Link href="/products/campfyr" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Campfyr</Link>
+          </div>
+
+          {/* Services */}
+          <div className="flex flex-col gap-3">
+            <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Services</h4>
+            <Link href="/services/mvp-from-idea" className="text-sm text-zinc-600 hover:text-violet-400 transition-colors duration-200">MVP from Idea</Link>
+            <Link href="/services/software-development" className="text-sm text-zinc-600 hover:text-violet-400 transition-colors duration-200">Custom Software Dev</Link>
+
           </div>
 
           {/* Knowledge */}
           <div className="flex flex-col gap-3">
             <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Knowledge</h4>
             <Link
-              href="https://www.youtube.com/@AgileCoderYT"
+              href="https://agilecoder.in"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200"
             >
-              <PlayCircle className="w-4 h-4 text-red-500/70" /> AgileCoder
+              AgileCoder <ExternalLink className="w-3 h-3" />
+            </Link>
+            <Link
+              href="https://agilecoder.in/blog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200"
+            >
+              Tech Blog
+            </Link>
+            <Link
+              href="https://build.devianlabs.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200"
+            >
+              Boilerplates
             </Link>
           </div>
 

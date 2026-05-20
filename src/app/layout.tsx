@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default: "Devian Labs | Modern Software Solutions",
+    default: "Devian Labs — A Software Studio Building Products & Client Work",
     template: "%s | Devian Labs",
   },
   description:
-    "We build, launch and scale software products for modern businesses. Simple, focused, and accessible.",
+    "A three-person software studio from India. We ship our own products and help founders go from idea to launched MVP in weeks, not quarters.",
   keywords: [
     "software development",
     "saas products",
@@ -35,18 +35,18 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: BASE_URL,
     siteName: "Devian Labs",
-    title: "Devian Labs | Modern Software Solutions",
+    title: "Devian Labs — A Software Studio Building Products & Client Work",
     description:
-      "We build, launch and scale software products for modern businesses. Simple, focused, and accessible.",
+      "A three-person software studio from India. We ship our own products and help founders go from idea to launched MVP in weeks, not quarters.",
   },
 
   twitter: {
     card: "summary_large_image",
     site: "@devianlabs",
     creator: "@devianlabs",
-    title: "Devian Labs | Modern Software Solutions",
+    title: "Devian Labs — A Software Studio Building Products & Client Work",
     description:
-      "We build, launch and scale software products for modern businesses.",
+      "A three-person software studio from India. We ship our own products and help founders go from idea to launched MVP in weeks, not quarters.",
   },
 
   robots: {
