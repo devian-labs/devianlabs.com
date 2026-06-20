@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Zap, Clock, CheckCircle, Users, Lightbulb, Rocket, MessageSquare } from "lucide-react";
+import { ArrowLeft, ArrowRight, Zap, Clock, CheckCircle, Users, Lightbulb, Rocket, MessageSquare, HeartHandshake, ShoppingBag, Stethoscope } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -172,6 +172,37 @@ export default function MVPFromIdeaPage() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Work / showcase — MVPs we've shipped */}
+          <section>
+            <p className="text-xs font-semibold tracking-widest uppercase text-violet-400 mb-4">Some of our work building MVPs</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-100 mb-8 tracking-tight">Carryman — built with exactly this process.</h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="group relative rounded-3xl overflow-hidden bg-zinc-900/50 border border-white/[0.07] hover:border-violet-500/30 transition-all duration-300">
+                <div className="relative w-full aspect-[16/10] bg-zinc-950 border-b border-white/[0.05] overflow-hidden flex items-center justify-center">
+                  <div className="absolute inset-0 bg-gradient-to-br from-violet-500/[0.14] to-zinc-950" />
+                  <HeartHandshake className="relative w-14 h-14 text-violet-400/80 group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-zinc-100 mb-2">Carryman</h3>
+                  <p className="text-sm text-zinc-500 leading-relaxed mb-4">
+                    A human-assistance product that helps people get things done based on what they need — from shopping runs to medical assistance and everyday errands.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      { icon: ShoppingBag, label: "Shopping" },
+                      { icon: Stethoscope, label: "Medical assistance" },
+                      { icon: Users, label: "Errands & more" },
+                    ].map(({ icon: Icon, label }) => (
+                      <span key={label} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-zinc-300 bg-zinc-800/60 border border-white/[0.07]">
+                        <Icon className="w-3.5 h-3.5 text-violet-400" /> {label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </section>

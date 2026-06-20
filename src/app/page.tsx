@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight, Code2, Terminal, Users, Cpu, Layout, Zap,
-  PlayCircle, FileText, Package, BookOpen, ExternalLink,
+  PlayCircle, FileText, Package, BookOpen, ExternalLink, Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ElementType } from "react";
@@ -26,6 +26,12 @@ const teamMembers = [
     role: "Web Engineering Lead",
     linkedin: "https://www.linkedin.com/in/debesh-mohapatra-650070205/",
     image: "/team/debesh.jpg",
+  },
+  {
+    name: "Rohit Mohanty",
+    role: "Client Relations Lead",
+    linkedin: "https://www.linkedin.com/in/rohit-mohanty-3013511b5/",
+    image: "/team/rohit.png",
   },
 ];
 
@@ -93,11 +99,11 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-muted-foreground max-w-[500px] mx-auto">
-              Two things we&apos;re good at. We don&apos;t pretend to do everything.
+              Three things we&apos;re good at. We don&apos;t pretend to do everything.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             <ServiceCard
               icon={Zap}
               title="MVP from Idea"
@@ -109,10 +115,18 @@ export default function Home() {
             <ServiceCard
               icon={Code2}
               title="Custom Software Dev"
-              description="End-to-end delivery for teams who know what they need built. Web apps, internal tools, integrations — built lean, shipped clean, documented properly."
+              description="End-to-end delivery for teams who know what they need built. Web apps, internal tools, integrations - built lean, shipped clean, documented properly."
               href="/services/software-development"
               tag="dev --full-stack"
               color="cyan"
+            />
+            <ServiceCard
+              icon={Globe}
+              title="Helping Biz go Digital"
+              description="Local businesses that need a real online presence. We build fast, modern websites that bring in customers - for a real estate agent and an electronics store."
+              href="/services/helping-biz-go-digital"
+              tag="web --go-live"
+              color="emerald"
             />
           </div>
         </div>
@@ -148,6 +162,8 @@ export default function Home() {
               ]}
               href="/products/devian-desktop"
               websiteUrl="https://devian.app"
+              showImage={false}
+              description="The control center for your dev machine — find abandoned projects, filter by tech stack, age, and activity, and reclaim disk space with one click."
             />
             <ProductCarousel
               title="Khao"
@@ -159,6 +175,8 @@ export default function Home() {
               ]}
               href="/products/khao"
               websiteUrl="https://khao.app"
+              showImage={false}
+              description="QR-based menu and table ordering for small food vendors — real-time orders with no app install, works on any smartphone browser, plus a vendor dashboard for live order management."
             />
             <ProductCarousel
               title="Campfyr"
@@ -169,6 +187,8 @@ export default function Home() {
                 { text: "Plan your itinerary together before you leave. Stays on your phone when you're off-grid.", image: "/campfyr-preview.png" },
               ]}
               href="/products/campfyr"
+              showImage={false}
+              description="An off-grid companion for group trips — send SOS alerts over Bluetooth with no signal, split expenses as you go, share photos peer-to-peer, and plan your itinerary together, all kept on your phone."
             />
           </div>
 
@@ -314,7 +334,7 @@ export default function Home() {
               <Users className="w-3 h-3" /> The Team
             </div>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 text-zinc-50 leading-tight">
-              Three People.{" "}
+              Four People.{" "}
               <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
                 Real Work.
               </span>
@@ -324,7 +344,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member) => (
               <div
                 key={member.name}
@@ -340,7 +360,7 @@ export default function Home() {
                   <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-zinc-900 via-transparent to-transparent z-10 pointer-events-none" />
                 </div>
                 <div className="p-6 md:p-8 flex-1 flex flex-col items-center text-center relative z-20 -mt-6">
-                  <h3 className="font-bold text-zinc-50 text-xl tracking-tight mb-1">{member.name}</h3>
+                  <h3 className="font-bold text-zinc-50 text-sm md:text-base tracking-tight mb-1">{member.name}</h3>
                   <p className="text-[15px] font-medium text-cyan-400 mb-8">{member.role}</p>
                   <Link
                     href={member.linkedin}
@@ -398,34 +418,49 @@ function ServiceCard({ icon: Icon, title, description, href, color = "cyan" }: {
   description: string;
   href: string;
   tag: string;
-  color?: "cyan" | "violet";
+  color?: "cyan" | "violet" | "emerald";
 }) {
-  const isCyan = color === "cyan";
+  const styles = {
+    cyan: {
+      card: "hover:shadow-[0_20px_40px_-20px_rgba(34,211,238,0.15)] hover:border-cyan-500/30",
+      orb: "bg-cyan-500/20",
+      iconBox: "bg-cyan-500/10 border-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/20",
+      arrow: "bg-cyan-500 hover:bg-cyan-400 text-cyan-950",
+    },
+    violet: {
+      card: "hover:shadow-[0_20px_40px_-20px_rgba(139,92,246,0.15)] hover:border-violet-500/30",
+      orb: "bg-violet-500/20",
+      iconBox: "bg-violet-500/10 border-violet-500/20 text-violet-400 group-hover:bg-violet-500/20",
+      arrow: "bg-violet-500 hover:bg-violet-400 text-violet-950",
+    },
+    emerald: {
+      card: "hover:shadow-[0_20px_40px_-20px_rgba(16,185,129,0.15)] hover:border-emerald-500/30",
+      orb: "bg-emerald-500/20",
+      iconBox: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500/20",
+      arrow: "bg-emerald-500 hover:bg-emerald-400 text-emerald-950",
+    },
+  }[color];
   return (
     <div className={cn(
       "group relative flex flex-col rounded-3xl overflow-hidden bg-zinc-900/40 border border-white/[0.08] transition-all duration-300 hover:-translate-y-1.5",
-      isCyan
-        ? "hover:shadow-[0_20px_40px_-20px_rgba(34,211,238,0.15)] hover:border-cyan-500/30"
-        : "hover:shadow-[0_20px_40px_-20px_rgba(139,92,246,0.15)] hover:border-violet-500/30"
+      styles.card
     )}>
       <div className={cn(
         "absolute -top-32 -right-32 w-64 h-64 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none",
-        isCyan ? "bg-cyan-500/20" : "bg-violet-500/20"
+        styles.orb
       )} />
 
       <div className="p-8 md:p-10 flex flex-col h-full relative z-10">
         <div className="mb-10 w-fit">
           <div className={cn(
             "p-4 rounded-2xl border transition-colors duration-500 shadow-sm",
-            isCyan
-              ? "bg-cyan-500/10 border-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/20"
-              : "bg-violet-500/10 border-violet-500/20 text-violet-400 group-hover:bg-violet-500/20"
+            styles.iconBox
           )}>
             <Icon className="w-8 h-8 group-hover:scale-110 transition-transform duration-500" />
           </div>
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-bold text-zinc-50 mb-4 tracking-tight group-hover:text-white transition-colors duration-300">
+        <h3 className="text-xl md:text-2xl font-bold text-zinc-50 mb-4 tracking-tight group-hover:text-white transition-colors duration-300 whitespace-nowrap">
           {title}
         </h3>
 
@@ -440,9 +475,7 @@ function ServiceCard({ icon: Icon, title, description, href, color = "cyan" }: {
           How we work
           <span className={cn(
             "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 shadow-md group-hover/link:translate-x-1 hover:scale-105 active:scale-95",
-            isCyan
-              ? "bg-cyan-500 hover:bg-cyan-400 text-cyan-950"
-              : "bg-violet-500 hover:bg-violet-400 text-violet-950"
+            styles.arrow
           )}>
             <ArrowRight className="w-4 h-4" />
           </span>

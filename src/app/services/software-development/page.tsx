@@ -1,15 +1,16 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Code2, CheckCircle, GitBranch, Layers, Shield, Users } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, ArrowRight, Code2, CheckCircle, GitBranch, Layers, Shield, Users, ExternalLink, TrendingUp } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Custom Software Development",
-  description: "End-to-end software delivery for teams who know what they need built. Web apps, internal tools, integrations — built lean, shipped clean, documented properly.",
+  description: "End-to-end software delivery for teams who know what they need built. Web apps, internal tools, integrations - built lean, shipped clean, documented properly.",
   alternates: { canonical: "https://devianlabs.com/services/software-development" },
   openGraph: {
     url: "https://devianlabs.com/services/software-development",
     title: "Custom Software Development | Devian Labs",
-    description: "End-to-end software delivery. Web apps, internal tools, integrations — built lean, shipped clean.",
+    description: "End-to-end software delivery. Web apps, internal tools, integrations - built lean, shipped clean.",
   },
 };
 
@@ -43,7 +44,7 @@ export default function SoftwareDevelopmentPage() {
           </h1>
 
           <p className="text-lg md:text-xl text-zinc-400 leading-relaxed mb-10 max-w-2xl">
-            End-to-end delivery for teams who know what they need built. Web apps, internal tools, integrations — built lean, shipped clean, documented properly so your team can own it.
+            End-to-end delivery for teams who know what they need built. Web apps, internal tools, integrations - built lean, shipped clean, documented properly so your team can own it.
           </p>
 
           <a
@@ -180,6 +181,43 @@ export default function SoftwareDevelopmentPage() {
                     </li>
                   ))}
                 </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Work / showcase */}
+          <section>
+            <p className="text-xs font-semibold tracking-widest uppercase text-cyan-400 mb-4">Some of our work</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-100 mb-8 tracking-tight">Software people actually use.</h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="group relative rounded-3xl overflow-hidden bg-zinc-900/50 border border-white/[0.07] hover:border-cyan-500/30 transition-all duration-300">
+                <div className="relative w-full aspect-[16/10] bg-zinc-950 border-b border-white/[0.05] overflow-hidden">
+                  <Image
+                    src="/clients/nolia.png"
+                    alt="Nolia website"
+                    fill
+                    className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <h3 className="font-bold text-zinc-100">Nolia</h3>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+                      <TrendingUp className="w-3.5 h-3.5" /> ₹1.5 lakh+ in orders
+                    </span>
+                  </div>
+                  <p className="text-sm text-zinc-500 leading-relaxed mb-4">
+                    An artisanal cloud-kitchen storefront for crafting and ordering desserts — built end to end, live with real customers, and already driving ₹1.5 lakh+ in orders.
+                  </p>
+                  <Link
+                    href="https://thenolia.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    Visit site <ExternalLink className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
