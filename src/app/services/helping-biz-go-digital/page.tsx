@@ -28,6 +28,12 @@ const clients = [
     image: "/clients/electronics.png",
     href: "https://devian-labs.github.io/Siridi-Sai-Mobiles/",
   },
+  {
+    name: "Balkrishna Palace",
+    blurb: "An elegant hotel site with rooms, amenities, and a booking flow that turns visitors into direct bookings.",
+    image: "/clients/balkrishnapalace.png",
+    href: "https://balkrishnapalace.com/",
+  },
 ];
 
 export default function HelpingBizGoDigitalPage() {
