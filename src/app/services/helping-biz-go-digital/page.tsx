@@ -18,21 +18,23 @@ export const metadata: Metadata = {
 const clients = [
   {
     name: "Aveline Homes",
-    blurb: "A clean, mobile-first real estate site with property listings and an enquiry flow that turns browsers into leads.",
     image: "/clients/realestate.png",
     href: "https://avelinehomes.in/",
   },
   {
     name: "Siridi Sai Mobiles",
-    blurb: "A modern storefront for a mobile and electronics shop that brings in walk-in customers from local search.",
     image: "/clients/electronics.png",
     href: "https://devian-labs.github.io/Siridi-Sai-Mobiles/",
   },
   {
     name: "Balkrishna Palace",
-    blurb: "An elegant hotel site with rooms, amenities, and a booking flow that turns visitors into direct bookings.",
     image: "/clients/balkrishnapalace.png",
     href: "https://balkrishnapalace.com/",
+  },
+  {
+    name: "Sri Ganesh Bike Point",
+    image: "/clients/bikepoint.png",
+    href: "https://devian-labs.github.io/Sri-Ganesh-Bike-Point/",
   },
 ];
 
@@ -164,42 +166,42 @@ export default function HelpingBizGoDigitalPage() {
             </div>
           </section>
 
-          {/* Work / showcase */}
-          <section>
-            <p className="text-xs font-semibold tracking-widest uppercase text-emerald-400 mb-4">Some of our work</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-zinc-100 mb-8 tracking-tight">Real sites for real local businesses.</h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {clients.map(({ name, blurb, image, href }) => (
-                <div
-                  key={name}
-                  className="group relative rounded-3xl overflow-hidden bg-zinc-900/50 border border-white/[0.07] hover:border-emerald-500/30 transition-all duration-300"
-                >
-                  <div className="relative w-full aspect-[16/10] bg-zinc-950 border-b border-white/[0.05] overflow-hidden">
-                    <Image
-                      src={image}
-                      alt={`${name} website`}
-                      fill
-                      className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-bold text-zinc-100 mb-2">{name}</h3>
-                    <p className="text-sm text-zinc-500 leading-relaxed mb-4">{blurb}</p>
-                    <Link
-                      href={href}
-                      target={href.startsWith("http") ? "_blank" : undefined}
-                      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
-                    >
-                      Visit site <ExternalLink className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
         </div>
+
+        {/* Work / showcase */}
+        <section className="container mx-auto max-w-5xl mt-20">
+          <p className="text-xs font-semibold tracking-widest uppercase text-emerald-400 mb-4">Some of our work</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-zinc-100 mb-8 tracking-tight">Real sites for real local businesses.</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {clients.map(({ name, image, href }) => (
+              <div
+                key={name}
+                className="group relative rounded-3xl overflow-hidden bg-zinc-900/50 border border-white/[0.07] hover:border-emerald-500/30 transition-all duration-300"
+              >
+                <div className="relative w-full aspect-[16/10] bg-zinc-950 border-b border-white/[0.05] overflow-hidden">
+                  <Image
+                    src={image}
+                    alt={`${name} website`}
+                    fill
+                    className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-zinc-100 mb-2">{name}</h3>
+                  <Link
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+                  >
+                    Visit site <ExternalLink className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
       </div>
 
       {/* CTA */}
