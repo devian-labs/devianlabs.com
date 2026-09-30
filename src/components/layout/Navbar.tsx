@@ -4,8 +4,9 @@ import { buttonVariants } from "@/components/ui/button-variants";
 
 const navLinks = [
   { href: "/#products", label: "Products" },
+  { href: "/#work",     label: "Work"     },
   { href: "/#services", label: "Services" },
-  { href: "/#team",     label: "Team"     },
+  // { href: "/#team",     label: "Team"     }, // TODO: restore with Team section
 ];
 
 export default function Navbar() {

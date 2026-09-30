@@ -25,13 +25,16 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Company</h4>
             <Link href="/about" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">About</Link>
+            {/* TODO: restore with Team section
             <Link href="/#team" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Team</Link>
+            */}
             <a href="mailto:hello@devianlabs.com" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Contact</a>
           </div>
 
           {/* Products */}
           <div className="flex flex-col gap-3">
             <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Products</h4>
+            <Link href="/products/mohur" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Mohur</Link>
             <Link href="/products/devian-desktop" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Devian Desktop</Link>
             <Link href="/products/khao" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Khao</Link>
             <Link href="/products/campfyr" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Campfyr</Link>

@@ -1,39 +1,113 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  ArrowRight, Code2, Terminal, Users, Cpu, Layout, Zap,
-  PlayCircle, FileText, Package, BookOpen, ExternalLink, Globe,
+  ArrowRight, ArrowDown, Code2, Zap, TrendingUp,
+  ExternalLink, Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { ElementType } from "react";
-import { ProductCarousel } from "@/components/ProductCarousel";
+import type { ElementType, ReactNode } from "react";
 
-const teamMembers = [
+/*
+ * Home page sections: 01 products, 02 client work and services, then contact.
+ * (03 AgileCoder and the Team section are commented out for now.)
+ */
+
+const products: {
+  name: string;
+  logo: string;
+  /** Extra classes for logos that need help standing off the dark background. */
+  logoClass?: string;
+  blurb: string;
+  href: string;
+  websiteUrl?: string;
+  extraLink?: { label: string; href: string };
+}[] = [
   {
-    name: "Smruti Ranjan Badatya",
-    role: "Founder",
-    linkedin: "https://www.linkedin.com/in/iamsmruti/",
-    image: "/team/smruti.png",
+    name: "Mohur",
+    logo: "/products/mohur.png",
+    // Black coin face on transparency: sit it on a raised tile with a gold edge so it doesn't sink into the page.
+    logoClass: "p-1 bg-gradient-to-br from-zinc-700 to-zinc-900 ring-1 ring-amber-300/30 shadow-[0_0_18px_rgba(251,191,36,0.18)]",
+    blurb: "A coin collecting app for people who see history in coins. Keep your collection in one place, learn the story behind each coin, and ask other collectors for an honest second opinion. In open beta on Android.",
+    websiteUrl: "https://mohur.devianlabs.com",
+    extraLink: { label: "Join the Android beta", href: "https://groups.google.com/g/mohur-beta-testers" },
+    href: "/products/mohur",
   },
   {
-    name: "Biswajeet Dehuri",
-    role: "App Engineering Lead",
-    linkedin: "https://www.linkedin.com/in/biswajeet-dehuri-7b1078224/",
-    image: "/team/biswajeet.png",
+    name: "Devian Desktop",
+    logo: "/products/devian-desktop.png",
+    blurb: "A control center for your dev machine. It finds abandoned projects, lets you filter them by tech stack, age and activity, and reclaims disk space in one click.",
+    websiteUrl: "https://devian.app",
+    href: "/products/devian-desktop",
   },
   {
-    name: "Debesh Mohapatra",
-    role: "Web Engineering Lead",
-    linkedin: "https://www.linkedin.com/in/debesh-mohapatra-650070205/",
-    image: "/team/debesh.jpg",
+    name: "Campfyr",
+    logo: "/products/campfyr-icon.png",
+    blurb: "An off-grid companion for group trips. SOS alerts over Bluetooth, shared itineraries, expense splitting and photo sharing, all working without a signal.",
+    href: "/products/campfyr",
   },
   {
-    name: "Rohit Mohanty",
-    role: "Client Relations Lead",
-    linkedin: "https://www.linkedin.com/in/rohit-mohanty-3013511b5/",
-    image: "/team/rohit.png",
+    name: "Khao",
+    logo: "/products/khao.png",
+    blurb: "QR menus and table ordering for small food vendors. Customers order from any phone browser with no app to install, and vendors see orders come in live.",
+    websiteUrl: "https://khao.app",
+    href: "/products/khao",
   },
 ];
+
+const clientWork = [
+  {
+    name: "Aveline Homes",
+    kind: "Real estate",
+    image: "/clients/realestate.png",
+    href: "https://avelinehomes.in/",
+  },
+  {
+    name: "The Balkrishna Palace",
+    kind: "Hotel · Jeypore",
+    image: "/clients/balkrishnapalace.png",
+    href: "https://balkrishnapalace.com/",
+  },
+  {
+    name: "Siridi Sai Mobiles",
+    kind: "Electronics store",
+    image: "/clients/electronics.png",
+    href: "https://devian-labs.github.io/Siridi-Sai-Mobiles/",
+  },
+  {
+    name: "Sri Ganesh Bike Point",
+    kind: "Bike servicing · Jeypore",
+    image: "/clients/bikepoint.png",
+    href: "https://devian-labs.github.io/Sri-Ganesh-Bike-Point/",
+  },
+];
+
+// TODO: Team section hidden for now — restore later (also re-import `Users` from lucide-react)
+// const teamMembers = [
+//   {
+//     name: "Smruti Ranjan Badatya",
+//     role: "Founder",
+//     linkedin: "https://www.linkedin.com/in/iamsmruti/",
+//     image: "/team/smruti.png",
+//   },
+//   {
+//     name: "Biswajeet Dehuri",
+//     role: "App Engineering Lead",
+//     linkedin: "https://www.linkedin.com/in/biswajeet-dehuri-7b1078224/",
+//     image: "/team/biswajeet.png",
+//   },
+//   {
+//     name: "Debesh Mohapatra",
+//     role: "Web Engineering Lead",
+//     linkedin: "https://www.linkedin.com/in/debesh-mohapatra-650070205/",
+//     image: "/team/debesh.jpg",
+//   },
+//   {
+//     name: "Rohit Mohanty",
+//     role: "Client Relations Lead",
+//     linkedin: "https://www.linkedin.com/in/rohit-mohanty-3013511b5/",
+//     image: "/team/rohit.png",
+//   },
+// ];
 
 export default function Home() {
   return (
@@ -63,259 +137,41 @@ export default function Home() {
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-zinc-400 mb-12 max-w-[600px] leading-relaxed">
-            Shipping our own products and helping founders go from idea to launched MVP in weeks, not quarters.
+          <p className="text-lg md:text-xl text-zinc-400 mb-12 max-w-[640px] leading-relaxed">
+            We design, build and run our own software products, and deliver web and mobile projects for
+            founders and businesses.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-16">
+            <Link
+              href="#products"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22),0_0_56px_rgba(139,92,246,0.12)] transition-all duration-300"
+            >
+              See Our Work <ArrowDown className="w-4 h-4" />
+            </Link>
             <Link
               href="mailto:hello@devianlabs.com"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22),0_0_56px_rgba(139,92,246,0.12)] transition-all duration-300"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-500 transition-all duration-300"
             >
               Work With Us <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="#products"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-500 transition-all duration-300"
-            >
-              See What We&apos;ve Built
-            </Link>
           </div>
 
-        </div>
-      </section>
-
-      {/* ── Services ─────────────────────────────────────────── */}
-      <section id="services" className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
-              <Code2 className="w-3 h-3" /> Services
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
-              What We Build{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                for Clients.
-              </span>
-            </h2>
-            <p className="text-muted-foreground max-w-[500px] mx-auto">
-              Three things we&apos;re good at. We don&apos;t pretend to do everything.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-            <ServiceCard
-              icon={Zap}
-              title="MVP from Idea"
-              description="You have an idea and a deadline. We turn it into a shipped, working product in weeks. Ideal for founders validating a market or testing a new line of business."
-              href="/services/mvp-from-idea"
-              tag="mvp --speed-first"
-              color="violet"
-            />
-            <ServiceCard
-              icon={Code2}
-              title="Custom Software Dev"
-              description="End-to-end delivery for teams who know what they need built. Web apps, internal tools, integrations - built lean, shipped clean, documented properly."
-              href="/services/software-development"
-              tag="dev --full-stack"
-              color="cyan"
-            />
-            <ServiceCard
-              icon={Globe}
-              title="Helping Biz go Digital"
-              description="Local businesses that need a real online presence. We build fast, modern websites that bring in customers - for a real estate agent and an electronics store."
-              href="/services/helping-biz-go-digital"
-              tag="web --go-live"
-              color="emerald"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Products ─────────────────────────────────────────── */}
-      <section id="products" className="px-4 md:px-6 py-24 md:py-32 bg-zinc-950 border-b">
-        <div className="container mx-auto max-w-6xl">
-
-          <div className="mb-14 text-center">
-            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
-              <Zap className="w-3 h-3" /> Products
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
-              Things{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                We&apos;ve Built.
-              </span>
-            </h2>
-            <p className="text-muted-foreground max-w-[560px] mx-auto">
-              We build products for ourselves, too. It&apos;s how we stay sharp - and it&apos;s why clients trust us to build theirs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <ProductCarousel
-              title="Devian Desktop"
-              slides={[
-                { text: "The control center for your dev machine.", image: "/devian-desktop-preview.png" },
-                { text: "Find abandoned projects and clean up clutter.", image: "/devian-desktop-preview.png" },
-                { text: "Filter by tech stack, age, and activity.", image: "/devian-desktop-preview.png" },
-                { text: "Reclaim disk space with one click.", image: "/devian-desktop-preview.png" },
-              ]}
-              href="/products/devian-desktop"
-              websiteUrl="https://devian.app"
-              showImage={false}
-              description="The control center for your dev machine — find abandoned projects, filter by tech stack, age, and activity, and reclaim disk space with one click."
-            />
-            <ProductCarousel
-              title="Khao"
-              slides={[
-                { text: "QR-based menu and table ordering for small food vendors.", image: "/Khao-preview.png" },
-                { text: "Real-time orders — no app install required.", image: "/Khao-preview.png" },
-                { text: "Works on any smartphone browser.", image: "/Khao-preview.png" },
-                { text: "Vendor dashboard for live order management.", image: "/Khao-preview.png" },
-              ]}
-              href="/products/khao"
-              websiteUrl="https://khao.app"
-              showImage={false}
-              description="QR-based menu and table ordering for small food vendors — real-time orders with no app install, works on any smartphone browser, plus a vendor dashboard for live order management."
-            />
-            <ProductCarousel
-              title="Campfyr"
-              slides={[
-                { text: "SOS alert when you're in trouble — nearby members get it over Bluetooth, no signal needed.", image: "/campfyr-preview.png" },
-                { text: "Split trip expenses as you go. No spreadsheets, no settling up at the end.", image: "/campfyr-preview.png" },
-                { text: "Share photos with the group instantly — offline, peer-to-peer, no upload.", image: "/campfyr-preview.png" },
-                { text: "Plan your itinerary together before you leave. Stays on your phone when you're off-grid.", image: "/campfyr-preview.png" },
-              ]}
-              href="/products/campfyr"
-              showImage={false}
-              description="An off-grid companion for group trips — send SOS alerts over Bluetooth with no signal, split expenses as you go, share photos peer-to-peer, and plan your itinerary together, all kept on your phone."
-            />
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── AgileCoder ───────────────────────────────────────── */}
-      <section id="agilecoder" className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
-              <BookOpen className="w-3 h-3" /> Knowledge
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
-              We Share{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                What We Learn.
-              </span>
-            </h2>
-            <p className="text-muted-foreground max-w-[560px] mx-auto leading-relaxed">
-              Through AgileCoder, our knowledge arm, we publish tutorials, write books, and ship developer tools. It keeps us honest — and it helps other developers ship better software.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-4 mb-12 max-w-3xl mx-auto">
-            {[
-              {
-                icon: PlayCircle,
-                label: "Video Tutorials",
-                sub: "300+ subscribers · 1,000+ watch hours",
-                href: "https://www.youtube.com/@AgileCoderYT",
-                color: "text-red-400",
-              },
-              {
-                icon: FileText,
-                label: "Tech Blog",
-                sub: "Practical writing for working developers",
-                href: "https://agilecoder.in/blog",
-                color: "text-cyan-400",
-              },
-              {
-                icon: Package,
-                label: "AI-Ready Boilerplates",
-                sub: "Production scaffolds for modern stacks",
-                href: "https://build.devianlabs.com",
-                color: "text-violet-400",
-              },
-            ].map(({ icon: Icon, label, sub, href, color }) => (
-              <Link
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col gap-4 rounded-2xl p-6 bg-zinc-900/50 border border-white/[0.06] hover:border-cyan-500/25 hover:shadow-[0_0_22px_rgba(34,211,238,0.07)] hover:-translate-y-1 transition-all duration-300 group"
-              >
-                <div className="p-2.5 rounded-xl bg-zinc-800/60 border border-zinc-700/50 w-fit">
-                  <Icon className={cn("w-5 h-5", color)} />
+          {/* Our products */}
+          <div className="flex items-center gap-3 md:gap-4">
+            {products.map(({ name, logo, logoClass }, i, all) => (
+              <div key={name} className="flex items-center gap-3 md:gap-4">
+                <div className="flex flex-col items-center gap-2">
+                  <Image
+                    src={logo}
+                    alt={name}
+                    width={56}
+                    height={56}
+                    className={cn("w-11 h-11 md:w-14 md:h-14 object-contain rounded-xl", logoClass)}
+                  />
+                  <span className="text-[10px] md:text-[11px] text-zinc-500 font-medium whitespace-nowrap">{name}</span>
                 </div>
-                <div>
-                  <p className="font-semibold text-zinc-100 text-sm mb-1 group-hover:text-white transition-colors">{label}</p>
-                  <p className="text-xs text-zinc-500 leading-relaxed">{sub}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="https://agilecoder.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22)] transition-all duration-300"
-            >
-              Visit AgileCoder <ExternalLink className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Approach ─────────────────────────────────────────── */}
-      <section id="approach" className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
-        <div className="container mx-auto max-w-5xl">
-
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
-              <Terminal className="w-3 h-3" /> Our Approach
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
-              Built lean.{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                Shipped fast.
-              </span>
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              We don&apos;t sell hours. We ship work. Here&apos;s how we think about it.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-            {[
-              {
-                icon: Layout,
-                label: "Lean",
-                desc: "No bloat. Every feature earns its place. We ship what's needed, nothing more.",
-              },
-              {
-                icon: Terminal,
-                label: "Practical",
-                desc: "Grounded in real use cases. Built for how people actually work, not edge cases.",
-              },
-              {
-                icon: Cpu,
-                label: "Focused",
-                desc: "One problem solved well beats ten solved halfway.",
-              },
-            ].map(({ icon: Icon, label, desc }) => (
-              <div
-                key={label}
-                className="rounded-2xl p-6 flex flex-col gap-4 bg-zinc-900/50 border border-white/[0.06] hover:border-cyan-500/25 hover:shadow-[0_0_22px_rgba(34,211,238,0.07)] hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="p-2.5 rounded-xl bg-zinc-800/60 border border-zinc-700/50 w-fit">
-                  <Icon className="w-5 h-5 text-zinc-300" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground text-sm mb-2">{label}</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
-                </div>
+                {i < all.length - 1 && <span className="w-4 md:w-8 h-px bg-gradient-to-r from-cyan-500/40 to-violet-500/40 mb-5" />}
               </div>
             ))}
           </div>
@@ -323,7 +179,248 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 01 · Products ────────────────────────────── */}
+      <section className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
+        <div id="products" className="scroll-mt-16 container mx-auto max-w-5xl">
+
+          <SectionLabel n="01" label="Products" />
+          <div className="max-w-2xl mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
+              Our{" "}
+              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                products.
+              </span>
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Software we design, build and maintain in-house, across mobile, web and desktop.
+            </p>
+          </div>
+
+          <ol className="relative border-l border-white/[0.08] ml-6 md:ml-10 flex flex-col gap-16">
+            {products.map((p) => (
+              <li key={p.name} className="relative pl-12 md:pl-20">
+                <Image
+                  src={p.logo}
+                  alt={`${p.name} logo`}
+                  width={80}
+                  height={80}
+                  className={cn("absolute -left-6 md:-left-10 top-0 w-12 h-12 md:w-20 md:h-20 object-contain rounded-2xl outline outline-4 outline-background", p.logoClass)}
+                />
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-50 mb-3 md:pt-2">{p.name}</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed max-w-3xl">{p.blurb}</p>
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                  {p.websiteUrl && (
+                    <Link href={p.websiteUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
+                      Visit <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
+                  {p.extraLink && (
+                    <Link href={p.extraLink.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
+                      {p.extraLink.label} <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
+                  <Link href={p.href} className="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 transition-colors">
+                    Case study <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+        </div>
+      </section>
+
+      {/* ── 02 · Client work ─────────────────────────────────── */}
+      <section id="work" className="scroll-mt-16 px-4 md:px-6 py-24 md:py-32 bg-background border-b">
+        <div className="container mx-auto max-w-6xl">
+          <div className="max-w-5xl mx-auto">
+            <SectionLabel n="02" label="Client work" />
+            <div className="max-w-2xl mb-14">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
+                Selected{" "}
+                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                  client projects.
+                </span>
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Custom software for founders, and websites that help local businesses get found online.
+              </p>
+            </div>
+          </div>
+
+          {/* Custom software */}
+          <ClientGroupHeading
+            title="Custom software"
+            desc="Products designed and built end to end, from first brief to launch."
+            href="/services/software-development"
+          />
+          <Link
+            href="https://thenolia.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group grid lg:grid-cols-[1.4fr_1fr] rounded-3xl overflow-hidden bg-zinc-900/50 border border-white/[0.07] hover:border-cyan-500/30 hover:shadow-[0_20px_40px_-20px_rgba(34,211,238,0.15)] transition-all duration-300 mb-16"
+          >
+            <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[340px] bg-zinc-950 overflow-hidden">
+              <Image
+                src="/clients/nolia.png"
+                alt="Nolia website"
+                fill
+                sizes="(min-width: 1024px) 700px, 100vw"
+                className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+              />
+            </div>
+            <div className="p-8 md:p-10 flex flex-col justify-center">
+              <p className="text-[11px] font-semibold tracking-widest uppercase text-zinc-500 mb-3">Cloud kitchen · Built end to end</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-50 mb-4">Nolia</h3>
+              <p className="text-zinc-400 leading-relaxed mb-6">
+                An artisanal dessert storefront where customers craft and order their own treats. Live with real
+                customers since launch.
+              </p>
+              <span className="inline-flex items-center gap-1.5 w-fit px-3 py-1.5 rounded-full text-sm font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 mb-6">
+                <TrendingUp className="w-4 h-4" /> ₹1.5 lakh+ in orders
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors">
+                Visit site <ExternalLink className="w-3.5 h-3.5" />
+              </span>
+            </div>
+          </Link>
+
+          {/* Helping local businesses go digital */}
+          <ClientGroupHeading
+            title="Helping local businesses go digital"
+            desc="Fast, modern websites for shops, hotels and service businesses that bring in customers."
+            href="/services/helping-biz-go-digital"
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+            {clientWork.map((c) => (
+              <Link
+                key={c.name}
+                href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-2xl overflow-hidden bg-zinc-900/50 border border-white/[0.07] hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="relative aspect-[16/10] bg-zinc-950 border-b border-white/[0.05] overflow-hidden">
+                  <Image
+                    src={c.image}
+                    alt={`${c.name} website`}
+                    fill
+                    sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-top group-hover:scale-[1.04] transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="font-semibold text-zinc-100 text-sm mb-1 flex items-center justify-between gap-2">
+                    {c.name}
+                    <ExternalLink className="w-3.5 h-3.5 text-zinc-600 group-hover:text-cyan-400 transition-colors shrink-0" />
+                  </h3>
+                  <p className="text-xs text-zinc-500">{c.kind}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* How to become the next one */}
+          <div id="services" className="scroll-mt-24">
+            <div className="text-center mb-12">
+              <h3 className="text-2xl md:text-4xl font-bold tracking-tighter mb-4">
+                Three ways{" "}
+                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                  we can help.
+                </span>
+              </h3>
+              <p className="text-muted-foreground max-w-[500px] mx-auto">
+                We don&apos;t pretend to do everything. These are the things we&apos;re good at.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+              <ServiceCard
+                icon={Zap}
+                title="MVP from Idea"
+                description="You have an idea and a deadline. We turn it into a shipped, working product in weeks."
+                href="/services/mvp-from-idea"
+                tag="mvp --speed-first"
+                color="violet"
+              />
+              <ServiceCard
+                icon={Code2}
+                title="Custom Software Dev"
+                description="End-to-end delivery for teams who know what they need built. Web apps, internal tools, integrations. Built lean, documented properly."
+                href="/services/software-development"
+                tag="dev --full-stack"
+                color="cyan"
+              />
+              <ServiceCard
+                icon={Globe}
+                title="Helping Biz go Digital"
+                description="Local businesses that need a real online presence. Fast, modern websites that bring in customers, like the ones above."
+                href="/services/helping-biz-go-digital"
+                tag="web --go-live"
+                color="emerald"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 03 · AgileCoder ───────────────────────────────── */}
+      {/* TODO: AgileCoder section hidden for now — restore later (also re-import PlayCircle, FileText, Package)
+      <section id="agilecoder" className="scroll-mt-16 px-4 md:px-6 py-24 md:py-32 bg-zinc-950 border-b">
+        <div className="container mx-auto max-w-5xl">
+          <SectionLabel n="03" label="Knowledge" />
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+            <div>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
+                We share{" "}
+                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                  what we learn.
+                </span>
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+                Through AgileCoder, our knowledge arm, we publish tutorials, write books and ship developer tools.
+                It keeps us honest, and it helps other developers ship better software.
+              </p>
+              <Link
+                href="https://agilecoder.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22)] transition-all duration-300"
+              >
+                Visit AgileCoder <ExternalLink className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {[
+                { icon: PlayCircle, label: "Video Tutorials", sub: "300+ subscribers · 1,000+ watch hours", href: "https://www.youtube.com/@AgileCoderYT", color: "text-red-400" },
+                { icon: FileText, label: "Tech Blog", sub: "Practical writing for working developers", href: "https://agilecoder.in/blog", color: "text-cyan-400" },
+                { icon: Package, label: "AI-Ready Boilerplates", sub: "Production scaffolds for modern stacks", href: "https://build.devianlabs.com", color: "text-violet-400" },
+              ].map(({ icon: Icon, label, sub, href, color }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 rounded-2xl p-5 bg-zinc-900/50 border border-white/[0.06] hover:border-cyan-500/25 hover:shadow-[0_0_22px_rgba(34,211,238,0.07)] hover:translate-x-1 transition-all duration-300 group"
+                >
+                  <div className="p-2.5 rounded-xl bg-zinc-800/60 border border-zinc-700/50 shrink-0">
+                    <Icon className={cn("w-5 h-5", color)} />
+                  </div>
+                  <div className="flex-grow">
+                    <p className="font-semibold text-zinc-100 text-sm mb-0.5 group-hover:text-white transition-colors">{label}</p>
+                    <p className="text-xs text-zinc-500 leading-relaxed">{sub}</p>
+                  </div>
+                  <ExternalLink className="w-3.5 h-3.5 text-zinc-600 group-hover:text-cyan-400 transition-colors shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      */}
+
       {/* ── Team ─────────────────────────────────────────────── */}
+      {/* TODO: Team section hidden for now — restore later
       <section id="team" className="relative overflow-hidden px-4 md:px-6 py-24 md:py-32 bg-zinc-950 border-b">
         <div className="absolute w-[500px] h-[500px] rounded-full bg-violet-600/[0.10] blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="absolute inset-0 pointer-events-none opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:44px_44px]" />
@@ -376,6 +473,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
 
       {/* ── Get in Touch ─────────────────────────────────────── */}
       <section id="contact" className="px-4 md:px-6 py-24 md:py-32 bg-background">
@@ -481,6 +579,35 @@ function ServiceCard({ icon: Icon, title, description, href, color = "cyan" }: {
           </span>
         </Link>
       </div>
+    </div>
+  );
+}
+
+/* ── Client work group heading ───────────────────────────── */
+function ClientGroupHeading({ title, desc, href }: { title: string; desc: string; href: string }) {
+  return (
+    <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
+      <div>
+        <h3 className="text-xl md:text-2xl font-bold tracking-tight text-zinc-50 mb-1">{title}</h3>
+        <p className="text-sm text-zinc-500">{desc}</p>
+      </div>
+      <Link
+        href={href}
+        className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors shrink-0"
+      >
+        About this service <ArrowRight className="w-3.5 h-3.5" />
+      </Link>
+    </div>
+  );
+}
+
+/* ── Section label ────────────────────────────────────────── */
+function SectionLabel({ n, label }: { n: string; label: ReactNode }) {
+  return (
+    <div className="flex items-center gap-4 mb-8">
+      <span className="font-mono text-sm font-semibold text-cyan-400">{n}</span>
+      <span className="h-px w-12 bg-gradient-to-r from-cyan-500/60 to-violet-500/40" />
+      <span className="text-[11px] font-semibold tracking-widest uppercase text-zinc-400">{label}</span>
     </div>
   );
 }
