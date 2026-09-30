@@ -1,38 +1,40 @@
 ---
 title: "Devian Desktop"
-description: "The control center for your dev machine. Find abandoned projects, clean up clutter, stay organised."
-date: "2026-04-01"
+description: "A control center for the AI coding agents on your machine. See what Claude Code, Codex, Cursor, OpenCode and Antigravity did: sessions, commands, leftover servers, memory and token usage. Free, open source, 100% local."
+date: "2026-09-30"
 author: "Devian Labs"
 ---
 
 ## The problem
 
-Every developer who's been working for a few years has the same problem: a filesystem full of clutter. Projects started and abandoned. Dependencies installed and forgotten. Repos that haven't been touched in two years still sitting in `~/code`, quietly consuming disk space.
+AI coding agents now do a lot of work on developers' machines, and most of it happens out of sight. An agent runs commands, edits files, starts dev servers and Docker containers, writes to its own memory, and burns through tokens. When the session ends, you're left to piece together what actually happened.
 
-The standard fix is a manual audit — open Finder or a terminal, scroll through directories, try to remember what each project was, decide whether it's safe to delete. It's tedious, it doesn't scale, and most people never do it systematically.
-
-We hit this problem ourselves. We built Devian Desktop to solve it.
+Each agent keeps its own history in its own format. Claude Code, Codex, OpenCode, Cursor and Antigravity all store sessions, memory and usage differently, in different folders. There's no single place to see what they did, what they left running, or how close you are to your plan limits.
 
 ## What we built
 
-Devian Desktop is a native macOS application that acts as a control centre for your development machine. It scans your filesystem, indexes every repository it finds, and surfaces the information you need to make decisions.
+Devian started as a tool for cleaning up a cluttered dev machine. With version 2.0 it became a control center for the AI coding agents on your machine. It reads the agents' own local history and never sends it anywhere.
 
-The core workflow:
-- Scan a directory and find every repository, regardless of language or framework
-- See at a glance which ones are active, which are stale, and which haven't been touched in months
-- Filter by tech stack, last modified date, or repository size
-- Clean up safely — remove `node_modules`, build artifacts, or the whole repo — with one action
-
-The dashboard gives you a complete picture of your local development environment without having to open a terminal.
+The core features:
+- **Sessions**: one timeline across all your agents. Prompts, every command run and every file edited. Risky actions like force pushes, `sudo`, `rm -rf` outside the project, `curl | sh`, `.env` edits and global installs are flagged
+- **Runtime**: processes, ports and Docker containers traced back to the agent session that started them. Anything still running after the session ended shows up as a leftover you can stop in one click
+- **Memory**: everything agents load into context, from Claude Code auto-memory and `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` to Cursor rules and Codex memories. Read it, edit it in the built-in editor, or forget what's wrong
+- **Usage and plan limits**: tokens per day, agent, project and model, plus Claude and Codex 5-hour and weekly limits with their reset times
+- **Cleanup**: old transcripts, rewind checkpoints, undo snapshots and editor caches, alongside `node_modules`, build artifacts and Docker leftovers
+- **MCP server**: read-only tools that let agents check which dev servers are running, get a free port and see what other agents did in a project, instead of guessing
 
 ## Key decisions
 
-**Native over Electron.** Electron apps are convenient to build but heavy to run. Devian Desktop is built natively, which means it starts fast, uses minimal memory, and doesn't feel like a website pretending to be an app.
+**Local only.** Agent history contains prompts, code and secrets. Devian reads it where it already lives and never uploads it. There are no accounts.
 
-**Read before you delete.** We spent a lot of time on the cleanup flow. The app shows you exactly what will be removed and how much space you'll recover before you confirm anything. Mistakes here are expensive.
+**Read-only by default.** Devian observes the agents rather than controlling them. Cleanup and Forget move files to the Trash instead of deleting them, and the MCP server only exposes read-only tools.
 
-**No cloud, no telemetry.** Everything stays on your machine. No account required, no usage data sent anywhere. Your file system is your business.
+**One view across agents.** Developers rarely use just one agent. Devian supports Claude Code, Codex, OpenCode, Cursor and Antigravity side by side, including multiple Claude Code accounts.
+
+**Native and cross-platform.** Built with Tauri (a Rust backend with a React frontend), so it starts fast and runs on macOS, Windows and Linux.
+
+**Free and open source.** Every feature is free, with no license keys or feature limits.
 
 ## Status
 
-Devian Desktop is in active development. Visit [devian.app](https://devian.app) to follow progress and join the early access list.
+Devian 2.0 is available for macOS (via Homebrew or direct download), Windows and Linux. Visit [devian.app](https://devian.app) to download it.

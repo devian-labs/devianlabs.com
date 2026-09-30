@@ -21,6 +21,8 @@ const products: {
   href: string;
   websiteUrl?: string;
   extraLink?: { label: string; href: string };
+  githubUrl?: string;
+  badge?: string;
 }[] = [
   {
     name: "Mohur",
@@ -35,8 +37,10 @@ const products: {
   {
     name: "Devian Desktop",
     logo: "/products/devian-desktop.png",
-    blurb: "A control center for your dev machine. It finds abandoned projects, lets you filter them by tech stack, age and activity, and reclaims disk space in one click.",
+    blurb: "A control center for the AI coding agents on your machine. See what Claude Code, Codex, Cursor and others actually did, stop the servers they left running, and track token usage. Free and fully local.",
     websiteUrl: "https://devian.app",
+    githubUrl: "https://github.com/devian-labs/devian",
+    badge: "Open source",
     href: "/products/devian-desktop",
   },
   {
@@ -206,12 +210,24 @@ export default function Home() {
                   height={80}
                   className={cn("absolute -left-6 md:-left-10 top-0 w-12 h-12 md:w-20 md:h-20 object-contain rounded-2xl outline outline-4 outline-background", p.logoClass)}
                 />
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-50 mb-3 md:pt-2">{p.name}</h3>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-3 md:pt-2">
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-50">{p.name}</h3>
+                  {p.badge && (
+                    <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+                      {p.badge}
+                    </span>
+                  )}
+                </div>
                 <p className="text-zinc-400 text-lg leading-relaxed max-w-3xl">{p.blurb}</p>
                 <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
                   {p.websiteUrl && (
                     <Link href={p.websiteUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
                       Visit <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  )}
+                  {p.githubUrl && (
+                    <Link href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
+                      <GitHubMark className="w-3.5 h-3.5" /> GitHub
                     </Link>
                   )}
                   {p.extraLink && (
@@ -598,6 +614,15 @@ function ClientGroupHeading({ title, desc, href }: { title: string; desc: string
         About this service <ArrowRight className="w-3.5 h-3.5" />
       </Link>
     </div>
+  );
+}
+
+/* ── GitHub mark (lucide no longer ships brand icons) ────── */
+function GitHubMark({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+    </svg>
   );
 }
 
