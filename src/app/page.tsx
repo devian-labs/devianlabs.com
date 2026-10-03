@@ -5,6 +5,8 @@ import {
   ExternalLink, Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { WHATSAPP_URL } from "@/lib/contact";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 import type { ElementType, ReactNode } from "react";
 
 /*
@@ -34,6 +36,8 @@ const products: {
     extraLink: { label: "Join the Android beta", href: "https://groups.google.com/g/mohur-beta-testers" },
     href: "/products/mohur",
   },
+  // Hidden for now:
+  /*
   {
     name: "Devian Desktop",
     logo: "/products/devian-desktop.png",
@@ -43,12 +47,15 @@ const products: {
     badge: "Open source",
     href: "/products/devian-desktop",
   },
+  */
   {
     name: "Campfyr",
     logo: "/products/campfyr-icon.png",
     blurb: "An off-grid companion for group trips. SOS alerts over Bluetooth, shared itineraries, expense splitting and photo sharing, all working without a signal.",
     href: "/products/campfyr",
   },
+  // Hidden for now:
+  /*
   {
     name: "Khao",
     logo: "/products/khao.png",
@@ -56,6 +63,7 @@ const products: {
     websiteUrl: "https://khao.app",
     href: "/products/khao",
   },
+  */
 ];
 
 const clientWork = [
@@ -506,12 +514,22 @@ export default function Home() {
           <p className="text-muted-foreground max-w-[480px] mx-auto mb-10 leading-relaxed">
             Tell us what you&apos;re working on. We reply within a day.
           </p>
-          <Link
-            href="mailto:hello@devianlabs.com"
-            className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full text-sm font-semibold border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22),0_0_56px_rgba(139,92,246,0.12)] transition-all duration-300 mb-4"
-          >
-            Get in Touch <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+            <Link
+              href="mailto:hello@devianlabs.com"
+              className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full text-sm font-semibold border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22),0_0_56px_rgba(139,92,246,0.12)] transition-all duration-300"
+            >
+              Get in Touch <ArrowRight className="w-4 h-4" />
+            </Link>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full text-sm font-semibold border border-emerald-500/35 text-emerald-400 bg-emerald-500/[0.08] hover:border-emerald-400/65 hover:bg-emerald-500/[0.14] hover:shadow-[0_0_28px_rgba(52,211,153,0.22)] transition-all duration-300"
+            >
+              <WhatsAppIcon className="w-4 h-4" /> Message on WhatsApp
+            </a>
+          </div>
           <p className="text-sm text-zinc-600">
             Or email us directly at{" "}
             <a href="mailto:hello@devianlabs.com" className="text-zinc-500 hover:text-zinc-300 transition-colors duration-200">

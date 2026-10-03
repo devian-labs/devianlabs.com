@@ -3,6 +3,7 @@ title: "Khao"
 description: "QR-based menu and table ordering for small food vendors. Real-time, no app install, works on any phone."
 date: "2026-04-01"
 author: "Devian Labs"
+hidden: true # hidden from the site for now; remove to restore
 ---
 
 ## The problem

@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!fs.existsSync(filePath)) return { title: 'Product Not Found' };
 
   const { data } = matter(fs.readFileSync(filePath, 'utf8'));
+  if (data.hidden) return { title: 'Product Not Found' };
   return {
     title: data.title,
     description: data.description,
@@ -33,7 +34,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export async function generateStaticParams() {
   const dir = path.join(process.cwd(), 'content', 'products');
   if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir).map((f) => ({ slug: f.replace('.md', '') }));
+  return fs
+    .readdirSync(dir)
+    .filter((f) => !matter(fs.readFileSync(path.join(dir, f), 'utf8')).data.hidden)
+    .map((f) => ({ slug: f.replace('.md', '') }));
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -42,6 +46,7 @@ export default async function ProductPage({ params }: Props) {
   if (!fs.existsSync(filePath)) notFound();
 
   const { data, content } = matter(fs.readFileSync(filePath, 'utf8'));
+  if (data.hidden) notFound();
 
   return (
     <div className="min-h-screen bg-zinc-950">

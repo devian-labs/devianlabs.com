@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { WHATSAPP_URL } from "@/lib/contact";
 
 export default function Footer() {
   return (
@@ -29,14 +30,15 @@ export default function Footer() {
             <Link href="/#team" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Team</Link>
             */}
             <a href="mailto:hello@devianlabs.com" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Contact</a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-sm text-zinc-600 hover:text-emerald-400 transition-colors duration-200">WhatsApp</a>
           </div>
 
           {/* Products */}
           <div className="flex flex-col gap-3">
             <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Products</h4>
             <Link href="/products/mohur" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Mohur</Link>
-            <Link href="/products/devian-desktop" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Devian Desktop</Link>
-            <Link href="/products/khao" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Khao</Link>
+            {/* Hidden for now: <Link href="/products/devian-desktop" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Devian Desktop</Link> */}
+            {/* Hidden for now: <Link href="/products/khao" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Khao</Link> */}
             <Link href="/products/campfyr" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Campfyr</Link>
           </div>
 

@@ -3,6 +3,7 @@ title: "Devian Desktop"
 description: "A control center for the AI coding agents on your machine. See what Claude Code, Codex, Cursor, OpenCode and Antigravity did: sessions, commands, leftover servers, memory and token usage. Free, open source, 100% local."
 date: "2026-09-30"
 author: "Devian Labs"
+hidden: true # hidden from the site for now; remove to restore
 ---
 
 ## The problem

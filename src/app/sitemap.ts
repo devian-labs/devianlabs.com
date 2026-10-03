@@ -1,13 +1,17 @@
 import type { MetadataRoute } from 'next';
 import fs from 'fs';
 import path from 'path';
+import matter from 'gray-matter';
 
 const BASE_URL = 'https://devianlabs.com';
 
 function getSlugs(dir: string): string[] {
   const full = path.join(process.cwd(), 'content', dir);
   if (!fs.existsSync(full)) return [];
-  return fs.readdirSync(full).map((f) => f.replace('.md', ''));
+  return fs
+    .readdirSync(full)
+    .filter((f) => !matter(fs.readFileSync(path.join(full, f), 'utf8')).data.hidden)
+    .map((f) => f.replace('.md', ''));
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {

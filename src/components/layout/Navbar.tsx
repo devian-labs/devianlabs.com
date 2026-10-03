@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button-variants";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { WHATSAPP_URL } from "@/lib/contact";
 
 const navLinks = [
   { href: "/#products", label: "Products" },
@@ -39,6 +41,17 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
+
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Message us on WhatsApp"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors duration-200"
+          >
+            <WhatsAppIcon className="w-[18px] h-[18px]" />
+            <span className="hidden md:inline">WhatsApp</span>
+          </a>
 
           <Link
             href="mailto:hello@devianlabs.com"
