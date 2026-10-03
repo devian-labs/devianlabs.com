@@ -52,6 +52,7 @@ const products: {
     name: "Campfyr",
     logo: "/products/campfyr-icon.png",
     blurb: "An off-grid companion for group trips. SOS alerts over Bluetooth, shared itineraries, expense splitting and photo sharing, all working without a signal.",
+    websiteUrl: "https://campfyr.devianlabs.com",
     href: "/products/campfyr",
   },
   // Hidden for now:
