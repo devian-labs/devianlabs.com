@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 const inter = Inter({ subsets: ["latin"], display: "optional" });
 
@@ -80,6 +81,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <FloatingWhatsApp />
       </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-CYX4NC6G1R"
