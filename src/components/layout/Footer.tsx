@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-7">
           <div className="col-span-2 flex flex-col gap-5 md:col-span-4 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">
-              <Image src="/devian-labs-logo.png" alt="" width={28} height={28} className="rounded-lg" />
+              <Image src="/devian-labs-logo-256.png" alt="" width={28} height={28} className="rounded-lg" />
               <span className="text-[15px] font-semibold tracking-tight text-fg">Devian Labs</span>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-fg-2">

@@ -17,6 +17,12 @@ export type Product = {
   /** Accent used for glows and dots on the case study. */
   accent: string;
   category: string;
+  /** Search title (without the site suffix) and description, each kept within search-result limits. */
+  seo: { title: string; description: string };
+  /** schema.org applicationCategory for structured data. */
+  schemaCategory: string;
+  /** Has a free way to use it, so structured data can list a ₹0 / $0 offer. */
+  free: boolean;
   tagline: string;
   summary: string;
   platforms: string[];
@@ -27,7 +33,6 @@ export type Product = {
   proves: string[];
   links: { label: string; href: string }[];
   github?: string;
-  install?: string;
   visual: ProductVisual;
   gallery?: { src: string; alt: string; caption: string }[];
   problem: string[];
@@ -46,20 +51,23 @@ export const products: Product[] = [
     icon: "/products/devian-desktop.png",
     accent: "#658cc2",
     category: "Developer tools",
+    seo: {
+      title: "Devian Desktop: Control Center for AI Coding Agents",
+      description:
+        "Case study: how we built Devian Desktop, a free, open-source Rust and Tauri app that shows what Claude Code, Codex and Cursor do on your machine.",
+    },
+    schemaCategory: "DeveloperApplication",
+    free: true,
     tagline: "A control center for the AI coding agents on your machine.",
     summary:
       "Devian shows what Claude Code, Codex, Cursor, OpenCode and Antigravity actually did on your machine: every session, command and file edit, the servers they left running, what they remember and how many tokens they used. Free, open source and fully local.",
     platforms: ["macOS", "Windows", "Linux"],
-    status: "Version 2.0",
+    status: "Version 2.0 · Pre-release",
     openSource: true,
     stack: ["Rust", "Tauri 2", "React 19", "TypeScript", "SQLite", "MCP"],
     proves: ["Desktop apps", "Plugins and integrations", "AI agents and MCP"],
-    links: [
-      { label: "devian.app", href: "https://devian.app" },
-      { label: "Download", href: "https://github.com/devian-labs/devian/releases/latest" },
-    ],
+    links: [{ label: "devian.app", href: "https://devian.app" }],
     github: "https://github.com/devian-labs/devian",
-    install: "brew install --cask devian-labs/tap/devian-desktop",
     visual: { kind: "desktop", src: "/products/devian-desktop/dashboard.png", alt: "Devian Desktop overview: recent agent sessions, risky actions, leftover servers and token usage" },
     problem: [
       "AI coding agents now do a lot of work on developers' machines, and most of it happens out of sight. An agent runs commands, edits files, starts dev servers and Docker containers, writes to its own memory and burns through tokens. When the session ends, you're left to piece together what happened.",
@@ -88,7 +96,7 @@ export const products: Product[] = [
       { title: "Native and cross-platform", desc: "A Rust backend with a React frontend on Tauri, so it starts fast and runs on macOS, Windows and Linux." },
     ],
     statusNote:
-      "Devian started as a control center for a cluttered dev machine: projects, ports, Docker and disk. Version 2.0 rebuilt it around AI coding agents. It's available for macOS through Homebrew or a direct download, with Windows and Linux builds in testing. Every feature is free.",
+      "Devian started as a control center for a cluttered dev machine: projects, ports, Docker and disk. Version 2.0 rebuilds it around AI coding agents and is being prepared for release on macOS, Windows and Linux. Every feature will be free.",
   },
   {
     slug: "betelgeuse",
@@ -96,6 +104,13 @@ export const products: Product[] = [
     icon: "/products/betelgeuse-icon.png",
     accent: "#e2541f",
     category: "Productivity",
+    seo: {
+      title: "Betelgeuse: Local-First Markdown Notes With MCP",
+      description:
+        "Case study: Betelgeuse, an open-source notes and databases app where every page is Markdown in git and AI agents see only the pages you share.",
+    },
+    schemaCategory: "ProductivityApplication",
+    free: true,
     tagline: "Notes, docs and databases that stay yours.",
     summary:
       "A block-based workspace where every page is a plain Markdown file in a git repository on your own computer, and your AI agents can read only the pages you choose to share.",
@@ -151,6 +166,13 @@ export const products: Product[] = [
     iconClass: "p-1 bg-gradient-to-br from-zinc-700 to-zinc-900 ring-1 ring-amber-300/30",
     accent: "#c9a227",
     category: "Community",
+    seo: {
+      title: "Mohur: Coin Collecting App for Numismatists",
+      description:
+        "Case study: Mohur, a Flutter coin collecting app with a 537-type catalogue, history lessons and reputation-weighted community coin verification.",
+    },
+    schemaCategory: "LifestyleApplication",
+    free: true,
     tagline: "Coin collecting, for people who see history in coins.",
     summary:
       "A home for your collection, a catalogue of the coins that were actually issued, short lessons on the history behind them, and a community that verifies coins without ever putting a price on them.",
@@ -208,6 +230,13 @@ export const products: Product[] = [
     icon: "/products/campfyr-icon.png",
     accent: "#f85915",
     category: "Travel",
+    seo: {
+      title: "Campfyr: Group Trip Planner and Expense Splitter",
+      description:
+        "Case study: Campfyr, a local-first group trip app with encrypted phone-to-phone sync, day plans with road routes and UPI expense settle-up.",
+    },
+    schemaCategory: "TravelApplication",
+    free: true,
     tagline: "One shared home for a group trip.",
     summary:
       "The plan, the people, the money and every photo, in one app that keeps working when the signal doesn't. Plan day by day with real road routes, keep tickets and stays in one wallet, split expenses and settle up by UPI, and share photos phone to phone.",
@@ -262,6 +291,13 @@ export const products: Product[] = [
     icon: "/products/khao.png",
     accent: "#dc2626",
     category: "Small business",
+    seo: {
+      title: "Khao: QR Menu and Table Ordering App",
+      description:
+        "Case study: Khao, QR menus and table ordering for small food businesses. Diners order in the browser; vendors run orders from an Android phone.",
+    },
+    schemaCategory: "BusinessApplication",
+    free: false,
     tagline: "QR menus and table ordering for small food businesses.",
     summary:
       "Khao turns any Android phone into a live control room for table QR codes, waiter alerts, kitchen tickets and orders. Diners scan the table and order from their browser, with no app to install.",
@@ -303,7 +339,7 @@ export const products: Product[] = [
     ],
     decisions: [
       { title: "No app for diners", desc: "Asking a customer to install an app kills the order. Khao works in any phone browser." },
-      { title: "Priced for 20 covers a day", desc: "The digital menu is free, and table ordering is a ₹49 Pro upgrade." },
+      { title: "Priced for 20 covers a day", desc: "Small monthly plans sized for a vendor doing 20 covers a day, not 200, with no cut of each order." },
       { title: "Fast to set up", desc: "Upload a menu, print a QR code, done." },
     ],
     statusNote: "Khao 1.0 runs on Android, with the diner menu on the web. It's being tested with small vendors.",

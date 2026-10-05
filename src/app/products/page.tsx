@@ -1,23 +1,35 @@
-import type { Metadata } from "next";
 import { products } from "@/lib/products";
 import { Container, Eyebrow, Heading, Lead } from "@/components/site/primitives";
 import { ProductFeature, ProductTile } from "@/components/site/ProductCard";
 import ContactBand from "@/components/site/ContactBand";
+import JsonLd from "@/components/site/JsonLd";
+import { SITE_URL, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Products",
+export const metadata = pageMetadata({
+  title: "Products and Case Studies",
   description:
-    "Software Devian Labs designs, builds and runs in-house: Devian Desktop and Betelgeuse (open source), Mohur, Campfyr and Khao. Read the case study for each.",
-  alternates: { canonical: "https://devianlabs.com/products" },
-  openGraph: { url: "https://devianlabs.com/products", title: "Products built by Devian Labs" },
-};
+    "Software Devian Labs designs, builds and runs in-house: Devian Desktop and Betelgeuse (open source), Mohur, Campfyr and Khao, with a case study for each.",
+  path: "/products",
+});
 
 export default function ProductsPage() {
   const openSource = products.filter((p) => p.openSource);
   const others = products.filter((p) => !p.openSource);
 
+  const itemList = {
+    "@type": "ItemList",
+    name: "Products built by Devian Labs",
+    itemListElement: products.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: p.name,
+      url: `${SITE_URL}/products/${p.slug}`,
+    })),
+  };
+
   return (
     <>
+      <JsonLd nodes={[itemList, breadcrumbJsonLd([{ name: "Home", path: "" }, { name: "Products", path: "/products" }])]} />
       <header className="relative overflow-hidden border-b border-line">
         <div className="bg-grid mask-fade-radial pointer-events-none absolute inset-0 opacity-60" />
         <Container className="relative py-20 md:py-28">

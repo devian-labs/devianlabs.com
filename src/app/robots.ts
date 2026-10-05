@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/design'],
+        // /design is noindex rather than disallowed, so crawlers can see the noindex tag.
       },
     ],
     sitemap: 'https://devianlabs.com/sitemap.xml',

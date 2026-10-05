@@ -10,6 +10,9 @@ import { ArrowLink, ButtonLink, Container, Eyebrow, Heading, Lead, Section, with
 import { ProductFeature, ProductTile } from "@/components/site/ProductCard";
 import { DesktopWindow } from "@/components/site/ProductVisual";
 import ContactBand from "@/components/site/ContactBand";
+import { HOME_DESCRIPTION, HOME_TITLE, pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: HOME_TITLE, absoluteTitle: true, description: HOME_DESCRIPTION, path: "" });
 
 /*
  * Home: who we are (hero), what we build, our products as proof, client work,
@@ -63,7 +66,7 @@ export default function Home() {
           {/* Product collage: real screens from our products */}
           <div className="relative mt-16 h-[300px] sm:h-[420px] md:mt-20 md:h-[520px] lg:h-[600px]" aria-label="Screens from Devian Labs products">
             <div className="absolute left-0 top-10 w-[68%] opacity-90 md:top-14 md:w-[58%]">
-              <DesktopWindow src="/products/betelgeuse/editor.jpg" alt="Betelgeuse, our open-source notes and docs app" size="md" />
+              <DesktopWindow src="/products/betelgeuse/editor.jpg" alt="Betelgeuse, our open-source notes and docs app" priority size="md" />
             </div>
             <div className="absolute right-0 top-0 z-10 w-[74%] md:w-[62%]">
               <DesktopWindow src="/products/devian-desktop/dashboard.png" alt="Devian Desktop, our open-source control center for AI coding agents" priority size="lg" />

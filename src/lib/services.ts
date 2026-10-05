@@ -9,6 +9,8 @@ export type Service = {
   slug: string;
   /** Short label for cards and nav. */
   name: string;
+  /** Search title (without the site suffix) and description. */
+  seo: { title: string; description: string };
   /** Page <h1>. Wrap a word in *asterisks* for the serif italic accent. */
   headline: string;
   summary: string;
@@ -29,6 +31,10 @@ export const services: Service[] = [
   {
     slug: "software-development",
     name: "Custom software",
+    seo: {
+      title: "Custom Software Development: Mobile, Web and Desktop",
+      description: "End-to-end custom software from one team: mobile apps, web apps, desktop apps, browser extensions, plugins, automations and backends.",
+    },
     headline: "Custom software, *on any platform.*",
     summary:
       "End-to-end delivery for teams who know what they need. Mobile, web, desktop, browser extensions, plugins, automations and backends, all from one team that ships its own products on the same platforms.",
@@ -83,6 +89,10 @@ export const services: Service[] = [
   {
     slug: "mvp-from-idea",
     name: "MVP from idea",
+    seo: {
+      title: "MVP Development: From Idea to Launch in Weeks",
+      description: "We turn your idea into a working web or mobile product in 4 to 8 weeks: tightly scoped, shipped to real users, with code you own.",
+    },
     headline: "From idea to *shipped product*, in weeks.",
     summary:
       "You have an idea and a deadline. We turn it into a working product you can put in front of users. Not an over-engineered v1, but the lean version that tests your assumptions.",
@@ -134,6 +144,10 @@ export const services: Service[] = [
   {
     slug: "technology-partner",
     name: "Technology partner",
+    seo: {
+      title: "Technology Partner: Your Long-Term Product Team",
+      description: "A long-term engineering partner on a monthly retainer. We build, run and grow your product with you, across every platform it lives on.",
+    },
     headline: "Your long-term *product team.*",
     summary:
       "Some products don't end at launch. We join as your ongoing engineering team on a monthly retainer, and we build, run and grow the product with you over years, not sprints.",
@@ -185,6 +199,10 @@ export const services: Service[] = [
   {
     slug: "helping-biz-go-digital",
     name: "Go digital",
+    seo: {
+      title: "Website Design for Local Businesses",
+      description: "Fast, mobile-first websites that help local businesses get found on Google and turn searches into visits, calls and sales.",
+    },
     headline: "Bring your business *online.*",
     summary:
       "Your customers look you up before they walk in. We build fast, modern websites that make local businesses easy to find, easy to trust and easy to buy from.",

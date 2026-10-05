@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Privacy Policy",
-};
+  description:
+    "How Devian Labs collects, uses and protects information when you visit devianlabs.com, use our products or work with us on a project.",
+  path: "/privacy",
+});
 
 export default function PrivacyPolicy() {
   return (

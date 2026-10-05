@@ -4,9 +4,11 @@ import {
   ChevronRight, Laptop, WifiOff, QrCode,
 } from "lucide-react";
 
+// Internal reference page: kept out of search results (also disallowed in robots.txt).
 export const metadata: Metadata = {
-  title: "Design System | Devian Labs",
+  title: "Design System",
   description: "Brand design tokens, color palette, typography, and component guide for Devian Labs.",
+  robots: { index: false, follow: false },
 };
 
 /* ── Helpers ──────────────────────────────────────────────── */

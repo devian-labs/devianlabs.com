@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Terms of Use",
-};
+  description:
+    "The terms that apply when you use devianlabs.com, Devian Labs products such as Mohur, Campfyr and Khao, and our software development services.",
+  path: "/terms",
+});
 
 export default function TermsOfUse() {
   return (

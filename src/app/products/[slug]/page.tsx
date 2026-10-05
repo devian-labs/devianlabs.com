@@ -2,13 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { products, getProduct } from "@/lib/products";
+import { products, getProduct, type Product } from "@/lib/products";
+import { SITE_URL, breadcrumbJsonLd, orgRef, pageMetadata } from "@/lib/seo";
 import { capabilities } from "@/lib/capabilities";
 import { mailto } from "@/lib/contact";
 import { ButtonLink, Chip, Container, Eyebrow, GitHubMark, Heading, Section } from "@/components/site/primitives";
 import { ProductIcon } from "@/components/site/ProductCard";
 import ProductVisual from "@/components/site/ProductVisual";
 import ContactBand from "@/components/site/ContactBand";
+import JsonLd from "@/components/site/JsonLd";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -24,13 +26,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) return { title: "Product not found" };
-  const url = `https://devianlabs.com/products/${slug}`;
-  return {
-    title: `${product.name}: case study`,
-    description: product.summary,
-    alternates: { canonical: url },
-    openGraph: { url, title: `${product.name} · ${product.tagline}`, description: product.summary },
-  };
+  return pageMetadata({ title: product.seo.title, description: product.seo.description, path: `/products/${slug}`, ownImage: true });
+}
+
+function caseStudyJsonLd(product: Product) {
+  return [
+    {
+      "@type": "SoftwareApplication",
+      name: product.name,
+      description: product.summary,
+      applicationCategory: product.schemaCategory,
+      operatingSystem: product.platforms.join(", "),
+      url: product.links[0]?.href,
+      image: `${SITE_URL}${product.icon}`,
+      ...(product.free ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}),
+      author: orgRef,
+      publisher: orgRef,
+      ...(product.github ? { codeRepository: product.github, license: "https://opensource.org/licenses/MIT" } : {}),
+    },
+    breadcrumbJsonLd([
+      { name: "Home", path: "" },
+      { name: "Products", path: "/products" },
+      { name: product.name, path: `/products/${product.slug}` },
+    ]),
+  ];
 }
 
 export default async function CaseStudyPage({ params }: Props) {
@@ -44,6 +63,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd nodes={caseStudyJsonLd(product)} />
       {/* Hero */}
       <header className="relative overflow-hidden border-b border-line">
         <div className="bg-grid mask-fade-radial pointer-events-none absolute inset-0 opacity-60" />
@@ -192,14 +212,6 @@ export default async function CaseStudyPage({ params }: Props) {
                 <div className="flex flex-wrap gap-2">
                   {product.next.map((n) => <Chip key={n}>{n}</Chip>)}
                 </div>
-              </div>
-            )}
-            {product.install && (
-              <div className="mt-8">
-                <p className="mb-3 font-mono text-xs uppercase tracking-[0.16em] text-fg-3">Install</p>
-                <code className="block overflow-x-auto rounded-xl border border-line bg-surface px-4 py-3 font-mono text-sm text-fg">
-                  {product.install}
-                </code>
               </div>
             )}
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">

@@ -6,16 +6,30 @@ import { services, type Service } from "@/lib/services";
 import { mailto } from "@/lib/contact";
 import { ArrowLink, ButtonLink, Container, Eyebrow, Heading, Lead, Section, withAccent } from "./primitives";
 import ContactBand from "./ContactBand";
+import JsonLd from "./JsonLd";
+import { SITE_URL, breadcrumbJsonLd, orgRef, pageMetadata } from "@/lib/seo";
 
 export function serviceMetadata(service: Service): Metadata {
-  const url = `https://devianlabs.com/services/${service.slug}`;
-  const title = service.headline.replaceAll("*", "");
-  return {
-    title: service.name,
-    description: service.summary,
-    alternates: { canonical: url },
-    openGraph: { url, title: `${title} | Devian Labs`, description: service.card },
-  };
+  return pageMetadata({ title: service.seo.title, description: service.seo.description, path: `/services/${service.slug}`, ownImage: true });
+}
+
+function serviceJsonLd(service: Service) {
+  return [
+    {
+      "@type": "Service",
+      name: service.seo.title,
+      serviceType: service.name,
+      description: service.seo.description,
+      provider: orgRef,
+      areaServed: "Worldwide",
+      url: `${SITE_URL}/services/${service.slug}`,
+    },
+    breadcrumbJsonLd([
+      { name: "Home", path: "" },
+      { name: "Services", path: "/#services" },
+      { name: service.name, path: `/services/${service.slug}` },
+    ]),
+  ];
 }
 
 export default function ServicePage({ service }: { service: Service }) {
@@ -23,6 +37,7 @@ export default function ServicePage({ service }: { service: Service }) {
 
   return (
     <>
+      <JsonLd nodes={serviceJsonLd(service)} />
       {/* Hero */}
       <header className="relative overflow-hidden border-b border-line">
         <div className="bg-grid mask-fade-radial pointer-events-none absolute inset-0 opacity-60" />

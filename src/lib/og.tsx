@@ -10,7 +10,7 @@ export async function buildOgImage(
   subtitle?: string,
   accentColor: 'cyan' | 'violet' = 'cyan',
 ) {
-  const logoData = await readFile(join(process.cwd(), 'public/devian-labs-logo.png'));
+  const logoData = await readFile(join(process.cwd(), 'public/devian-labs-logo-256.png'));
   const logoSrc = `data:image/png;base64,${logoData.toString('base64')}`;
 
   const orbColor =

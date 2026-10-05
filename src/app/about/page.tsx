@@ -1,19 +1,15 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import { products } from "@/lib/products";
 import { ArrowLink, Container, Eyebrow, Heading, Lead, Section } from "@/components/site/primitives";
 import { ProductIcon } from "@/components/site/ProductCard";
 import ContactBand from "@/components/site/ContactBand";
+import JsonLd from "@/components/site/JsonLd";
+import { breadcrumbJsonLd, orgRef, pageMetadata } from "@/lib/seo";
 
 const description =
-  "Devian Labs is a software studio from India. We build our own products, take on client work across every platform, and partner long term with businesses that need a product team.";
+  "Devian Labs is a software studio from India that builds its own products, takes on client work on every platform, and partners long term with businesses.";
 
-export const metadata: Metadata = {
-  title: "About",
-  description,
-  alternates: { canonical: "https://devianlabs.com/about" },
-  openGraph: { url: "https://devianlabs.com/about", title: "About Devian Labs", description },
-};
+export const metadata = pageMetadata({ title: "About Devian Labs — Software Studio from India", absoluteTitle: true, description, path: "/about" });
 
 const pillars = [
   {
@@ -39,6 +35,12 @@ const pillars = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        nodes={[
+          { "@type": "AboutPage", name: "About Devian Labs", description, about: orgRef },
+          breadcrumbJsonLd([{ name: "Home", path: "" }, { name: "About", path: "/about" }]),
+        ]}
+      />
       <header className="relative overflow-hidden border-b border-line">
         <div className="bg-grid mask-fade-radial pointer-events-none absolute inset-0 opacity-60" />
         <Container className="relative py-20 md:py-28">

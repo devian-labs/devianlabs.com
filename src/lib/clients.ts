@@ -14,7 +14,7 @@ export const featuredClient: ClientProject = {
   kind: "Cloud kitchen · Built end to end",
   desc: "An artisanal dessert storefront where customers craft and order their own treats. Designed and built end to end, and live with real customers since launch.",
   href: "https://thenolia.com",
-  image: "/clients/nolia.png",
+  image: "/clients/nolia.webp",
   stat: "₹1.5 lakh+ in orders",
 };
 
@@ -27,8 +27,8 @@ export const mvpClients: ClientProject[] = [
 ];
 
 export const localBusinessSites: ClientProject[] = [
-  { name: "Aveline Homes", kind: "Real estate", desc: "", href: "https://avelinehomes.in/", image: "/clients/realestate.png" },
-  { name: "The Balkrishna Palace", kind: "Hotel · Jeypore", desc: "", href: "https://balkrishnapalace.com/", image: "/clients/balkrishnapalace.png" },
-  { name: "Siridi Sai Mobiles", kind: "Electronics store", desc: "", href: "https://devian-labs.github.io/Siridi-Sai-Mobiles/", image: "/clients/electronics.png" },
-  { name: "Sri Ganesh Bike Point", kind: "Bike servicing · Jeypore", desc: "", href: "https://devian-labs.github.io/Sri-Ganesh-Bike-Point/", image: "/clients/bikepoint.png" },
+  { name: "Aveline Homes", kind: "Real estate", desc: "", href: "https://avelinehomes.in/", image: "/clients/realestate.webp" },
+  { name: "The Balkrishna Palace", kind: "Hotel · Jeypore", desc: "", href: "https://balkrishnapalace.com/", image: "/clients/balkrishnapalace.webp" },
+  { name: "Siridi Sai Mobiles", kind: "Electronics store", desc: "", href: "https://devian-labs.github.io/Siridi-Sai-Mobiles/", image: "/clients/electronics.webp" },
+  { name: "Sri Ganesh Bike Point", kind: "Bike servicing · Jeypore", desc: "", href: "https://devian-labs.github.io/Sri-Ganesh-Bike-Point/", image: "/clients/bikepoint.webp" },
 ];
