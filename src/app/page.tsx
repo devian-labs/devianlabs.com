@@ -1,657 +1,296 @@
-import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowRight, ArrowDown, Code2, Zap, TrendingUp,
-  ExternalLink, Globe,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { WHATSAPP_URL } from "@/lib/contact";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
-import type { ElementType, ReactNode } from "react";
+import Link from "next/link";
+import { ArrowUpRight, TrendingUp } from "lucide-react";
+import { products, getProduct } from "@/lib/products";
+import { capabilities } from "@/lib/capabilities";
+import { services, getService } from "@/lib/services";
+import { featuredClient, localBusinessSites } from "@/lib/clients";
+import { mailto } from "@/lib/contact";
+import { ArrowLink, ButtonLink, Container, Eyebrow, Heading, Lead, Section, withAccent } from "@/components/site/primitives";
+import { ProductFeature, ProductTile } from "@/components/site/ProductCard";
+import { DesktopWindow } from "@/components/site/ProductVisual";
+import ContactBand from "@/components/site/ContactBand";
 
 /*
- * Home page sections: 01 products, 02 client work and services, then contact.
- * (03 AgileCoder and the Team section are commented out for now.)
+ * Home: who we are (hero), what we build, our products as proof, client work,
+ * ways to work with us, how we work, then contact.
  */
 
-const products: {
-  name: string;
-  logo: string;
-  /** Extra classes for logos that need help standing off the dark background. */
-  logoClass?: string;
-  blurb: string;
-  href: string;
-  websiteUrl?: string;
-  extraLink?: { label: string; href: string };
-  githubUrl?: string;
-  badge?: string;
-}[] = [
-  {
-    name: "Mohur",
-    logo: "/products/mohur.png",
-    // Black coin face on transparency: sit it on a raised tile with a gold edge so it doesn't sink into the page.
-    logoClass: "p-1 bg-gradient-to-br from-zinc-700 to-zinc-900 ring-1 ring-amber-300/30 shadow-[0_0_18px_rgba(251,191,36,0.18)]",
-    blurb: "A coin collecting app for people who see history in coins. Keep your collection in one place, learn the story behind each coin, and ask other collectors for an honest second opinion. In open beta on Android.",
-    websiteUrl: "https://mohur.devianlabs.com",
-    extraLink: { label: "Join the Android beta", href: "https://groups.google.com/g/mohur-beta-testers" },
-    href: "/products/mohur",
-  },
-  // Hidden for now:
-  /*
-  {
-    name: "Devian Desktop",
-    logo: "/products/devian-desktop.png",
-    blurb: "A control center for the AI coding agents on your machine. See what Claude Code, Codex, Cursor and others actually did, stop the servers they left running, and track token usage. Free and fully local.",
-    websiteUrl: "https://devian.app",
-    githubUrl: "https://github.com/devian-labs/devian",
-    badge: "Open source",
-    href: "/products/devian-desktop",
-  },
-  */
-  {
-    name: "Campfyr",
-    logo: "/products/campfyr-icon.png",
-    blurb: "An off-grid companion for group trips. SOS alerts over Bluetooth, shared itineraries, expense splitting and photo sharing, all working without a signal.",
-    websiteUrl: "https://campfyr.devianlabs.com",
-    href: "/products/campfyr",
-  },
-  // Hidden for now:
-  /*
-  {
-    name: "Khao",
-    logo: "/products/khao.png",
-    blurb: "QR menus and table ordering for small food vendors. Customers order from any phone browser with no app to install, and vendors see orders come in live.",
-    websiteUrl: "https://khao.app",
-    href: "/products/khao",
-  },
-  */
-];
+const openSource = products.filter((p) => p.openSource);
+const otherProducts = products.filter((p) => !p.openSource);
 
-const clientWork = [
-  {
-    name: "Aveline Homes",
-    kind: "Real estate",
-    image: "/clients/realestate.png",
-    href: "https://avelinehomes.in/",
-  },
-  {
-    name: "The Balkrishna Palace",
-    kind: "Hotel · Jeypore",
-    image: "/clients/balkrishnapalace.png",
-    href: "https://balkrishnapalace.com/",
-  },
-  {
-    name: "Siridi Sai Mobiles",
-    kind: "Electronics store",
-    image: "/clients/electronics.png",
-    href: "https://devian-labs.github.io/Siridi-Sai-Mobiles/",
-  },
-  {
-    name: "Sri Ganesh Bike Point",
-    kind: "Bike servicing · Jeypore",
-    image: "/clients/bikepoint.png",
-    href: "https://devian-labs.github.io/Sri-Ganesh-Bike-Point/",
-  },
+const principles = [
+  { title: "We ship our own products", desc: "We know what it takes to launch, support and grow software, not just to build it. Every client project gets that experience." },
+  { title: "One team, every platform", desc: "The app, the backend, the desktop client and the extension come from the same people, so nothing falls between vendors." },
+  { title: "You own everything", desc: "Code, infrastructure and accounts are yours, documented so any engineer can pick them up. No lock-in." },
+  { title: "Straight to the builders", desc: "You talk to the people writing the code. The founder is involved in every engagement." },
 ];
-
-// TODO: Team section hidden for now — restore later (also re-import `Users` from lucide-react)
-// const teamMembers = [
-//   {
-//     name: "Smruti Ranjan Badatya",
-//     role: "Founder",
-//     linkedin: "https://www.linkedin.com/in/iamsmruti/",
-//     image: "/team/smruti.png",
-//   },
-//   {
-//     name: "Biswajeet Dehuri",
-//     role: "App Engineering Lead",
-//     linkedin: "https://www.linkedin.com/in/biswajeet-dehuri-7b1078224/",
-//     image: "/team/biswajeet.png",
-//   },
-//   {
-//     name: "Debesh Mohapatra",
-//     role: "Web Engineering Lead",
-//     linkedin: "https://www.linkedin.com/in/debesh-mohapatra-650070205/",
-//     image: "/team/debesh.jpg",
-//   },
-//   {
-//     name: "Rohit Mohanty",
-//     role: "Client Relations Lead",
-//     linkedin: "https://www.linkedin.com/in/rohit-mohanty-3013511b5/",
-//     image: "/team/rohit.png",
-//   },
-// ];
 
 export default function Home() {
+  const partner = getService("technology-partner");
+  const otherServices = services.filter((s) => s.slug !== partner.slug);
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
+      {/* ── Hero ───────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-b border-line">
+        <div className="bg-grid mask-fade-radial pointer-events-none absolute inset-0 opacity-70" />
+        <div className="pointer-events-none absolute left-1/2 top-[-12rem] h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(103,232,249,0.10),rgba(196,161,255,0.06),transparent)]" />
 
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex items-center border-b bg-zinc-950">
-        <div className="absolute w-[700px] h-[700px] rounded-full bg-violet-600/[0.18] blur-[100px] -top-56 -right-40 animate-orb-1 pointer-events-none will-change-transform" />
-        <div className="absolute w-[580px] h-[580px] rounded-full bg-cyan-500/[0.14] blur-[100px] -bottom-48 -left-32 animate-orb-2 pointer-events-none will-change-transform" />
-        <div className="absolute w-[350px] h-[350px] rounded-full bg-emerald-500/[0.10] blur-[80px] top-1/3 left-[42%] animate-orb-3 pointer-events-none will-change-transform" />
-        <div className="absolute inset-0 pointer-events-none [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_30%,black_30%,transparent_100%)]" />
-
-        <div className="container relative z-10 mx-auto max-w-5xl flex flex-col items-center text-center px-4 md:px-6 py-24 md:py-32">
-
-          <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-ring inline-block flex-shrink-0" />
-            A Software Studio from India
-          </div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tighter mb-6 leading-[0.95]">
-            <span className="bg-[linear-gradient(90deg,#fff_0%,#67e8f9_25%,#c084fc_55%,#fff_80%,#67e8f9_100%)] bg-[size:250%_auto] bg-clip-text text-transparent animate-shimmer">
-              We build, launch
-            </span>
-            <br />
-            <span className="bg-[linear-gradient(90deg,#fff_0%,#67e8f9_25%,#c084fc_55%,#fff_80%,#67e8f9_100%)] bg-[size:250%_auto] bg-clip-text text-transparent animate-shimmer [animation-delay:-2.5s]">
-              and scale software.
-            </span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-zinc-400 mb-12 max-w-[640px] leading-relaxed">
-            We design, build and run our own software products, and deliver web and mobile projects for
-            founders and businesses.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-16">
-            <Link
-              href="#products"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22),0_0_56px_rgba(139,92,246,0.12)] transition-all duration-300"
-            >
-              See Our Work <ArrowDown className="w-4 h-4" />
-            </Link>
-            <Link
-              href="mailto:hello@devianlabs.com"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-500 transition-all duration-300"
-            >
-              Work With Us <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Our products */}
-          <div className="flex items-center gap-3 md:gap-4">
-            {products.map(({ name, logo, logoClass }, i, all) => (
-              <div key={name} className="flex items-center gap-3 md:gap-4">
-                <div className="flex flex-col items-center gap-2">
-                  <Image
-                    src={logo}
-                    alt={name}
-                    width={56}
-                    height={56}
-                    className={cn("w-11 h-11 md:w-14 md:h-14 object-contain rounded-xl", logoClass)}
-                  />
-                  <span className="text-[10px] md:text-[11px] text-zinc-500 font-medium whitespace-nowrap">{name}</span>
-                </div>
-                {i < all.length - 1 && <span className="w-4 md:w-8 h-px bg-gradient-to-r from-cyan-500/40 to-violet-500/40 mb-5" />}
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 01 · Products ────────────────────────────── */}
-      <section className="px-4 md:px-6 py-24 md:py-32 bg-background border-b">
-        <div id="products" className="scroll-mt-16 container mx-auto max-w-5xl">
-
-          <SectionLabel n="01" label="Products" />
-          <div className="max-w-2xl mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
-              Our{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                products.
-              </span>
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              Software we design, build and maintain in-house, across mobile, web and desktop.
+        <Container className="relative pt-20 md:pt-28">
+          <div className="animate-rise">
+            <Eyebrow className="mb-8">
+              <span className="mr-3 inline-block h-1.5 w-1.5 animate-pulse-dot rounded-full bg-emerald-400 align-middle" />
+              Devian Labs · Software studio, India
+            </Eyebrow>
+            <Heading as="h1" className="max-w-5xl">
+              We build our own products. <em className="text-brand pr-2">Then we build yours.</em>
+            </Heading>
+            <Lead className="mt-8">
+              Devian Labs is an independent software studio. We build and run products of our own, and take on client
+              projects of every kind, from a single automation to a complete product. For businesses in it for the long
+              haul, we stay on as their product team.
+            </Lead>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <ButtonLink href={mailto()}>Start a project</ButtonLink>
+              <ButtonLink href="#products" variant="secondary">See what we&apos;ve built</ButtonLink>
+            </div>
+            <p className="mt-10 font-mono text-xs leading-relaxed tracking-wide text-fg-3">
+              Mobile · Web · Desktop · Extensions · Plugins · Automations · Backends · AI agents
             </p>
           </div>
 
-          <ol className="relative border-l border-white/[0.08] ml-6 md:ml-10 flex flex-col gap-16">
-            {products.map((p) => (
-              <li key={p.name} className="relative pl-12 md:pl-20">
-                <Image
-                  src={p.logo}
-                  alt={`${p.name} logo`}
-                  width={80}
-                  height={80}
-                  className={cn("absolute -left-6 md:-left-10 top-0 w-12 h-12 md:w-20 md:h-20 object-contain rounded-2xl outline outline-4 outline-background", p.logoClass)}
-                />
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-3 md:pt-2">
-                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-50">{p.name}</h3>
-                  {p.badge && (
-                    <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
-                      {p.badge}
-                    </span>
-                  )}
-                </div>
-                <p className="text-zinc-400 text-lg leading-relaxed max-w-3xl">{p.blurb}</p>
-                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-                  {p.websiteUrl && (
-                    <Link href={p.websiteUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
-                      Visit <ExternalLink className="w-3.5 h-3.5" />
-                    </Link>
-                  )}
-                  {p.githubUrl && (
-                    <Link href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
-                      <GitHubMark className="w-3.5 h-3.5" /> GitHub
-                    </Link>
-                  )}
-                  {p.extraLink && (
-                    <Link href={p.extraLink.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
-                      {p.extraLink.label} <ExternalLink className="w-3.5 h-3.5" />
-                    </Link>
-                  )}
-                  <Link href={p.href} className="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 transition-colors">
-                    Case study <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-        </div>
-      </section>
-
-      {/* ── 02 · Client work ─────────────────────────────────── */}
-      <section id="work" className="scroll-mt-16 px-4 md:px-6 py-24 md:py-32 bg-background border-b">
-        <div className="container mx-auto max-w-6xl">
-          <div className="max-w-5xl mx-auto">
-            <SectionLabel n="02" label="Client work" />
-            <div className="max-w-2xl mb-14">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
-                Selected{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                  client projects.
-                </span>
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                Custom software for founders, and websites that help local businesses get found online.
-              </p>
+          {/* Product collage: real screens from our products */}
+          <div className="relative mt-16 h-[300px] sm:h-[420px] md:mt-20 md:h-[520px] lg:h-[600px]" aria-label="Screens from Devian Labs products">
+            <div className="absolute left-0 top-10 w-[68%] opacity-90 md:top-14 md:w-[58%]">
+              <DesktopWindow src="/products/betelgeuse/editor.jpg" alt="Betelgeuse, our open-source notes and docs app" size="md" />
             </div>
-          </div>
-
-          {/* Custom software */}
-          <ClientGroupHeading
-            title="Custom software"
-            desc="Products designed and built end to end, from first brief to launch."
-            href="/services/software-development"
-          />
-          <Link
-            href="https://thenolia.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group grid lg:grid-cols-[1.4fr_1fr] rounded-3xl overflow-hidden bg-zinc-900/50 border border-white/[0.07] hover:border-cyan-500/30 hover:shadow-[0_20px_40px_-20px_rgba(34,211,238,0.15)] transition-all duration-300 mb-16"
-          >
-            <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[340px] bg-zinc-950 overflow-hidden">
-              <Image
-                src="/clients/nolia.png"
-                alt="Nolia website"
-                fill
-                sizes="(min-width: 1024px) 700px, 100vw"
-                className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-              />
+            <div className="absolute right-0 top-0 z-10 w-[74%] md:w-[62%]">
+              <DesktopWindow src="/products/devian-desktop/dashboard.png" alt="Devian Desktop, our open-source control center for AI coding agents" priority size="lg" />
             </div>
-            <div className="p-8 md:p-10 flex flex-col justify-center">
-              <p className="text-[11px] font-semibold tracking-widest uppercase text-zinc-500 mb-3">Cloud kitchen · Built end to end</p>
-              <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-50 mb-4">Nolia</h3>
-              <p className="text-zinc-400 leading-relaxed mb-6">
-                An artisanal dessert storefront where customers craft and order their own treats. Live with real
-                customers since launch.
-              </p>
-              <span className="inline-flex items-center gap-1.5 w-fit px-3 py-1.5 rounded-full text-sm font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 mb-6">
-                <TrendingUp className="w-4 h-4" /> ₹1.5 lakh+ in orders
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors">
-                Visit site <ExternalLink className="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </Link>
-
-          {/* Helping local businesses go digital */}
-          <ClientGroupHeading
-            title="Helping local businesses go digital"
-            desc="Fast, modern websites for shops, hotels and service businesses that bring in customers."
-            href="/services/helping-biz-go-digital"
-          />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
-            {clientWork.map((c) => (
-              <Link
-                key={c.name}
-                href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group rounded-2xl overflow-hidden bg-zinc-900/50 border border-white/[0.07] hover:border-cyan-500/30 hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="relative aspect-[16/10] bg-zinc-950 border-b border-white/[0.05] overflow-hidden">
-                  <Image
-                    src={c.image}
-                    alt={`${c.name} website`}
-                    fill
-                    sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover object-top group-hover:scale-[1.04] transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-semibold text-zinc-100 text-sm mb-1 flex items-center justify-between gap-2">
-                    {c.name}
-                    <ExternalLink className="w-3.5 h-3.5 text-zinc-600 group-hover:text-cyan-400 transition-colors shrink-0" />
-                  </h3>
-                  <p className="text-xs text-zinc-500">{c.kind}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* How to become the next one */}
-          <div id="services" className="scroll-mt-24">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl md:text-4xl font-bold tracking-tighter mb-4">
-                Three ways{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                  we can help.
-                </span>
-              </h3>
-              <p className="text-muted-foreground max-w-[500px] mx-auto">
-                We don&apos;t pretend to do everything. These are the things we&apos;re good at.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-              <ServiceCard
-                icon={Zap}
-                title="MVP from Idea"
-                description="You have an idea and a deadline. We turn it into a shipped, working product in weeks."
-                href="/services/mvp-from-idea"
-                tag="mvp --speed-first"
-                color="violet"
-              />
-              <ServiceCard
-                icon={Code2}
-                title="Custom Software Dev"
-                description="End-to-end delivery for teams who know what they need built. Web apps, internal tools, integrations. Built lean, documented properly."
-                href="/services/software-development"
-                tag="dev --full-stack"
-                color="cyan"
-              />
-              <ServiceCard
-                icon={Globe}
-                title="Helping Biz go Digital"
-                description="Local businesses that need a real online presence. Fast, modern websites that bring in customers, like the ones above."
-                href="/services/helping-biz-go-digital"
-                tag="web --go-live"
-                color="emerald"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 03 · AgileCoder ───────────────────────────────── */}
-      {/* TODO: AgileCoder section hidden for now — restore later (also re-import PlayCircle, FileText, Package)
-      <section id="agilecoder" className="scroll-mt-16 px-4 md:px-6 py-24 md:py-32 bg-zinc-950 border-b">
-        <div className="container mx-auto max-w-5xl">
-          <SectionLabel n="03" label="Knowledge" />
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
-                We share{" "}
-                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                  what we learn.
-                </span>
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-                Through AgileCoder, our knowledge arm, we publish tutorials, write books and ship developer tools.
-                It keeps us honest, and it helps other developers ship better software.
-              </p>
-              <Link
-                href="https://agilecoder.in"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full text-sm font-medium border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22)] transition-all duration-300"
-              >
-                Visit AgileCoder <ExternalLink className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              {[
-                { icon: PlayCircle, label: "Video Tutorials", sub: "300+ subscribers · 1,000+ watch hours", href: "https://www.youtube.com/@AgileCoderYT", color: "text-red-400" },
-                { icon: FileText, label: "Tech Blog", sub: "Practical writing for working developers", href: "https://agilecoder.in/blog", color: "text-cyan-400" },
-                { icon: Package, label: "AI-Ready Boilerplates", sub: "Production scaffolds for modern stacks", href: "https://build.devianlabs.com", color: "text-violet-400" },
-              ].map(({ icon: Icon, label, sub, href, color }) => (
-                <Link
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 rounded-2xl p-5 bg-zinc-900/50 border border-white/[0.06] hover:border-cyan-500/25 hover:shadow-[0_0_22px_rgba(34,211,238,0.07)] hover:translate-x-1 transition-all duration-300 group"
-                >
-                  <div className="p-2.5 rounded-xl bg-zinc-800/60 border border-zinc-700/50 shrink-0">
-                    <Icon className={cn("w-5 h-5", color)} />
-                  </div>
-                  <div className="flex-grow">
-                    <p className="font-semibold text-zinc-100 text-sm mb-0.5 group-hover:text-white transition-colors">{label}</p>
-                    <p className="text-xs text-zinc-500 leading-relaxed">{sub}</p>
-                  </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-zinc-600 group-hover:text-cyan-400 transition-colors shrink-0" />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-      */}
-
-      {/* ── Team ─────────────────────────────────────────────── */}
-      {/* TODO: Team section hidden for now — restore later
-      <section id="team" className="relative overflow-hidden px-4 md:px-6 py-24 md:py-32 bg-zinc-950 border-b">
-        <div className="absolute w-[500px] h-[500px] rounded-full bg-violet-600/[0.10] blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-        <div className="absolute inset-0 pointer-events-none opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:44px_44px]" />
-
-        <div className="container relative z-10 mx-auto max-w-5xl">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 mb-8 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
-              <Users className="w-3 h-3" /> The Team
-            </div>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6 text-zinc-50 leading-tight">
-              Four People.{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                Real Work.
-              </span>
-            </h2>
-            <p className="text-lg text-zinc-400 max-w-[600px] mx-auto leading-relaxed">
-              We&apos;re a small team on purpose - it&apos;s how we ship faster than agencies twice our size.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member) => (
-              <div
-                key={member.name}
-                className="group relative rounded-3xl overflow-hidden bg-zinc-900 border border-white/[0.08] hover:border-cyan-500/30 hover:shadow-[0_0_40px_rgba(34,211,238,0.1),0_24px_48px_rgba(0,0,0,0.5)] hover:-translate-y-2 transition-all duration-500 flex flex-col"
-              >
-                <div className="relative w-full aspect-[4/3] bg-zinc-950 border-b border-white/[0.05] overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover object-top grayscale-[0.8] contrast-125 brightness-90 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-700 ease-in-out"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-zinc-900 via-transparent to-transparent z-10 pointer-events-none" />
-                </div>
-                <div className="p-6 md:p-8 flex-1 flex flex-col items-center text-center relative z-20 -mt-6">
-                  <h3 className="font-bold text-zinc-50 text-sm md:text-base tracking-tight mb-1">{member.name}</h3>
-                  <p className="text-[15px] font-medium text-cyan-400 mb-8">{member.role}</p>
-                  <Link
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 mt-auto py-2.5 px-6 rounded-full bg-zinc-800/80 hover:bg-zinc-700 text-zinc-100 text-sm font-semibold transition-all duration-300 border border-white/5 hover:border-white/10 w-full hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    LinkedIn <ExternalLink className="w-3.5 h-3.5" />
-                  </Link>
+            <div className="absolute bottom-[-2rem] left-[30%] z-20 w-[22%] max-w-[190px] md:left-[34%] md:w-[15%]">
+              <div className="overflow-hidden rounded-[1.4rem] border border-line-strong bg-black p-1 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.9)]">
+                <div className="relative aspect-[9/19] overflow-hidden rounded-[1.1rem]">
+                  <Image src="/products/campfyr/trips.webp" alt="Campfyr, our group travel app" fill sizes="190px" className="object-cover object-top" />
                 </div>
               </div>
-            ))}
+            </div>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-40 bg-gradient-to-t from-ink to-transparent" />
           </div>
-        </div>
-      </section>
-      */}
-
-      {/* ── Get in Touch ─────────────────────────────────────── */}
-      <section id="contact" className="px-4 md:px-6 py-24 md:py-32 bg-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase border border-cyan-500/25 text-cyan-400 bg-cyan-500/[0.07]">
-            Work With Us
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-5 leading-tight">
-            Have something{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-              to build?
-            </span>
-          </h2>
-          <p className="text-muted-foreground max-w-[480px] mx-auto mb-10 leading-relaxed">
-            Tell us what you&apos;re working on. We reply within a day.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-            <Link
-              href="mailto:hello@devianlabs.com"
-              className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full text-sm font-semibold border border-cyan-500/35 text-cyan-400 bg-cyan-500/[0.08] hover:border-cyan-400/65 hover:bg-cyan-500/[0.14] hover:shadow-[0_0_28px_rgba(34,211,238,0.22),0_0_56px_rgba(139,92,246,0.12)] transition-all duration-300"
-            >
-              Get in Touch <ArrowRight className="w-4 h-4" />
-            </Link>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full text-sm font-semibold border border-emerald-500/35 text-emerald-400 bg-emerald-500/[0.08] hover:border-emerald-400/65 hover:bg-emerald-500/[0.14] hover:shadow-[0_0_28px_rgba(52,211,153,0.22)] transition-all duration-300"
-            >
-              <WhatsAppIcon className="w-4 h-4" /> Message on WhatsApp
-            </a>
-          </div>
-          <p className="text-sm text-zinc-600">
-            Or email us directly at{" "}
-            <a href="mailto:hello@devianlabs.com" className="text-zinc-500 hover:text-zinc-300 transition-colors duration-200">
-              hello@devianlabs.com
-            </a>
-          </p>
-        </div>
+        </Container>
       </section>
 
-    </div>
-  );
-}
-
-/* ── Service Card ─────────────────────────────────────────── */
-function ServiceCard({ icon: Icon, title, description, href, color = "cyan" }: {
-  icon: ElementType;
-  title: string;
-  description: string;
-  href: string;
-  tag: string;
-  color?: "cyan" | "violet" | "emerald";
-}) {
-  const styles = {
-    cyan: {
-      card: "hover:shadow-[0_20px_40px_-20px_rgba(34,211,238,0.15)] hover:border-cyan-500/30",
-      orb: "bg-cyan-500/20",
-      iconBox: "bg-cyan-500/10 border-cyan-500/20 text-cyan-400 group-hover:bg-cyan-500/20",
-      arrow: "bg-cyan-500 hover:bg-cyan-400 text-cyan-950",
-    },
-    violet: {
-      card: "hover:shadow-[0_20px_40px_-20px_rgba(139,92,246,0.15)] hover:border-violet-500/30",
-      orb: "bg-violet-500/20",
-      iconBox: "bg-violet-500/10 border-violet-500/20 text-violet-400 group-hover:bg-violet-500/20",
-      arrow: "bg-violet-500 hover:bg-violet-400 text-violet-950",
-    },
-    emerald: {
-      card: "hover:shadow-[0_20px_40px_-20px_rgba(16,185,129,0.15)] hover:border-emerald-500/30",
-      orb: "bg-emerald-500/20",
-      iconBox: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500/20",
-      arrow: "bg-emerald-500 hover:bg-emerald-400 text-emerald-950",
-    },
-  }[color];
-  return (
-    <div className={cn(
-      "group relative flex flex-col rounded-3xl overflow-hidden bg-zinc-900/40 border border-white/[0.08] transition-all duration-300 hover:-translate-y-1.5",
-      styles.card
-    )}>
-      <div className={cn(
-        "absolute -top-32 -right-32 w-64 h-64 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none",
-        styles.orb
-      )} />
-
-      <div className="p-8 md:p-10 flex flex-col h-full relative z-10">
-        <div className="mb-10 w-fit">
-          <div className={cn(
-            "p-4 rounded-2xl border transition-colors duration-500 shadow-sm",
-            styles.iconBox
-          )}>
-            <Icon className="w-8 h-8 group-hover:scale-110 transition-transform duration-500" />
+      {/* ── 01 · What we build ─────────────────────────────── */}
+      <Section id="capabilities">
+        <div className="mb-14 grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-end">
+          <div>
+            <Eyebrow index="01">What we build</Eyebrow>
+            <Heading>Whatever it runs on, <em>we build it.</em></Heading>
           </div>
+          <Lead className="md:text-lg">
+            Client projects of any kind, from a single automation to a full product across mobile, web and desktop. If
+            it&apos;s software, we&apos;ll build it, and most of it we&apos;ve already shipped for ourselves.
+          </Lead>
         </div>
 
-        <h3 className="text-xl md:text-2xl font-bold text-zinc-50 mb-4 tracking-tight group-hover:text-white transition-colors duration-300 whitespace-nowrap">
-          {title}
-        </h3>
+        <div className="grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          {capabilities.map(({ name, icon: Icon, desc, proof }) => (
+            <div key={name} className="flex flex-col bg-ink p-7 transition-colors hover:bg-surface">
+              <Icon className="mb-8 h-5 w-5 text-fg-2" strokeWidth={1.5} />
+              <h3 className="mb-2 font-medium text-fg">{name}</h3>
+              <p className="mb-6 text-sm leading-relaxed text-fg-2">{desc}</p>
+              {proof.length > 0 && (
+                <p className="mt-auto text-xs text-fg-3">
+                  In production:{" "}
+                  {proof.map((slug, i) => {
+                    const p = getProduct(slug)!;
+                    return (
+                      <span key={slug}>
+                        <Link href={`/products/${slug}`} className="text-fg-2 underline decoration-line-strong underline-offset-4 hover:text-fg">
+                          {p.name}
+                        </Link>
+                        {i < proof.length - 1 ? ", " : ""}
+                      </span>
+                    );
+                  })}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </Section>
 
-        <p className="text-zinc-400 text-lg leading-relaxed mb-10 flex-grow">
-          {description}
-        </p>
+      {/* ── 02 · Products ──────────────────────────────────── */}
+      <Section id="products">
+        <div className="mb-14 grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-end">
+          <div>
+            <Eyebrow index="02">Our products</Eyebrow>
+            <Heading>Our products are <em>our R&amp;D.</em></Heading>
+          </div>
+          <Lead className="md:text-lg">
+            We design, build and run our own software. It&apos;s where we take technical risks, build IP we can reuse, and
+            learn what it takes to launch and maintain a product, before a client ever pays for that lesson.
+          </Lead>
+        </div>
+
+        <div className="mb-6 flex items-center gap-3">
+          <span className="font-mono text-xs uppercase tracking-[0.18em] text-fg-3">Open source</span>
+          <span className="h-px flex-1 bg-line" />
+        </div>
+        <div className="mb-16 grid gap-6 lg:grid-cols-2">
+          {openSource.map((p) => <ProductFeature key={p.slug} product={p} />)}
+        </div>
+
+        <div className="mb-6 flex items-center gap-3">
+          <span className="font-mono text-xs uppercase tracking-[0.18em] text-fg-3">Mobile and web</span>
+          <span className="h-px flex-1 bg-line" />
+        </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {otherProducts.map((p) => <ProductTile key={p.slug} product={p} />)}
+        </div>
+
+        <div className="mt-12">
+          <ArrowLink href="/products">All products and case studies</ArrowLink>
+        </div>
+      </Section>
+
+      {/* ── 03 · Client work ───────────────────────────────── */}
+      <Section id="work">
+        <div className="mb-14 grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-end">
+          <div>
+            <Eyebrow index="03">Client work</Eyebrow>
+            <Heading>Selected <em>client work.</em></Heading>
+          </div>
+          <Lead className="md:text-lg">
+            Custom software for founders, and websites that help local businesses get found online.
+          </Lead>
+        </div>
 
         <Link
-          href={href}
-          className="inline-flex items-center gap-3 text-zinc-100 font-semibold group/link w-fit"
+          href={featuredClient.href!}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mb-6 grid overflow-hidden rounded-3xl border border-line bg-surface transition-colors hover:border-line-strong lg:grid-cols-[1.4fr_1fr]"
         >
-          How we work
-          <span className={cn(
-            "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 shadow-md group-hover/link:translate-x-1 hover:scale-105 active:scale-95",
-            styles.arrow
-          )}>
-            <ArrowRight className="w-4 h-4" />
-          </span>
+          <div className="relative aspect-[16/10] overflow-hidden bg-ink lg:aspect-auto lg:min-h-[380px]">
+            <Image
+              src={featuredClient.image!}
+              alt={`${featuredClient.name} website`}
+              fill
+              sizes="(min-width: 1024px) 680px, 100vw"
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+          </div>
+          <div className="flex flex-col justify-center p-8 md:p-12">
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3">{featuredClient.kind}</p>
+            <h3 className="mb-4 text-3xl font-medium tracking-tight text-fg">{featuredClient.name}</h3>
+            <p className="mb-6 leading-relaxed text-fg-2">{featuredClient.desc}</p>
+            <span className="mb-8 inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-3 py-1.5 text-sm text-emerald-300">
+              <TrendingUp className="h-4 w-4" /> {featuredClient.stat}
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-fg group-hover:text-brand-cyan">
+              Visit site <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
         </Link>
-      </div>
-    </div>
-  );
-}
 
-/* ── Client work group heading ───────────────────────────── */
-function ClientGroupHeading({ title, desc, href }: { title: string; desc: string; href: string }) {
-  return (
-    <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
-      <div>
-        <h3 className="text-xl md:text-2xl font-bold tracking-tight text-zinc-50 mb-1">{title}</h3>
-        <p className="text-sm text-zinc-500">{desc}</p>
-      </div>
-      <Link
-        href={href}
-        className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-400 hover:text-cyan-300 transition-colors shrink-0"
-      >
-        About this service <ArrowRight className="w-3.5 h-3.5" />
-      </Link>
-    </div>
-  );
-}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {localBusinessSites.map((c) => (
+            <Link
+              key={c.name}
+              href={c.href!}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-line-strong"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-ink">
+                <Image
+                  src={c.image!}
+                  alt={`${c.name} website`}
+                  fill
+                  sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="mb-1 flex items-center justify-between gap-2 text-sm font-medium text-fg">
+                  {c.name}
+                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-fg-3 transition-colors group-hover:text-fg" />
+                </h3>
+                <p className="text-xs text-fg-3">{c.kind}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </Section>
 
-/* ── GitHub mark (lucide no longer ships brand icons) ────── */
-function GitHubMark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
-      <path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-    </svg>
-  );
-}
+      {/* ── 04 · Ways to work with us ──────────────────────── */}
+      <Section id="services">
+        <div className="mb-14 max-w-3xl">
+          <Eyebrow index="04">Work with us</Eyebrow>
+          <Heading>Build a project, <em>or build a future.</em></Heading>
+        </div>
 
-/* ── Section label ────────────────────────────────────────── */
-function SectionLabel({ n, label }: { n: string; label: ReactNode }) {
-  return (
-    <div className="flex items-center gap-4 mb-8">
-      <span className="font-mono text-sm font-semibold text-cyan-400">{n}</span>
-      <span className="h-px w-12 bg-gradient-to-r from-cyan-500/60 to-violet-500/40" />
-      <span className="text-[11px] font-semibold tracking-widest uppercase text-zinc-400">{label}</span>
-    </div>
+        {/* Technology partner, the long-term option */}
+        <Link
+          href={`/services/${partner.slug}`}
+          className="group relative mb-6 grid overflow-hidden rounded-3xl border border-line-strong bg-surface transition-colors hover:border-fg-3 lg:grid-cols-[1fr_1fr]"
+        >
+          <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-violet/10 blur-3xl" />
+          <div className="relative p-8 md:p-12">
+            <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-brand-cyan">Long-term partnership</p>
+            <h3 className="mb-5 text-3xl font-medium tracking-tight text-fg md:text-4xl">{withAccent(partner.headline)}</h3>
+            <p className="mb-8 max-w-md leading-relaxed text-fg-2">{partner.summary}</p>
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-fg group-hover:text-brand-cyan">
+              How partnerships work →
+            </span>
+          </div>
+          <ul className="relative grid content-center gap-px border-t border-line bg-line lg:border-l lg:border-t-0">
+            {partner.included.items.slice(0, 4).map((item) => (
+              <li key={item.title} className="bg-surface px-8 py-6 md:px-10">
+                <p className="mb-1 font-medium text-fg">{item.title}</p>
+                <p className="text-sm text-fg-2">{item.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </Link>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {otherServices.map((s) => (
+            <Link
+              key={s.slug}
+              href={`/services/${s.slug}`}
+              className="group flex flex-col rounded-3xl border border-line p-8 transition-colors hover:border-line-strong hover:bg-surface"
+            >
+              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3">{s.forWho}</p>
+              <h3 className="mb-3 text-xl font-medium tracking-tight text-fg">{s.name}</h3>
+              <p className="mb-8 text-sm leading-relaxed text-fg-2">{s.card}</p>
+              <span className="mt-auto text-sm font-medium text-fg group-hover:text-brand-cyan">Learn more →</span>
+            </Link>
+          ))}
+        </div>
+      </Section>
+
+      {/* ── 05 · How we work ───────────────────────────────── */}
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+          <div>
+            <Eyebrow index="05">How we work</Eyebrow>
+            <Heading className="md:text-4xl">Small team. <em>Real products.</em> No middle layer.</Heading>
+          </div>
+          <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
+            {principles.map((p, i) => (
+              <div key={p.title} className="border-t border-line-strong pt-6">
+                <span className="font-mono text-xs text-fg-3">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="mb-3 mt-3 font-medium text-fg">{p.title}</h3>
+                <p className="text-sm leading-relaxed text-fg-2">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <ContactBand />
+    </>
   );
 }

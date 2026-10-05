@@ -1,67 +1,45 @@
 import Link from "next/link";
 import Image from "next/image";
-import { buttonVariants } from "@/components/ui/button-variants";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { WHATSAPP_URL } from "@/lib/contact";
+import MobileMenu from "./MobileMenu";
+import { mailto } from "@/lib/contact";
 
 const navLinks = [
-  { href: "/#products", label: "Products" },
-  { href: "/#work",     label: "Work"     },
+  { href: "/products", label: "Products" },
+  { href: "/#work", label: "Client work" },
   { href: "/#services", label: "Services" },
-  // { href: "/#team",     label: "Team"     }, // TODO: restore with Team section
+  { href: "/services/technology-partner", label: "Partner with us" },
+  { href: "/about", label: "About" },
 ];
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-md supports-[backdrop-filter]:bg-zinc-950/60">
-      <div className="container mx-auto flex h-16 items-center px-4 md:px-6">
-
-        <Link href="/" className="flex items-center gap-2.5">
-          <Image
-            src="/devian-labs-logo.png"
-            alt="Devian Labs"
-            width={32}
-            height={32}
-            className="rounded-xl"
-            priority
-          />
-          <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-            Devian
-          </span>
-          <span className="text-xl font-bold tracking-tighter text-white">Labs</span>
+    <header className="sticky top-0 z-50 w-full border-b border-line bg-ink/75 backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 w-full max-w-6xl items-center gap-8 px-5 md:px-8">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Devian Labs home">
+          <Image src="/devian-labs-logo.png" alt="" width={28} height={28} className="rounded-lg" priority />
+          <span className="whitespace-nowrap text-[15px] font-semibold tracking-tight text-fg">Devian Labs</span>
         </Link>
 
-        <div className="ml-auto flex items-center gap-6">
+        <div className="hidden items-center gap-7 lg:flex">
           {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="hidden sm:block text-sm font-medium text-zinc-400 hover:text-zinc-100 transition-colors duration-200 relative after:absolute after:bottom-[-3px] after:left-0 after:h-px after:w-0 hover:after:w-full after:bg-gradient-to-r after:from-cyan-400 after:to-violet-400 after:transition-all after:duration-300"
-            >
+            <Link key={href} href={href} className="text-sm text-fg-2 transition-colors hover:text-fg">
               {label}
             </Link>
           ))}
-
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Message us on WhatsApp"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 hover:text-emerald-400 transition-colors duration-200"
-          >
-            <WhatsAppIcon className="w-[18px] h-[18px]" />
-            <span className="hidden md:inline">WhatsApp</span>
-          </a>
-
-          <Link
-            href="mailto:hello@devianlabs.com"
-            className={buttonVariants({ variant: "outline", size: "sm" }) + " border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-500 rounded-full transition-all duration-200"}
-          >
-            Contact Us
-          </Link>
         </div>
 
-      </div>
-    </nav>
+        <div className="ml-auto flex items-center gap-2">
+          <Link
+            href={mailto()}
+            className="inline-flex items-center whitespace-nowrap rounded-full bg-fg px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-white"
+          >
+            <span className="sm:hidden">Contact</span>
+            <span className="hidden sm:inline">Start a project</span>
+          </Link>
+
+          <MobileMenu links={navLinks} />
+        </div>
+      </nav>
+    </header>
   );
 }

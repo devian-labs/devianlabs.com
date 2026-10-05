@@ -15,8 +15,8 @@ export async function buildOgImage(
 
   const orbColor =
     accentColor === 'cyan'
-      ? 'rgba(6, 182, 212, 0.28)'
-      : 'rgba(124, 58, 237, 0.28)';
+      ? 'rgba(103, 232, 249, 0.16)'
+      : 'rgba(196, 161, 255, 0.16)';
 
   return new ImageResponse(
     (
@@ -25,34 +25,22 @@ export async function buildOgImage(
           width: '100%',
           height: '100%',
           display: 'flex',
-          background: '#09090b',
+          background: '#09090a',
           position: 'relative',
           overflow: 'hidden',
           fontFamily: 'sans-serif',
         }}
       >
-        {/* Purple orb — top right */}
+        {/* Soft brand glow — top */}
         <div
           style={{
             position: 'absolute',
-            top: -120,
-            right: -120,
-            width: 520,
-            height: 520,
+            top: -260,
+            left: 200,
+            width: 800,
+            height: 460,
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(124,58,237,0.3) 0%, transparent 70%)',
-          }}
-        />
-        {/* Accent orb — bottom left */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: -100,
-            left: -80,
-            width: 420,
-            height: 420,
-            borderRadius: '50%',
-            background: `radial-gradient(circle, ${orbColor} 0%, transparent 70%)`,
+            background: `radial-gradient(closest-side, ${orbColor} 0%, transparent 100%)`,
           }}
         />
 
@@ -62,8 +50,8 @@ export async function buildOgImage(
             position: 'absolute',
             inset: 0,
             backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)',
-            backgroundSize: '44px 44px',
+              'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+            backgroundSize: '64px 64px',
           }}
         />
 
@@ -99,7 +87,7 @@ export async function buildOgImage(
             <div
               style={{
                 fontSize: title.length > 30 ? 58 : 72,
-                fontWeight: 800,
+                fontWeight: 600,
                 color: '#fafafa',
                 lineHeight: 1.05,
                 letterSpacing: '-0.03em',
@@ -120,7 +108,7 @@ export async function buildOgImage(
               style={{
                 height: 3,
                 width: 48,
-                background: 'linear-gradient(to right, #22d3ee, #a78bfa)',
+                background: 'linear-gradient(to right, #67e8f9, #c4a1ff)',
                 borderRadius: 999,
               }}
             />

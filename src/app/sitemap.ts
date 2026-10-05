@@ -1,60 +1,24 @@
 import type { MetadataRoute } from 'next';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { products } from '@/lib/products';
+import { services } from '@/lib/services';
 
 const BASE_URL = 'https://devianlabs.com';
 
-function getSlugs(dir: string): string[] {
-  const full = path.join(process.cwd(), 'content', dir);
-  if (!fs.existsSync(full)) return [];
-  return fs
-    .readdirSync(full)
-    .filter((f) => !matter(fs.readFileSync(path.join(full, f), 'utf8')).data.hidden)
-    .map((f) => f.replace('.md', ''));
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  const productSlugs = getSlugs('products');
-  const serviceSlugs = getSlugs('services');
+  const page = (path: string, priority: number, changeFrequency: 'monthly' | 'yearly' = 'monthly') => ({
+    url: `${BASE_URL}${path}`,
+    lastModified: new Date(),
+    changeFrequency,
+    priority,
+  });
 
   return [
-    {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
-    },
-    // TODO: restore with Team section
-    // {
-    //   url: `${BASE_URL}/team`,
-    //   lastModified: new Date(),
-    //   changeFrequency: 'monthly',
-    //   priority: 0.8,
-    // },
-    {
-      url: `${BASE_URL}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/terms`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    ...productSlugs.map((slug) => ({
-      url: `${BASE_URL}/products/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.9,
-    })),
-    ...serviceSlugs.map((slug) => ({
-      url: `${BASE_URL}/services/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.9,
-    })),
+    page('', 1),
+    page('/products', 0.9),
+    ...products.map((p) => page(`/products/${p.slug}`, 0.9)),
+    ...services.map((s) => page(`/services/${s.slug}`, 0.9)),
+    page('/about', 0.7),
+    page('/privacy', 0.3, 'yearly'),
+    page('/terms', 0.3, 'yearly'),
   ];
 }

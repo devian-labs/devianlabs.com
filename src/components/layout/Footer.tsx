@@ -1,97 +1,80 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
-import { WHATSAPP_URL } from "@/lib/contact";
+import { products } from "@/lib/products";
+import { services } from "@/lib/services";
+import { EMAIL, GITHUB_ORG_URL, WHATSAPP_URL, mailto } from "@/lib/contact";
+
+const linkClass = "text-sm text-fg-2 transition-colors hover:text-fg";
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-white/[0.06] bg-zinc-950 py-12 md:py-16">
-      <div className="container mx-auto px-4 md:px-6">
-
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-12 mb-12">
-
-          {/* Brand */}
-          <div className="col-span-2 flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-1">
-              <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                Devian
-              </span>
-              <span className="text-xl font-bold tracking-tighter text-zinc-500">Labs</span>
+    <footer className="w-full border-t border-line bg-ink">
+      <div className="mx-auto w-full max-w-6xl px-5 py-16 md:px-8">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-7">
+          <div className="col-span-2 flex flex-col gap-5 md:col-span-4 lg:col-span-2">
+            <Link href="/" className="flex items-center gap-2.5">
+              <Image src="/devian-labs-logo.png" alt="" width={28} height={28} className="rounded-lg" />
+              <span className="text-[15px] font-semibold tracking-tight text-fg">Devian Labs</span>
             </Link>
-            <p className="text-sm text-zinc-600 w-full md:w-3/4 leading-relaxed">
-              Building lean, practical software solutions for modern businesses.
+            <p className="max-w-xs text-sm leading-relaxed text-fg-2">
+              A software studio from India. We build our own products, build yours, and partner for the long run.
             </p>
+            <a href={mailto()} className="text-sm text-fg underline decoration-line-strong underline-offset-4 hover:decoration-fg">
+              {EMAIL}
+            </a>
           </div>
 
-          {/* Company */}
-          <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Company</h4>
-            <Link href="/about" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">About</Link>
-            {/* TODO: restore with Team section
-            <Link href="/#team" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Team</Link>
-            */}
-            <a href="mailto:hello@devianlabs.com" className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200">Contact</a>
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-sm text-zinc-600 hover:text-emerald-400 transition-colors duration-200">WhatsApp</a>
-          </div>
+          <FooterColumn title="Products">
+            {products.map((p) => (
+              <Link key={p.slug} href={`/products/${p.slug}`} className={linkClass}>{p.name}</Link>
+            ))}
+          </FooterColumn>
 
-          {/* Products */}
-          <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Products</h4>
-            <Link href="/products/mohur" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Mohur</Link>
-            {/* Hidden for now: <Link href="/products/devian-desktop" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Devian Desktop</Link> */}
-            {/* Hidden for now: <Link href="/products/khao" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Khao</Link> */}
-            <Link href="/products/campfyr" className="text-sm text-zinc-600 hover:text-cyan-400 transition-colors duration-200">Campfyr</Link>
-          </div>
+          <FooterColumn title="Services">
+            {services.map((s) => (
+              <Link key={s.slug} href={`/services/${s.slug}`} className={linkClass}>{s.name}</Link>
+            ))}
+          </FooterColumn>
 
-          {/* Services */}
-          <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Services</h4>
-            <Link href="/services/mvp-from-idea" className="text-sm text-zinc-600 hover:text-violet-400 transition-colors duration-200">MVP from Idea</Link>
-            <Link href="/services/software-development" className="text-sm text-zinc-600 hover:text-violet-400 transition-colors duration-200">Custom Software Dev</Link>
+          <FooterColumn title="Company">
+            <Link href="/about" className={linkClass}>About</Link>
+            <Link href="/#work" className={linkClass}>Client work</Link>
+            <a href={mailto()} className={linkClass}>Contact</a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>WhatsApp</a>
+          </FooterColumn>
 
-          </div>
+          <FooterColumn title="Open source">
+            <Link href={GITHUB_ORG_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>GitHub ↗</Link>
+            {products.filter((p) => p.github).map((p) => (
+              <Link key={p.slug} href={p.github!} target="_blank" rel="noopener noreferrer" className={linkClass}>{p.name} ↗</Link>
+            ))}
+          </FooterColumn>
 
-          {/* Knowledge */}
-          <div className="flex flex-col gap-3">
-            <h4 className="text-xs font-semibold text-zinc-400 tracking-widest uppercase">Knowledge</h4>
-            <Link
-              href="https://agilecoder.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200"
-            >
-              AgileCoder <ExternalLink className="w-3 h-3" />
-            </Link>
-            <Link
-              href="https://agilecoder.in/blog"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200"
-            >
-              Tech Blog
-            </Link>
-            <Link
-              href="https://build.devianlabs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-zinc-600 hover:text-zinc-300 transition-colors duration-200"
-            >
-              Boilerplates
-            </Link>
-          </div>
-
+          <FooterColumn title="Knowledge">
+            <Link href="https://agilecoder.in" target="_blank" rel="noopener noreferrer" className={linkClass}>AgileCoder ↗</Link>
+            <Link href="https://agilecoder.in/blog" target="_blank" rel="noopener noreferrer" className={linkClass}>Tech blog ↗</Link>
+            <Link href="https://build.devianlabs.com" target="_blank" rel="noopener noreferrer" className={linkClass}>Boilerplates ↗</Link>
+          </FooterColumn>
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/[0.05] text-xs text-zinc-700">
+        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-line pt-8 text-xs text-fg-3 md:flex-row md:items-center">
           <p>© {new Date().getFullYear()} Devian Labs. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="hover:text-zinc-400 transition-colors duration-200">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-zinc-400 transition-colors duration-200">Terms of Use</Link>
-            <a href="/sitemap.xml" className="hover:text-zinc-400 transition-colors duration-200">Sitemap</a>
+            <Link href="/privacy" className="transition-colors hover:text-fg">Privacy</Link>
+            <Link href="/terms" className="transition-colors hover:text-fg">Terms</Link>
+            <a href="/sitemap.xml" className="transition-colors hover:text-fg">Sitemap</a>
           </div>
         </div>
-
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <h4 className="mb-1 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3">{title}</h4>
+      {children}
+    </div>
   );
 }

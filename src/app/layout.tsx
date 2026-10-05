@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
-const inter = Inter({ subsets: ["latin"], display: "optional" });
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+});
 
 const BASE_URL = "https://devianlabs.com";
 
@@ -14,20 +21,24 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default: "Devian Labs — A Software Studio Building Products & Client Work",
+    default: "Devian Labs — Software Studio for Products, Client Work and Partnerships",
     template: "%s | Devian Labs",
   },
   description:
-    "A three-person software studio from India. We ship our own products and help founders go from idea to launched MVP in weeks, not quarters.",
+    "Devian Labs is a software studio from India. We build our own products, two of them open source, and take on client work across mobile, web, desktop, extensions, plugins, automations and backends.",
   keywords: [
     "software development",
     "saas products",
     "mvp development",
     "startup software",
     "devian labs",
-    "lean software",
     "web development",
-    "mobile apps",
+    "mobile app development",
+    "desktop app development",
+    "browser extensions",
+    "automation",
+    "backend development",
+    "technology partner",
   ],
   authors: [{ name: "Devian Labs", url: BASE_URL }],
   creator: "Devian Labs",
@@ -37,18 +48,18 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: BASE_URL,
     siteName: "Devian Labs",
-    title: "Devian Labs — A Software Studio Building Products & Client Work",
+    title: "Devian Labs — Software Studio for Products, Client Work and Partnerships",
     description:
-      "A three-person software studio from India. We ship our own products and help founders go from idea to launched MVP in weeks, not quarters.",
+      "Devian Labs is a software studio from India. We build our own products, two of them open source, and take on client work across mobile, web, desktop, extensions, plugins, automations and backends.",
   },
 
   twitter: {
     card: "summary_large_image",
     site: "@devianlabs",
     creator: "@devianlabs",
-    title: "Devian Labs — A Software Studio Building Products & Client Work",
+    title: "Devian Labs — Software Studio for Products, Client Work and Partnerships",
     description:
-      "A three-person software studio from India. We ship our own products and help founders go from idea to launched MVP in weeks, not quarters.",
+      "Devian Labs is a software studio from India. We build our own products, two of them open source, and take on client work across mobile, web, desktop, extensions, plugins, automations and backends.",
   },
 
   robots: {
@@ -74,9 +85,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html
+      lang="en"
+      className={`dark scroll-smooth ${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+    >
       <body
-        className={`${inter.className} min-h-full flex flex-col antialiased selection:bg-primary selection:text-primary-foreground`}
+        className="min-h-full flex flex-col antialiased"
       >
         <Navbar />
         <main className="flex-1">{children}</main>
