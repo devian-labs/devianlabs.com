@@ -1,10 +1,10 @@
-import Image from "next/image";
+import Img from "./Img";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowUpRight, Check, Minus, TrendingUp } from "lucide-react";
 import { services, type Service } from "@/lib/services";
-import { mailto } from "@/lib/contact";
-import { ArrowLink, ButtonLink, Container, Eyebrow, Heading, Lead, Section, withAccent } from "./primitives";
+import EmailLink from "./EmailLink";
+import { ArrowLink, ButtonLink, buttonClass, Container, Eyebrow, Heading, Lead, Section, withAccent } from "./primitives";
 import ContactBand from "./ContactBand";
 import JsonLd from "./JsonLd";
 import { SITE_URL, breadcrumbJsonLd, orgRef, pageMetadata } from "@/lib/seo";
@@ -48,7 +48,7 @@ export default function ServicePage({ service }: { service: Service }) {
           <Heading as="h1" className="max-w-4xl md:text-6xl lg:text-7xl">{withAccent(service.headline)}</Heading>
           <Lead className="mt-8">{service.summary}</Lead>
           <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href={mailto(`Enquiry: ${service.name}`)}>Start a conversation</ButtonLink>
+            <EmailLink subject={`Enquiry: ${service.name}`} className={buttonClass()}>Start a conversation</EmailLink>
             <ButtonLink href="/products" variant="secondary">See what we&apos;ve built</ButtonLink>
           </div>
         </Container>
@@ -159,7 +159,7 @@ function ProofCard({ item, wide }: { item: NonNullable<Service["proof"]>["items"
     <>
       {item.image && (
         <div className={wide ? "relative aspect-[16/10] overflow-hidden bg-surface lg:aspect-auto lg:min-h-[340px]" : "relative aspect-[16/10] overflow-hidden border-b border-line bg-surface"}>
-          <Image
+          <Img
             src={item.image}
             alt={`${item.name} website`}
             fill

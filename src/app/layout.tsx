@@ -9,7 +9,8 @@ import JsonLd from "@/components/site/JsonLd";
 import { HOME_DESCRIPTION, HOME_TITLE, SITE_NAME, SITE_URL, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
+// Mono is only used for small labels, so it isn't preloaded ahead of the hero fonts.
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", preload: false });
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
@@ -38,8 +39,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@devianlabs",
-    creator: "@devianlabs",
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
   },
@@ -84,9 +83,9 @@ export default function RootLayout({
       </body>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-CYX4NC6G1R"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="google-analytics" strategy="afterInteractive">
+      <Script id="google-analytics" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}

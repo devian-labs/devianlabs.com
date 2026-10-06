@@ -1,8 +1,9 @@
-import Image from "next/image";
+import Img from "@/components/site/Img";
 import Link from "next/link";
 import { products } from "@/lib/products";
 import { services } from "@/lib/services";
-import { EMAIL, GITHUB_ORG_URL, WHATSAPP_URL, mailto } from "@/lib/contact";
+import { GITHUB_ORG_URL, PHONE, SOCIAL_LINKS, WHATSAPP_URL } from "@/lib/contact";
+import EmailLink from "@/components/site/EmailLink";
 
 const linkClass = "text-sm text-fg-2 transition-colors hover:text-fg";
 
@@ -13,15 +14,28 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-7">
           <div className="col-span-2 flex flex-col gap-5 md:col-span-4 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">
-              <Image src="/devian-labs-logo-256.png" alt="" width={28} height={28} className="rounded-lg" />
+              <Img src="/devian-labs-logo-256.png" alt="Devian Labs logo" width={28} height={28} className="rounded-lg" />
               <span className="text-[15px] font-semibold tracking-tight text-fg">Devian Labs</span>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-fg-2">
               A software studio from India. We build our own products, build yours, and partner for the long run.
             </p>
-            <a href={mailto()} className="text-sm text-fg underline decoration-line-strong underline-offset-4 hover:decoration-fg">
-              {EMAIL}
-            </a>
+            <div className="flex flex-col gap-1.5 text-sm">
+              <EmailLink showAddress className="w-fit text-fg underline decoration-line-strong underline-offset-4 hover:decoration-fg">
+                Email us
+              </EmailLink>
+              <a href={PHONE.href} className="w-fit text-fg-2 transition-colors hover:text-fg">{PHONE.display}</a>
+              <p className="text-fg-3">India</p>
+            </div>
+            <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+              {SOCIAL_LINKS.map((s) => (
+                <li key={s.href}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer me" className="text-fg-2 transition-colors hover:text-fg">
+                    {s.label} ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <FooterColumn title="Products">
@@ -39,7 +53,7 @@ export default function Footer() {
           <FooterColumn title="Company">
             <Link href="/about" className={linkClass}>About</Link>
             <Link href="/#work" className={linkClass}>Client work</Link>
-            <a href={mailto()} className={linkClass}>Contact</a>
+            <Link href="/#contact" className={linkClass}>Contact</Link>
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>WhatsApp</a>
           </FooterColumn>
 
@@ -73,7 +87,7 @@ export default function Footer() {
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-3">
-      <h4 className="mb-1 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3">{title}</h4>
+      <p className="mb-1 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3">{title}</p>
       {children}
     </div>
   );

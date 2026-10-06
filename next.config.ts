@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    // Tailwind CSS is small, so inlining it in <head> removes a render-blocking request.
+    inlineCss: true,
+  },
 };
 
 export default nextConfig;

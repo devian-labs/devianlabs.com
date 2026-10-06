@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { EMAIL, GITHUB_ORG_URL } from "./contact";
+import { PHONE, SOCIAL_LINKS, WHATSAPP_URL } from "./contact";
 
 /* Shared metadata and structured data, so every page gets complete, consistent SEO tags. */
 
 export const SITE_URL = "https://devianlabs.com";
 export const SITE_NAME = "Devian Labs";
 
-export const HOME_TITLE = "Devian Labs — Software Studio for Products and Client Work";
+export const HOME_TITLE = "Devian Labs — We Build Software Products and Client Projects";
 export const HOME_DESCRIPTION =
-  "Devian Labs builds its own software products and takes on client projects of every kind: mobile, web, desktop, extensions, automations and backends.";
+  "Devian Labs builds software products, two of them open source, and client projects of every kind: mobile, web, desktop, extensions, automations and backends.";
 
 /**
  * Page metadata with a canonical URL, Open Graph and Twitter tags.
@@ -54,17 +54,40 @@ export function pageMetadata({
 
 const ORG_ID = `${SITE_URL}/#organization`;
 
+/*
+ * Devian Labs as an organisation and a local business (ProfessionalService is a
+ * LocalBusiness type). No email here: the address is kept out of the HTML.
+ * Add a street address to `address` once it's confirmed.
+ */
 export const organizationJsonLd = {
-  "@type": "Organization",
+  "@type": ["Organization", "ProfessionalService"],
   "@id": ORG_ID,
   name: SITE_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}/devian-labs-logo-512.png`,
-  email: EMAIL,
+  image: `${SITE_URL}/devian-labs-logo-512.png`,
+  telephone: PHONE.schema,
   description:
     "A software studio from India that builds its own products and takes on client work across mobile, web, desktop, extensions, plugins, automations and backends.",
   address: { "@type": "PostalAddress", addressCountry: "IN" },
-  sameAs: [GITHUB_ORG_URL, "https://agilecoder.in", "https://www.youtube.com/@AgileCoderYT"],
+  areaServed: "Worldwide",
+  knowsAbout: [
+    "Mobile app development",
+    "Web development",
+    "Desktop app development",
+    "Browser extensions",
+    "Automation",
+    "Backend development",
+    "AI agents",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    telephone: PHONE.schema,
+    url: WHATSAPP_URL,
+    availableLanguage: "English",
+  },
+  sameAs: [...SOCIAL_LINKS.map((s) => s.href), "https://agilecoder.in", "https://www.youtube.com/@AgileCoderYT"],
 };
 
 export const websiteJsonLd = {

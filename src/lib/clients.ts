@@ -11,8 +11,8 @@ export type ClientProject = {
 
 export const featuredClient: ClientProject = {
   name: "Nolia",
-  kind: "Cloud kitchen · Built end to end",
-  desc: "An artisanal dessert storefront where customers craft and order their own treats. Designed and built end to end, and live with real customers since launch.",
+  kind: "Cloud kitchen storefront",
+  desc: "An artisanal dessert storefront where customers craft and order their own treats. Designed and built by us, and live with real customers since launch.",
   href: "https://thenolia.com",
   image: "/clients/nolia.webp",
   stat: "₹1.5 lakh+ in orders",

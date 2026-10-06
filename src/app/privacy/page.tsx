@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { pageMetadata } from "@/lib/seo";
+import EmailLink from "@/components/site/EmailLink";
 
 export const metadata = pageMetadata({
   title: "Privacy Policy",
@@ -72,7 +73,7 @@ export default function PrivacyPolicy() {
             If you have questions or comments about this Privacy Policy, please contact us at:
             <br /><br />
             <strong>Devian Labs</strong><br />
-            Email: <a href="mailto:hello@devianlabs.com" className="text-cyan-400 hover:text-cyan-300 transition-colors">hello@devianlabs.com</a>
+            Email: <EmailLink showAddress className="text-cyan-400 hover:text-cyan-300 transition-colors">our contact address</EmailLink>
           </p>
         </div>
 

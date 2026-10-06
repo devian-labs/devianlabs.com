@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Img from "./Img";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/products";
 
@@ -14,14 +14,13 @@ export default function ProductVisual({
   className?: string;
   priority?: boolean;
 }) {
-  const { visual, accent } = product;
+  const { visual, accentClass } = product;
 
   return (
     <div className={cn("relative isolate", className)}>
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-[10%] top-[15%] -z-10 h-[70%] rounded-full opacity-25 blur-3xl"
-        style={{ background: accent }}
+        className={cn("pointer-events-none absolute inset-x-[10%] top-[15%] -z-10 h-[70%] rounded-full opacity-25 blur-3xl", accentClass)}
       />
       {visual.kind === "desktop" && <DesktopWindow src={visual.src} alt={visual.alt} priority={priority} size={size} />}
       {visual.kind === "phones" && <PhoneRow screens={visual.screens} size={size} priority={priority} />}
@@ -50,7 +49,7 @@ export function DesktopWindow({
         <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
       </div>
       <div className="relative aspect-[16/10]">
-        <Image
+        <Img
           src={src}
           alt={alt}
           fill
@@ -80,7 +79,7 @@ function PhoneRow({ screens, size, priority }: { screens: { src: string; alt: st
           )}
         >
           <div className="relative aspect-[9/19] overflow-hidden rounded-[1.1rem]">
-            <Image src={s.src} alt={s.alt} fill priority={priority} sizes="(min-width: 1024px) 260px, 30vw" className="object-cover object-top" />
+            <Img src={s.src} alt={s.alt} fill priority={priority} sizes="(min-width: 1024px) 260px, 30vw" className="object-cover object-top" />
           </div>
         </div>
       ))}

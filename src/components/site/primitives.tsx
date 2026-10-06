@@ -77,6 +77,10 @@ const buttonStyles = {
   whatsapp: "border border-emerald-400/30 text-emerald-300 hover:border-emerald-300/60 hover:bg-emerald-400/[0.06]",
 };
 
+/** Button styles for elements that aren't a Next.js Link (e.g. EmailLink). */
+export const buttonClass = (variant: keyof typeof buttonStyles = "primary", className?: string) =>
+  cn(buttonBase, buttonStyles[variant], className);
+
 type ButtonLinkProps = Omit<ComponentProps<typeof Link>, "className"> & {
   variant?: keyof typeof buttonStyles;
   className?: string;

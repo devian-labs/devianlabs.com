@@ -133,10 +133,6 @@
 }
 
 /* ─── Motion ───────────────────────────────────────────── */
-@keyframes rise {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -147,7 +143,6 @@
 }
 
 @theme inline {
-  --animate-rise: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   --animate-marquee: marquee 40s linear infinite;
   --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
 }

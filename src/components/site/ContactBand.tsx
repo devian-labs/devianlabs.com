@@ -1,6 +1,7 @@
-import { EMAIL, WHATSAPP_URL, mailto } from "@/lib/contact";
+import { PHONE, WHATSAPP_URL } from "@/lib/contact";
+import EmailLink from "./EmailLink";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { ButtonLink, Container, Heading } from "./primitives";
+import { ButtonLink, buttonClass, Container, Heading } from "./primitives";
 
 /** Closing call to action shown at the bottom of most pages. */
 export default function ContactBand({
@@ -22,11 +23,17 @@ export default function ContactBand({
           A new product, a project on any platform, or a long-term partnership. Tell us what you&apos;re working on and we&apos;ll reply within a day.
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <ButtonLink href={mailto(subject)} className="px-8 py-3.5">Email {EMAIL}</ButtonLink>
+          <EmailLink subject={subject} className={buttonClass("primary", "px-8 py-3.5")}>Email us</EmailLink>
           <ButtonLink href={WHATSAPP_URL} external variant="whatsapp" className="px-8 py-3.5">
             <WhatsAppIcon className="h-4 w-4" /> Message on WhatsApp
           </ButtonLink>
         </div>
+        <p className="mt-6 text-sm text-fg-3">
+          Or call{" "}
+          <a href={PHONE.href} className="text-fg-2 underline decoration-line-strong underline-offset-4 hover:text-fg">
+            {PHONE.display}
+          </a>
+        </p>
       </Container>
     </section>
   );

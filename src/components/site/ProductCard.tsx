@@ -1,19 +1,29 @@
-import Image from "next/image";
+import Img from "./Img";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/products";
 import ProductVisual from "./ProductVisual";
 import { ArrowLink, Chip, GitHubMark } from "./primitives";
 
-export function ProductIcon({ product, size = 40, className }: { product: Product; size?: number; className?: string }) {
+// Static classes per size, so the icon is sized by the stylesheet rather than an inline style.
+const iconSizes = { 32: "size-8", 36: "size-9", 40: "size-10", 56: "size-14", 64: "size-16" } as const;
+
+export function ProductIcon({
+  product,
+  size = 40,
+  className,
+}: {
+  product: Product;
+  size?: keyof typeof iconSizes;
+  className?: string;
+}) {
   return (
-    <Image
+    <Img
       src={product.icon}
-      alt=""
+      alt={`${product.name} logo`}
       width={size}
       height={size}
-      className={cn("shrink-0 rounded-[22%] object-contain", product.iconClass, className)}
-      style={{ width: size, height: size }}
+      className={cn("shrink-0 rounded-[22%] object-contain", iconSizes[size], product.iconClass, className)}
     />
   );
 }

@@ -1,12 +1,12 @@
-import Image from "next/image";
+import Img from "@/components/site/Img";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { products, getProduct, type Product } from "@/lib/products";
 import { SITE_URL, breadcrumbJsonLd, orgRef, pageMetadata } from "@/lib/seo";
 import { capabilities } from "@/lib/capabilities";
-import { mailto } from "@/lib/contact";
-import { ButtonLink, Chip, Container, Eyebrow, GitHubMark, Heading, Section } from "@/components/site/primitives";
+import EmailLink from "@/components/site/EmailLink";
+import { ButtonLink, buttonClass, Chip, Container, Eyebrow, GitHubMark, Heading, Section } from "@/components/site/primitives";
 import { ProductIcon } from "@/components/site/ProductCard";
 import ProductVisual from "@/components/site/ProductVisual";
 import ContactBand from "@/components/site/ContactBand";
@@ -69,8 +69,7 @@ export default async function CaseStudyPage({ params }: Props) {
         <div className="bg-grid mask-fade-radial pointer-events-none absolute inset-0 opacity-60" />
         <div
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-[-14rem] h-[28rem] w-[56rem] -translate-x-1/2 rounded-full opacity-[0.12] blur-3xl"
-          style={{ background: product.accent }}
+          className={`pointer-events-none absolute left-1/2 top-[-14rem] h-[28rem] w-[56rem] -translate-x-1/2 rounded-full opacity-[0.12] blur-3xl ${product.accentClass}`}
         />
         <Container className="relative pt-16 md:pt-24">
           <Eyebrow>
@@ -153,7 +152,7 @@ export default async function CaseStudyPage({ params }: Props) {
                       : "relative aspect-[16/10] overflow-hidden rounded-xl border border-line-strong bg-surface"
                   }
                 >
-                  <Image src={g.src} alt={g.alt} fill sizes="(min-width: 768px) 540px, 100vw" className="object-cover object-left-top" />
+                  <Img src={g.src} alt={g.alt} fill sizes="(min-width: 768px) 540px, 100vw" className="object-cover object-left-top" />
                 </div>
                 <figcaption className="mt-3 text-center text-sm text-fg-3">{g.caption}</figcaption>
               </figure>
@@ -244,7 +243,7 @@ export default async function CaseStudyPage({ params }: Props) {
                 partnerships.
               </p>
               <div className="flex flex-wrap gap-3">
-                <ButtonLink href={mailto(`Project like ${product.name}`)}>Talk to us</ButtonLink>
+                <EmailLink subject={`Project like ${product.name}`} className={buttonClass()}>Talk to us</EmailLink>
                 <ButtonLink href="/services/technology-partner" variant="secondary">Partner with us</ButtonLink>
               </div>
             </div>

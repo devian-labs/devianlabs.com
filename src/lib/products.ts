@@ -14,8 +14,8 @@ export type Product = {
   icon: string;
   /** Extra classes for icons that need help standing off the dark background. */
   iconClass?: string;
-  /** Accent used for glows and dots on the case study. */
-  accent: string;
+  /** Accent background class for glows on the case study (a static class, so no inline style). */
+  accentClass: string;
   category: string;
   /** Search title (without the site suffix) and description, each kept within search-result limits. */
   seo: { title: string; description: string };
@@ -49,7 +49,7 @@ export const products: Product[] = [
     slug: "devian-desktop",
     name: "Devian Desktop",
     icon: "/products/devian-desktop.png",
-    accent: "#658cc2",
+    accentClass: "bg-[#658cc2]",
     category: "Developer tools",
     seo: {
       title: "Devian Desktop: Control Center for AI Coding Agents",
@@ -102,7 +102,7 @@ export const products: Product[] = [
     slug: "betelgeuse",
     name: "Betelgeuse",
     icon: "/products/betelgeuse-icon.png",
-    accent: "#e2541f",
+    accentClass: "bg-[#e2541f]",
     category: "Productivity",
     seo: {
       title: "Betelgeuse: Local-First Markdown Notes With MCP",
@@ -164,7 +164,7 @@ export const products: Product[] = [
     name: "Mohur",
     icon: "/products/mohur.png",
     iconClass: "p-1 bg-gradient-to-br from-zinc-700 to-zinc-900 ring-1 ring-amber-300/30",
-    accent: "#c9a227",
+    accentClass: "bg-[#c9a227]",
     category: "Community",
     seo: {
       title: "Mohur: Coin Collecting App for Numismatists",
@@ -228,7 +228,7 @@ export const products: Product[] = [
     slug: "campfyr",
     name: "Campfyr",
     icon: "/products/campfyr-icon.png",
-    accent: "#f85915",
+    accentClass: "bg-[#f85915]",
     category: "Travel",
     seo: {
       title: "Campfyr: Group Trip Planner and Expense Splitter",
@@ -289,7 +289,7 @@ export const products: Product[] = [
     slug: "khao",
     name: "Khao",
     icon: "/products/khao.png",
-    accent: "#dc2626",
+    accentClass: "bg-[#dc2626]",
     category: "Small business",
     seo: {
       title: "Khao: QR Menu and Table Ordering App",

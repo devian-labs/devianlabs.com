@@ -1,12 +1,12 @@
-import Image from "next/image";
+import Img from "@/components/site/Img";
 import Link from "next/link";
 import { ArrowUpRight, TrendingUp } from "lucide-react";
 import { products, getProduct } from "@/lib/products";
 import { capabilities } from "@/lib/capabilities";
 import { services, getService } from "@/lib/services";
 import { featuredClient, localBusinessSites } from "@/lib/clients";
-import { mailto } from "@/lib/contact";
-import { ArrowLink, ButtonLink, Container, Eyebrow, Heading, Lead, Section, withAccent } from "@/components/site/primitives";
+import EmailLink from "@/components/site/EmailLink";
+import { ArrowLink, ButtonLink, buttonClass, Container, Eyebrow, Heading, Lead, Section, withAccent } from "@/components/site/primitives";
 import { ProductFeature, ProductTile } from "@/components/site/ProductCard";
 import { DesktopWindow } from "@/components/site/ProductVisual";
 import ContactBand from "@/components/site/ContactBand";
@@ -41,10 +41,10 @@ export default function Home() {
         <div className="pointer-events-none absolute left-1/2 top-[-12rem] h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(103,232,249,0.10),rgba(196,161,255,0.06),transparent)]" />
 
         <Container className="relative pt-20 md:pt-28">
-          <div className="animate-rise">
+          <div>
             <Eyebrow className="mb-8">
               <span className="mr-3 inline-block h-1.5 w-1.5 animate-pulse-dot rounded-full bg-emerald-400 align-middle" />
-              Devian Labs · Software studio, India
+              Devian Labs · Software and app development studio, India
             </Eyebrow>
             <Heading as="h1" className="max-w-5xl">
               We build our own products. <em className="text-brand pr-2">Then we build yours.</em>
@@ -55,7 +55,7 @@ export default function Home() {
               haul, we stay on as their product team.
             </Lead>
             <div className="mt-10 flex flex-wrap gap-3">
-              <ButtonLink href={mailto()}>Start a project</ButtonLink>
+              <EmailLink className={buttonClass()}>Start a project</EmailLink>
               <ButtonLink href="#products" variant="secondary">See what we&apos;ve built</ButtonLink>
             </div>
             <p className="mt-10 font-mono text-xs leading-relaxed tracking-wide text-fg-3">
@@ -66,7 +66,7 @@ export default function Home() {
           {/* Product collage: real screens from our products */}
           <div className="relative mt-16 h-[300px] sm:h-[420px] md:mt-20 md:h-[520px] lg:h-[600px]" aria-label="Screens from Devian Labs products">
             <div className="absolute left-0 top-10 w-[68%] opacity-90 md:top-14 md:w-[58%]">
-              <DesktopWindow src="/products/betelgeuse/editor.jpg" alt="Betelgeuse, our open-source notes and docs app" priority size="md" />
+              <DesktopWindow src="/products/betelgeuse/editor.jpg" alt="Betelgeuse, our open-source notes and docs app" size="md" />
             </div>
             <div className="absolute right-0 top-0 z-10 w-[74%] md:w-[62%]">
               <DesktopWindow src="/products/devian-desktop/dashboard.png" alt="Devian Desktop, our open-source control center for AI coding agents" priority size="lg" />
@@ -74,7 +74,7 @@ export default function Home() {
             <div className="absolute bottom-[-2rem] left-[30%] z-20 w-[22%] max-w-[190px] md:left-[34%] md:w-[15%]">
               <div className="overflow-hidden rounded-[1.4rem] border border-line-strong bg-black p-1 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.9)]">
                 <div className="relative aspect-[9/19] overflow-hidden rounded-[1.1rem]">
-                  <Image src="/products/campfyr/trips.webp" alt="Campfyr, our group travel app" fill sizes="190px" className="object-cover object-top" />
+                  <Img src="/products/campfyr/trips.webp" alt="Campfyr, our group travel app" fill sizes="190px" className="object-cover object-top" />
                 </div>
               </div>
             </div>
@@ -162,7 +162,7 @@ export default function Home() {
         <div className="mb-14 grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-end">
           <div>
             <Eyebrow index="03">Client work</Eyebrow>
-            <Heading>Selected <em>client work.</em></Heading>
+            <Heading>Selected <em>client projects.</em></Heading>
           </div>
           <Lead className="md:text-lg">
             Custom software for founders, and websites that help local businesses get found online.
@@ -176,7 +176,7 @@ export default function Home() {
           className="group mb-6 grid overflow-hidden rounded-3xl border border-line bg-surface transition-colors hover:border-line-strong lg:grid-cols-[1.4fr_1fr]"
         >
           <div className="relative aspect-[16/10] overflow-hidden bg-ink lg:aspect-auto lg:min-h-[380px]">
-            <Image
+            <Img
               src={featuredClient.image!}
               alt={`${featuredClient.name} website`}
               fill
@@ -207,7 +207,7 @@ export default function Home() {
               className="group overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-line-strong"
             >
               <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-ink">
-                <Image
+                <Img
                   src={c.image!}
                   alt={`${c.name} website`}
                   fill

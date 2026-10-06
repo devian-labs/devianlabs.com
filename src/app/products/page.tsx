@@ -47,7 +47,7 @@ export default function ProductsPage() {
       <section className="border-b border-line py-20 md:py-28">
         <Container>
           <div className="mb-6 flex items-center gap-3">
-            <span className="font-mono text-xs uppercase tracking-[0.18em] text-fg-3">Open source</span>
+            <h2 className="font-mono text-xs font-normal uppercase tracking-[0.18em] text-fg-3">Open source</h2>
             <span className="h-px flex-1 bg-line" />
           </div>
           <div className="mb-16 grid gap-6 lg:grid-cols-2">
@@ -55,7 +55,7 @@ export default function ProductsPage() {
           </div>
 
           <div className="mb-6 flex items-center gap-3">
-            <span className="font-mono text-xs uppercase tracking-[0.18em] text-fg-3">Mobile and web</span>
+            <h2 className="font-mono text-xs font-normal uppercase tracking-[0.18em] text-fg-3">Mobile and web</h2>
             <span className="h-px flex-1 bg-line" />
           </div>
           <div className="grid gap-6 md:grid-cols-3">
