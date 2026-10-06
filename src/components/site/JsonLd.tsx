@@ -1,6 +1,8 @@
 import { jsonLdString } from "@/lib/seo";
 
-/** Structured data for search engines, rendered as a JSON-LD script tag. */
+/** Structured data for search engines, rendered as one JSON-LD script tag per node. */
 export default function JsonLd({ nodes }: { nodes: object[] }) {
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(...nodes) }} />;
+  return nodes.map((node, i) => (
+    <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(node) }} />
+  ));
 }

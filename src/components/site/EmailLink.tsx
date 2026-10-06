@@ -7,7 +7,7 @@ const subscribe = () => () => {};
 
 /**
  * A mailto link built after hydration, so the address isn't in the server HTML.
- * Before then it points at the contact section. With `showAddress`, the address
+ * Before then it points at the contact page. With `showAddress`, the address
  * is shown as the link text once the page has loaded.
  */
 export default function EmailLink({
@@ -25,7 +25,7 @@ export default function EmailLink({
   const ready = useSyncExternalStore(subscribe, () => true, () => false);
 
   return (
-    <a href={ready ? mailto(subject) : "/#contact"} className={className}>
+    <a href={ready ? mailto(subject) : "/contact"} className={className}>
       {showAddress && ready ? emailAddress() : children}
     </a>
   );

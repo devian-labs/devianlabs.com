@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Img from "@/components/site/Img";
+import Logo from "@/components/site/Logo";
 import MobileMenu from "./MobileMenu";
 import EmailLink from "@/components/site/EmailLink";
 
@@ -16,7 +16,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-line bg-ink/75 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center gap-8 px-5 md:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
-          <Img src="/devian-labs-logo-256.png" alt="Devian Labs logo" width={28} height={28} className="rounded-lg" priority />
+          <Logo priority />
           <span className="whitespace-nowrap text-[15px] font-semibold tracking-tight text-fg">Devian Labs</span>
         </Link>
 

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/products";
 import ProductVisual from "./ProductVisual";
-import { ArrowLink, Chip, GitHubMark } from "./primitives";
+import { ArrowLink, Chip, GitHubMark, stretchedCard, stretchedLink } from "./primitives";
 
 // Static classes per size, so the icon is sized by the stylesheet rather than an inline style.
 const iconSizes = { 32: "size-8", 36: "size-9", 40: "size-10", 56: "size-14", 64: "size-16" } as const;
@@ -32,7 +32,8 @@ export function ProductIcon({
 export function ProductFeature({ product, priority }: { product: Product; priority?: boolean }) {
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-surface transition-colors hover:border-line-strong">
-      <Link href={`/products/${product.slug}`} className="relative block overflow-hidden border-b border-line bg-ink px-6 pt-10 md:px-10 md:pt-12" aria-label={`${product.name} case study`}>
+      <Link href={`/products/${product.slug}`} className="relative block overflow-hidden border-b border-line bg-ink px-6 pt-10 md:px-10 md:pt-12">
+        <span className="sr-only">{product.name} case study</span>
         <div className="bg-grid mask-fade-radial pointer-events-none absolute inset-0 opacity-50" />
         <ProductVisual
           product={product}
@@ -77,9 +78,8 @@ export function ProductFeature({ product, priority }: { product: Product; priori
 /** Compact card for the products grid. */
 export function ProductTile({ product }: { product: Product }) {
   return (
-    <Link
-      href={`/products/${product.slug}`}
-      className="group flex flex-col overflow-hidden rounded-3xl border border-line bg-surface transition-colors hover:border-line-strong"
+    <article
+      className={cn("group flex flex-col overflow-hidden rounded-3xl border border-line bg-surface transition-colors hover:border-line-strong", stretchedCard)}
     >
       <div className="relative flex aspect-[5/4] items-end overflow-hidden border-b border-line bg-ink px-6 pt-8">
         <div className="bg-grid mask-fade-radial pointer-events-none absolute inset-0 opacity-50" />
@@ -93,7 +93,9 @@ export function ProductTile({ product }: { product: Product }) {
         <div className="mb-4 flex items-center gap-3">
           <ProductIcon product={product} size={32} />
           <div>
-            <h3 className="font-medium text-fg">{product.name}</h3>
+            <h3 className="font-medium text-fg">
+              <Link href={`/products/${product.slug}`} className={stretchedLink}>{product.name}</Link>
+            </h3>
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-3">{product.category}</p>
           </div>
         </div>
@@ -103,6 +105,6 @@ export function ProductTile({ product }: { product: Product }) {
           <span className="text-sm font-medium text-fg transition-colors group-hover:text-brand-cyan">Case study →</span>
         </div>
       </div>
-    </Link>
+    </article>
   );
 }

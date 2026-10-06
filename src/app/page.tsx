@@ -6,7 +6,8 @@ import { capabilities } from "@/lib/capabilities";
 import { services, getService } from "@/lib/services";
 import { featuredClient, localBusinessSites } from "@/lib/clients";
 import EmailLink from "@/components/site/EmailLink";
-import { ArrowLink, ButtonLink, buttonClass, Container, Eyebrow, Heading, Lead, Section, withAccent } from "@/components/site/primitives";
+import { ArrowLink, ButtonLink, buttonClass, Container, Eyebrow, Heading, Lead, Section, stretchedCard, stretchedLink, withAccent } from "@/components/site/primitives";
+import { cn } from "@/lib/utils";
 import { ProductFeature, ProductTile } from "@/components/site/ProductCard";
 import { DesktopWindow } from "@/components/site/ProductVisual";
 import ContactBand from "@/components/site/ContactBand";
@@ -66,7 +67,7 @@ export default function Home() {
           {/* Product collage: real screens from our products */}
           <div className="relative mt-16 h-[300px] sm:h-[420px] md:mt-20 md:h-[520px] lg:h-[600px]" aria-label="Screens from Devian Labs products">
             <div className="absolute left-0 top-10 w-[68%] opacity-90 md:top-14 md:w-[58%]">
-              <DesktopWindow src="/products/betelgeuse/editor.jpg" alt="Betelgeuse, our open-source notes and docs app" size="md" />
+              <DesktopWindow src="/products/betelgeuse/editor.jpg" alt="Betelgeuse, our open-source notes and docs app" eager size="md" />
             </div>
             <div className="absolute right-0 top-0 z-10 w-[74%] md:w-[62%]">
               <DesktopWindow src="/products/devian-desktop/dashboard.png" alt="Devian Desktop, our open-source control center for AI coding agents" priority size="lg" />
@@ -74,7 +75,7 @@ export default function Home() {
             <div className="absolute bottom-[-2rem] left-[30%] z-20 w-[22%] max-w-[190px] md:left-[34%] md:w-[15%]">
               <div className="overflow-hidden rounded-[1.4rem] border border-line-strong bg-black p-1 shadow-[0_30px_60px_-10px_rgba(0,0,0,0.9)]">
                 <div className="relative aspect-[9/19] overflow-hidden rounded-[1.1rem]">
-                  <Img src="/products/campfyr/trips.webp" alt="Campfyr, our group travel app" fill sizes="190px" className="object-cover object-top" />
+                  <Img src="/products/campfyr/trips.webp" alt="Campfyr, our group travel app" fill loading="eager" fetchPriority="low" sizes="190px" className="object-cover object-top" />
                 </div>
               </div>
             </div>
@@ -169,11 +170,8 @@ export default function Home() {
           </Lead>
         </div>
 
-        <Link
-          href={featuredClient.href!}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mb-6 grid overflow-hidden rounded-3xl border border-line bg-surface transition-colors hover:border-line-strong lg:grid-cols-[1.4fr_1fr]"
+        <article
+          className={cn("group mb-6 grid overflow-hidden rounded-3xl border border-line bg-surface transition-colors hover:border-line-strong lg:grid-cols-[1.4fr_1fr]", stretchedCard)}
         >
           <div className="relative aspect-[16/10] overflow-hidden bg-ink lg:aspect-auto lg:min-h-[380px]">
             <Img
@@ -186,7 +184,11 @@ export default function Home() {
           </div>
           <div className="flex flex-col justify-center p-8 md:p-12">
             <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3">{featuredClient.kind}</p>
-            <h3 className="mb-4 text-3xl font-medium tracking-tight text-fg">{featuredClient.name}</h3>
+            <h3 className="mb-4 text-3xl font-medium tracking-tight text-fg">
+              <Link href={featuredClient.href!} target="_blank" rel="noopener noreferrer" className={stretchedLink}>
+                {featuredClient.name}
+              </Link>
+            </h3>
             <p className="mb-6 leading-relaxed text-fg-2">{featuredClient.desc}</p>
             <span className="mb-8 inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-3 py-1.5 text-sm text-emerald-300">
               <TrendingUp className="h-4 w-4" /> {featuredClient.stat}
@@ -195,16 +197,13 @@ export default function Home() {
               Visit site <ArrowUpRight className="h-3.5 w-3.5" />
             </span>
           </div>
-        </Link>
+        </article>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {localBusinessSites.map((c) => (
-            <Link
+            <article
               key={c.name}
-              href={c.href!}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-line-strong"
+              className={cn("group overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-line-strong", stretchedCard)}
             >
               <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-ink">
                 <Img
@@ -217,12 +216,14 @@ export default function Home() {
               </div>
               <div className="p-5">
                 <h3 className="mb-1 flex items-center justify-between gap-2 text-sm font-medium text-fg">
-                  {c.name}
+                  <Link href={c.href!} target="_blank" rel="noopener noreferrer" className={stretchedLink}>
+                    {c.name}
+                  </Link>
                   <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-fg-3 transition-colors group-hover:text-fg" />
                 </h3>
                 <p className="text-xs text-fg-3">{c.kind}</p>
               </div>
-            </Link>
+            </article>
           ))}
         </div>
       </Section>
@@ -235,14 +236,15 @@ export default function Home() {
         </div>
 
         {/* Technology partner, the long-term option */}
-        <Link
-          href={`/services/${partner.slug}`}
-          className="group relative mb-6 grid overflow-hidden rounded-3xl border border-line-strong bg-surface transition-colors hover:border-fg-3 lg:grid-cols-[1fr_1fr]"
+        <article
+          className={cn("group mb-6 grid overflow-hidden rounded-3xl border border-line-strong bg-surface transition-colors hover:border-fg-3 lg:grid-cols-[1fr_1fr]", stretchedCard)}
         >
           <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-violet/10 blur-3xl" />
           <div className="relative p-8 md:p-12">
             <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-brand-cyan">Long-term partnership</p>
-            <h3 className="mb-5 text-3xl font-medium tracking-tight text-fg md:text-4xl">{withAccent(partner.headline)}</h3>
+            <h3 className="mb-5 text-3xl font-medium tracking-tight text-fg md:text-4xl">
+              <Link href={`/services/${partner.slug}`} className={stretchedLink}>{withAccent(partner.headline)}</Link>
+            </h3>
             <p className="mb-8 max-w-md leading-relaxed text-fg-2">{partner.summary}</p>
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-fg group-hover:text-brand-cyan">
               How partnerships work →
@@ -256,20 +258,21 @@ export default function Home() {
               </li>
             ))}
           </ul>
-        </Link>
+        </article>
 
         <div className="grid gap-6 md:grid-cols-3">
           {otherServices.map((s) => (
-            <Link
+            <article
               key={s.slug}
-              href={`/services/${s.slug}`}
-              className="group flex flex-col rounded-3xl border border-line p-8 transition-colors hover:border-line-strong hover:bg-surface"
+              className={cn("group flex flex-col rounded-3xl border border-line p-8 transition-colors hover:border-line-strong hover:bg-surface", stretchedCard)}
             >
               <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.16em] text-fg-3">{s.forWho}</p>
-              <h3 className="mb-3 text-xl font-medium tracking-tight text-fg">{s.name}</h3>
+              <h3 className="mb-3 text-xl font-medium tracking-tight text-fg">
+                <Link href={`/services/${s.slug}`} className={stretchedLink}>{s.name}</Link>
+              </h3>
               <p className="mb-8 text-sm leading-relaxed text-fg-2">{s.card}</p>
               <span className="mt-auto text-sm font-medium text-fg group-hover:text-brand-cyan">Learn more →</span>
-            </Link>
+            </article>
           ))}
         </div>
       </Section>

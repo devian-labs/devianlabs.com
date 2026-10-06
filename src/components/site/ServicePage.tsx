@@ -10,7 +10,7 @@ import JsonLd from "./JsonLd";
 import { SITE_URL, breadcrumbJsonLd, orgRef, pageMetadata } from "@/lib/seo";
 
 export function serviceMetadata(service: Service): Metadata {
-  return pageMetadata({ title: service.seo.title, description: service.seo.description, path: `/services/${service.slug}`, ownImage: true });
+  return pageMetadata({ title: service.seo.title, description: service.seo.description, path: `/services/${service.slug}`, image: `/services/${service.slug}/og.png` });
 }
 
 function serviceJsonLd(service: Service) {

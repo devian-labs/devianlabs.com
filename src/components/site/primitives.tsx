@@ -99,6 +99,15 @@ export function ButtonLink({ variant = "primary", className, external, children,
   );
 }
 
+/*
+ * Card links. The card's title is the link, and its ::after stretches over the whole
+ * card (the nearest positioned ancestor), so the card stays clickable while the link
+ * text is just the title. The card shows the focus ring instead of the title.
+ */
+export const stretchedLink = "after:absolute after:inset-0 after:z-10 focus-visible:outline-none";
+export const stretchedCard =
+  "relative has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-fg";
+
 /** Inline text link with an arrow. External links get the diagonal arrow. */
 export function ArrowLink({
   href,

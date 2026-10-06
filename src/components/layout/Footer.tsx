@@ -1,4 +1,4 @@
-import Img from "@/components/site/Img";
+import Logo from "@/components/site/Logo";
 import Link from "next/link";
 import { products } from "@/lib/products";
 import { services } from "@/lib/services";
@@ -7,6 +7,9 @@ import EmailLink from "@/components/site/EmailLink";
 
 const linkClass = "text-sm text-fg-2 transition-colors hover:text-fg";
 
+// Pages are prerendered at build time, so this is the date of the latest deploy.
+const updated = new Date();
+
 export default function Footer() {
   return (
     <footer className="w-full border-t border-line bg-ink">
@@ -14,7 +17,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-7">
           <div className="col-span-2 flex flex-col gap-5 md:col-span-4 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5">
-              <Img src="/devian-labs-logo-256.png" alt="Devian Labs logo" width={28} height={28} className="rounded-lg" />
+              <Logo />
               <span className="text-[15px] font-semibold tracking-tight text-fg">Devian Labs</span>
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-fg-2">
@@ -53,7 +56,7 @@ export default function Footer() {
           <FooterColumn title="Company">
             <Link href="/about" className={linkClass}>About</Link>
             <Link href="/#work" className={linkClass}>Client work</Link>
-            <Link href="/#contact" className={linkClass}>Contact</Link>
+            <Link href="/contact" className={linkClass}>Contact</Link>
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>WhatsApp</a>
           </FooterColumn>
 
@@ -72,11 +75,18 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-line pt-8 text-xs text-fg-3 md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} Devian Labs. All rights reserved.</p>
+          <p>
+            © {updated.getFullYear()} Devian Labs. All rights reserved. Last updated{" "}
+            <time dateTime={updated.toISOString().slice(0, 10)}>
+              {updated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
+            </time>
+            .
+          </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="transition-colors hover:text-fg">Privacy</Link>
             <Link href="/terms" className="transition-colors hover:text-fg">Terms</Link>
             <a href="/sitemap.xml" className="transition-colors hover:text-fg">Sitemap</a>
+            <a href="/llms.txt" className="transition-colors hover:text-fg">llms.txt</a>
           </div>
         </div>
       </div>

@@ -8,12 +8,20 @@ export const SITE_NAME = "Devian Labs";
 
 export const HOME_TITLE = "Devian Labs — We Build Software Products and Client Projects";
 export const HOME_DESCRIPTION =
-  "Devian Labs builds software products, two of them open source, and client projects of every kind: mobile, web, desktop, extensions, automations and backends.";
+  "Devian Labs builds software products, two of them open source, and client projects of every kind: mobile, web, desktop, extensions and backends.";
+
+/** The default share image, served as a PNG by src/app/og.png/route.tsx. */
+export const DEFAULT_OG_IMAGE = "/og.png";
+
+/** Share image tags for a PNG route (see src/lib/og.tsx). */
+export function ogImages(url: string, alt: string = SITE_NAME) {
+  const image = { url, width: 1200, height: 630, alt, type: "image/png" };
+  return { openGraph: [image], twitter: [image] };
+}
 
 /**
  * Page metadata with a canonical URL, Open Graph and Twitter tags.
  * Setting `openGraph` on a page replaces the layout's, so the shared fields live here.
- * Pages with their own opengraph-image file pass `ownImage` so that file is used instead of the default.
  */
 export function pageMetadata({
   title,
@@ -21,7 +29,7 @@ export function pageMetadata({
   path,
   absoluteTitle,
   noindex,
-  ownImage,
+  image = DEFAULT_OG_IMAGE,
 }: {
   title: string;
   description: string;
@@ -29,15 +37,17 @@ export function pageMetadata({
   /** Use the title as-is, without the " | Devian Labs" suffix. */
   absoluteTitle?: boolean;
   noindex?: boolean;
-  /** The route has its own opengraph-image file. */
-  ownImage?: boolean;
+  /** Path of the page's share image, if it has its own og.png route. */
+  image?: string;
 }): Metadata {
   const url = `${SITE_URL}${path}`;
   const fullTitle = absoluteTitle ? title : `${title} | ${SITE_NAME}`;
+  const images = ogImages(image);
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: url },
+    // The llms.txt link points AI assistants at the plain-text map of the site.
+    alternates: { canonical: url, types: { "text/plain": [{ url: "/llms.txt", title: "llms.txt" }] } },
     openGraph: {
       type: "website",
       locale: "en_US",
@@ -45,9 +55,9 @@ export function pageMetadata({
       url,
       title: fullTitle,
       description,
-      ...(ownImage ? {} : { images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: SITE_NAME }] }),
+      images: images.openGraph,
     },
-    twitter: { card: "summary_large_image", title: fullTitle, description },
+    twitter: { card: "summary_large_image", title: fullTitle, description, images: images.twitter },
     ...(noindex ? { robots: { index: false, follow: true } } : {}),
   };
 }
@@ -112,7 +122,11 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   };
 }
 
-/** Serialises a JSON-LD graph for a <script> tag, escaping "<" as the Next.js docs advise. */
-export function jsonLdString(...nodes: object[]) {
-  return JSON.stringify({ "@context": "https://schema.org", "@graph": nodes }).replace(/</g, "\\u003c");
+/**
+ * Serialises one JSON-LD node for a <script> tag, escaping "<" as the Next.js docs advise.
+ * Each node gets its own script rather than sharing an @graph wrapper, so every
+ * top-level object has an @type.
+ */
+export function jsonLdString(node: object) {
+  return JSON.stringify({ "@context": "https://schema.org", ...node }).replace(/</g, "\\u003c");
 }

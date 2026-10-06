@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) return { title: "Product not found" };
-  return pageMetadata({ title: product.seo.title, description: product.seo.description, path: `/products/${slug}`, ownImage: true });
+  return pageMetadata({ title: product.seo.title, description: product.seo.description, path: `/products/${slug}`, image: `/products/${slug}/og.png` });
 }
 
 function caseStudyJsonLd(product: Product) {

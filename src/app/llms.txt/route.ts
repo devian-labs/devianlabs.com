@@ -36,7 +36,7 @@ export function GET() {
     "",
     `- Phone: ${PHONE.display}`,
     `- WhatsApp: ${WHATSAPP_URL}`,
-    `- Contact section: ${SITE_URL}/#contact`,
+    `- [Contact page](${SITE_URL}/contact)`,
     "",
     "## Optional",
     "",

@@ -6,11 +6,14 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import JsonLd from "@/components/site/JsonLd";
-import { HOME_DESCRIPTION, HOME_TITLE, SITE_NAME, SITE_URL, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, HOME_DESCRIPTION, HOME_TITLE, SITE_NAME, SITE_URL, ogImages, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
-const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
-// Mono is only used for small labels, so it isn't preloaded ahead of the hero fonts.
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", preload: false });
+/*
+ * Every font file the page uses is preloaded, so none waits for the stylesheet to be
+ * discovered: latin-ext covers the ₹ sign, and Mono sets the hero's labels.
+ */
+const geistSans = Geist({ subsets: ["latin", "latin-ext"], variable: "--font-geist-sans" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
@@ -36,21 +39,22 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
+    images: ogImages(DEFAULT_OG_IMAGE).openGraph,
   },
   twitter: {
     card: "summary_large_image",
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
+    images: ogImages(DEFAULT_OG_IMAGE).twitter,
   },
   robots: {
     index: true,
     follow: true,
+    // Only the directive that differs from Google's defaults; snippets are unrestricted by default.
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
       "max-image-preview": "large",
-      "max-snippet": -1,
     },
   },
   // No site-wide canonical: each page sets its own, so pages never point at the home page by accident.
@@ -75,9 +79,15 @@ export default function RootLayout({
       <body
         className="min-h-full flex flex-col antialiased"
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink"
+        >
+          Skip to content
+        </a>
         <JsonLd nodes={[organizationJsonLd, websiteJsonLd]} />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">{children}</main>
         <Footer />
         <FloatingWhatsApp />
       </body>

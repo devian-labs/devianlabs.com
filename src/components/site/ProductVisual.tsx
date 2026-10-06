@@ -32,12 +32,16 @@ export function DesktopWindow({
   src,
   alt,
   priority,
+  eager,
   size = "md",
   className,
 }: {
   src: string;
   alt: string;
+  /** The page's main image: eager, high priority. */
   priority?: boolean;
+  /** Above the fold but not the main image: not lazy, but low priority so it doesn't hold up the page's main content. */
+  eager?: boolean;
   size?: "sm" | "md" | "lg";
   className?: string;
 }) {
@@ -54,6 +58,7 @@ export function DesktopWindow({
           alt={alt}
           fill
           priority={priority}
+          {...(eager && !priority ? { loading: "eager", fetchPriority: "low" } : {})}
           sizes={size === "lg" ? "(min-width: 1152px) 1100px, 100vw" : size === "md" ? "(min-width: 1024px) 640px, 100vw" : "(min-width: 1024px) 400px, 100vw"}
           className="object-cover object-left-top"
         />
